@@ -157,6 +157,10 @@ export default class PerfComponent {
       })
     }
 
+    disableMetricOnGraph(metric,graph){
+      this.RENDER[metric].activeGraphs[graph] = false;
+    }
+
     //used only for testing to build out random values so I can see if it's displaying properly on a graph
     addRandomValues(count, range, metric, graph) {
       

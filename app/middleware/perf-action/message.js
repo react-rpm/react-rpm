@@ -5,7 +5,9 @@ import {
 } from '../../actions';
 
 let backgroundPageConnection;
+
 const source = 'react-rpm';
+
 
 const actionsRecorder = {};
 
