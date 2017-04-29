@@ -1,5 +1,5 @@
 {
-  "name": "chrome-react-perf",
+  "name": "react-rpm",
   "version": "1.0.1",
   "description": "An Operation Interface for react-addons-perf Package",
   "scripts": {
@@ -9,11 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/crysislinux/chrome-react-perf.git"
+    "url": "https://github.com/react-rpm/react-rpm.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/crysislinux/chrome-react-perf/issues"
+    "url": "https://github.com/react-rpm/react-rpm/issues"
   },
   "dependencies": {
     "babel-polyfill": "^6.7.2",
