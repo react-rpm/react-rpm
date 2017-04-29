@@ -9,7 +9,7 @@
 
     // Only accept messages that we know are ours
     if (typeof message !== 'object' || message === null ||
-      message.source !== 'chrome-react-perf') {
+      message.source !== 'react-rpm') {
       return;
     }
 
