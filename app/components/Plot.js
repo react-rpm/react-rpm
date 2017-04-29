@@ -9,7 +9,6 @@ const Plot = (props) => {
     compiledGraphData, //holds all graph data exported from each PerfComponent
     twoGraphsAreActive,
     twoGraphToggler,
-    tooltipValues,
     tooltipToggleValues
   } = props;
 
@@ -118,6 +117,8 @@ const Plot = (props) => {
     });
   });
 
+  console.log(JSON.stringify(data[0]));
+
   if (twoGraphsAreActive) {
 
     return (
@@ -128,7 +129,7 @@ const Plot = (props) => {
               <XAxis dataKey={'name'}/>
               <YAxis/>
               <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1"/>
-              <Tooltip/>
+              <Tooltip />
               <Legend/>
               {graphRenders[0]['timeWasted']},
               {graphRenders[0]['renderCount']}
@@ -154,7 +155,9 @@ const Plot = (props) => {
               {graphRenders[1]['averageRenderTime']}
               {graphRenders[1]['totalTime']}
             </ComposedChart>
-            <div className={styles.toolbarToggleTooltips}></div>
+            <div className={styles.toolbarToggleTooltips}>
+
+            </div>
           </div>
         </div>
 
@@ -179,7 +182,9 @@ const Plot = (props) => {
               {graphRenders[0]['totalTime']}
               <Brush/>
             </ComposedChart>
-            <div className={styles.toolbarToggleTooltips}></div>
+            <div className={styles.toolbarToggleTooltips}>
+
+            </div>
         </div>
 
       );

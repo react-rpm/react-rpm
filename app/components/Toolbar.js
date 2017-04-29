@@ -5,7 +5,11 @@ const Toolbar = (props) => {
 
   const {
         tooltipValues,
-        toggleTooltipValues
+        toggleTooltipValues,
+        
+        componentsActiveOnGraphs,
+        removeActiveComponentFromGraph
+
   } = props;
 
   return (
@@ -26,7 +30,12 @@ const Toolbar = (props) => {
   )
 }
 
-
+//Component:
+//Metric:
+//Line Style:
+//Line Color:
+//[OPTIONAL] Graph Display:
+//RENDER ON GRAPH!
 
 
 export default Toolbar;

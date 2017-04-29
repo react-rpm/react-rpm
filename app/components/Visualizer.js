@@ -16,6 +16,8 @@ class Visualizer extends Component {
     super(props)
 
     this.compiledGraphData = [];
+
+    this.componentsActiveOnGraphs = [];
     //this stores all plot data for each active PerfComponent, and is passed to the Plot component as a prop in render
     //see compileGraphData() below to see how that information is compiled.
     //I will probably make this a state object at some point, but for the sake of testing it was easier to not include in state
@@ -126,7 +128,10 @@ class Visualizer extends Component {
     let placeHolder = [];
     this.state.allComponents.forEach(component => {
       component.exportGraphData().forEach(array => {
-        if (array.length) this.compiledGraphData.push(array)
+        if (array.length) {
+          this.componentsActiveOnGraphs.push(component);
+          this.compiledGraphData.push(array)
+        }
       })
     })
     return this.compiledGraphData;
@@ -161,6 +166,8 @@ class Visualizer extends Component {
       let num = data[data.length - 1];
       let negative;
 
+      component.disableMetricOnGraph('timeWasted', 0);
+
       Math.random() < .5 ? negative = -1 : negative = 1;
 
       component.addValue(num+Math.floor(Math.random()*10*negative), 'RENDER', componentMetric)
@@ -187,7 +194,13 @@ class Visualizer extends Component {
     this.setState({tooltipValues});
   }
 
+  removeActiveComponentFromGraph(componentName, graph){
+
+  }
+
   render(){
+
+    const compiledGraphData = this.compileGraphData()
 
     return(
 
@@ -195,7 +208,7 @@ class Visualizer extends Component {
       <div id='plot-container'>
 
         <Plot 
-          compiledGraphData = {this.compileGraphData()}
+          compiledGraphData = {compiledGraphData}
           twoGraphsAreActive={this.state.twoGraphsAreActive}
           twoGraphToggler={this.twoGraphToggler.bind(this)}
 
@@ -204,6 +217,9 @@ class Visualizer extends Component {
         <Toolbar
           tooltipValues={this.state.tooltipValues}
           toggleTooltipValues={this.toggleTooltipValues.bind(this)}
+
+          componentsActiveOnGraphs={this.componentsActiveOnGraphs}
+          removeActiveComponentFromGraph={this.removeActiveComponentFromGraph.bind(this)}
         />
 
         <button onClick={this.fireDataScript.bind(this)}>Add Data</button>
