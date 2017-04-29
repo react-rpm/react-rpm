@@ -23,7 +23,7 @@ function detectPerf() {
   function report(found) {
     window.postMessage({
       name: 'detect-perf',
-      source: 'chrome-react-perf',
+      source: 'react-rpm',
       data: { found },
       sender: 'pageScript'
     }, '*');
@@ -49,7 +49,7 @@ function onMessage(event) {
 
   // Only accept messages that we know are ours
   if (typeof message !== 'object' || message === null ||
-    message.source !== 'chrome-react-perf') {
+    message.source !== 'react-rpm') {
     return;
   }
 
@@ -72,7 +72,7 @@ function onMessage(event) {
     const result = perfCallbacks[message.name]();
     window.postMessage({
       name: message.name,
-      source: 'chrome-react-perf',
+      source: 'react-rpm',
       data: result,
       sender: 'pageScript'
     }, '*');

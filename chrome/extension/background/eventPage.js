@@ -43,7 +43,7 @@ import injectContent from './injectContent';
       if (perfReady) {
         chrome.tabs.sendMessage(tabId, {
           name: 'clean-up',
-          source: 'chrome-react-perf',
+          source: 'react-rpm',
         });
       }
 
@@ -63,7 +63,7 @@ import injectContent from './injectContent';
     /* eslint-disable no-console */
     if (sender.tab) {
       const tabId = sender.tab.id;
-      if (request.name === 'content-init' && request.source === 'chrome-react-perf') {
+      if (request.name === 'content-init' && request.source === 'react-rpm') {
         injectContent(tabId);
         return;
       }
