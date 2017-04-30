@@ -1,7 +1,7 @@
 {
-  "name": "React Perf",
-  "version": "1.1.0",
-  "description": "A Operation Interface for react-addons-perf Package",
+  "name": "ReactRPM",
+  "version": "0.1.0",
+  "description": "A Performance Visualization Tool for Optimization and Debugging",
 
   //"icons": {
   //   "16": "images/logo_16.png",

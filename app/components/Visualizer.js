@@ -44,13 +44,13 @@ class Visualizer extends Component {
 
       // Can we use this instead:
       dataItems: [
-        { id: 0, selected: true, label: 'timeWasted' },
-        { id: 1, selected: false, label: 'instanceCount' },
-        { id: 2, selected: false, label: 'renderCount' },
-        { id: 3, selected: false, label: 'renderTime' },
-        { id: 4, selected: false, label: 'totalRenderTime' },
-        { id: 5, selected: false, label: 'avgRenderTime' },
-        { id: 6, selected: false, label: 'totalTime' },
+        { id: 0, selected: true, label: 'Time Wasted' },
+        { id: 1, selected: false, label: 'Instance Count' },
+        { id: 2, selected: false, label: 'Render Count' },
+        { id: 3, selected: false, label: 'Render Time' },
+        { id: 4, selected: false, label: 'Total Render Time' },
+        { id: 5, selected: false, label: 'Avg Render Time' },
+        { id: 6, selected: false, label: 'Total Time' },
       ],
 
       simData: false

@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import DataItem from './DataItem';
+import styles from './DataItemList.css';
 
 const DataItemList = ({ dataItems, onDataItemClick }) => (
   <ul>
