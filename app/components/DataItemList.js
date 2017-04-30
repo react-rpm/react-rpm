@@ -4,7 +4,7 @@ import styles from './DataItemList.css';
 
 const DataItemList = ({ dataItems, onDataItemClick }) => (
   <ul>
-    {dataItems.map(dataItem => 
+    {dataItems.map(dataItem =>
       <DataItem
         key={dataItem.id}
         {...dataItem}

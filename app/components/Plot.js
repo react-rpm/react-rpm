@@ -20,7 +20,8 @@ const Plot = (props) => {
     compiledGraphData,
     twoGraphsAreActive,
     twoGraphToggler,
-    dataItems
+    dataItems,
+    onDataItemClick,
   } = props;
 
   // this holds all the data in an arrays for the six graphs that are available. Only two are active in the current build
@@ -125,11 +126,6 @@ const Plot = (props) => {
     });
   });
 
-  // function for toggling the listed data items
-  const onDataItemClick = (dataItem) => {
-    dataItem.selected = !dataItem.selected;
-  };
-
   console.log(JSON.stringify(data[0]));
 
   let graphTwo;
@@ -177,7 +173,7 @@ const Plot = (props) => {
       <br />
       { graphTwo }
       <div className={styles.toolbarToggleTooltips}>
-        <DataItemList dataItems={dataItems} onDataItemClick={onDataItemClick.bind(this)} />
+        <DataItemList dataItems={dataItems} onDataItemClick={onDataItemClick} />
       </div>
     </div>
   );
