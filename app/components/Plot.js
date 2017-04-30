@@ -137,17 +137,17 @@ const Plot = (props) => {
     graphTwo = (
       <div>
         <ComposedChart width={600} height={225} data={data[1]} fill={'#C3C8CC'} syncId='anyId'>
-          <XAxis dataKey={'name'} label={'Render'}/>
-          <YAxis/>
-          <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1"/>
-          <Tooltip/>
-          <Legend/>
-          {graphRenders[1]['timeWasted']},
-          {graphRenders[1]['renderCount']}
-          {graphRenders[1]['renderTime']}
-          {graphRenders[1]['totalRenderTime']}
-          {graphRenders[1]['averageRenderTime']}
-          {graphRenders[1]['totalTime']}
+          <XAxis dataKey={'name'} label={'Render'} />
+          <YAxis />
+          <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1" />
+          <Tooltip />
+          <Legend />
+          {graphRenders[1].timeWasted}
+          {graphRenders[1].renderCount}
+          {graphRenders[1].renderTime}
+          {graphRenders[1].totalRenderTime}
+          {graphRenders[1].averageRenderTime}
+          {graphRenders[1].totalTime}
         </ComposedChart>
       </div>
     );
@@ -158,23 +158,23 @@ const Plot = (props) => {
   return (
     <div className='plotContainer'>
       <div>
-        <TwoPaneToggle twoGraphsAreActive={twoGraphsAreActive} handleChange={twoGraphToggler}/>
+        <TwoPaneToggle twoGraphsAreActive={twoGraphsAreActive} handleChange={twoGraphToggler} />
         <ComposedChart width={600} height={225} data={data[0]} fill={'#C3C8CC'} syncId='anyId'>
           <XAxis dataKey={'name'} />
-          <YAxis/>
+          <YAxis />
           <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1" />
           <Tooltip />
-          <Legend/>
-          {graphRenders[0]['timeWasted']},
-          {graphRenders[0]['renderCount']}
-          {graphRenders[0]['renderTime']}
-          {graphRenders[0]['totalRenderTime']}
-          {graphRenders[0]['averageRenderTime']}
-          {graphRenders[0]['totalTime']}
-          <Brush/>
+          <Legend />
+          {graphRenders[0].timeWasted}
+          {graphRenders[0].renderCount}
+          {graphRenders[0].renderTime}
+          {graphRenders[0].totalRenderTime}
+          {graphRenders[0].averageRenderTime}
+          {graphRenders[0].totalTime}
+          <Brush />
         </ComposedChart>
       </div>
-      <br/>
+      <br />
       { graphTwo }
       <div className={styles.toolbarToggleTooltips}>
         <DataItemList dataItems={dataItems} onDataItemClick={onDataItemClick.bind(this)} />
