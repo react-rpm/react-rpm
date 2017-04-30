@@ -39,8 +39,19 @@ class Visualizer extends Component {
         renderTime: false,
         totalRenderTime: false,
         averageRenderTime: false,
-        totalTime: false
+        totalTime: false,
       },
+
+      // Can we use this instead:
+      dataItems: [
+        { id: 0, selected: true, label: 'timeWasted' },
+        { id: 1, selected: false, label: 'instanceCount' },
+        { id: 2, selected: false, label: 'renderCount' },
+        { id: 3, selected: false, label: 'renderTime' },
+        { id: 4, selected: false, label: 'totalRenderTime' },
+        { id: 5, selected: false, label: 'avgRenderTime' },
+        { id: 6, selected: false, label: 'totalTime' },
+      ],
 
       simData: false
     };
@@ -210,6 +221,7 @@ class Visualizer extends Component {
             twoGraphsAreActive={this.state.twoGraphsAreActive}
             twoGraphToggler={this.twoGraphToggler.bind(this)}
             tooltipValues={this.state.tooltipValues}
+            dataItems={this.state.dataItems}
           />
           <Toolbar
             tooltipValues={this.state.tooltipValues}
@@ -219,16 +231,17 @@ class Visualizer extends Component {
               this
             )}
           />
-          <Tooltip content={<CustomToolTip />} 
+          {/*<Tooltip content={<CustomToolTip />} 
           componentsActiveOnGraphs = {this.componentsActiveOnGraphs}
           tooltipValues = {this.tooltipValues}
-          />
+          />*/}
 
           <button onClick={this.fireDataScript.bind(this)}>Add Data</button>
           <button onClick={this.fireComponentScript.bind(this)}>
             Add Component
           </button>
         </div>
+
       </div>
     );
   }
