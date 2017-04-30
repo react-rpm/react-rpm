@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
 import styles from './styles/toolbar.css'
+import GraphsDisplayedData from './GraphsDisplayedData';
 
 const Toolbar = (props) => {
 
   const {
         tooltipValues,
         toggleTooltipValues,
-        
         componentsActiveOnGraphs,
         removeActiveComponentFromGraph
 
@@ -19,6 +19,10 @@ const Toolbar = (props) => {
           <div className={styles.toolbarPanelTitle}>
             <span>Displayed Graphs</span>
           </div>
+          <GraphsDisplayedData
+            componentsActiveOnGraphs={componentsActiveOnGraphs}
+            removeActiveComponentFromGraph={removeActiveComponentFromGraph}
+            />
         </div>
         <div className={styles.toolbarPanel}>
           <div className={styles.toolbarPanelTitle}>

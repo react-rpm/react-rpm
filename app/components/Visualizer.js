@@ -30,7 +30,7 @@ class Visualizer extends Component {
       //see createTestComponents() for more details on how I create and initiate them so they show on the graph
 
       twoGraphsAreActive: false,
-      //this is just a boolean toggle that tracks whether or not the user wants to display one or two graphs 
+      //this is just a boolean toggle that tracks whether or not the user wants to display one or two graphs
       //its in the state beacuse we want to trigger the page to rerender immediately when this changes
 
       tooltipValues: {
@@ -75,13 +75,13 @@ class Visualizer extends Component {
   //I set an array of testComponentValues with the following format:
   //  [Random Number Gen starting number, Random Number Gen Range, metric to activate, graph to activate on]
   // GRAPH 0 is the top graph, or when there's only one graph displayed. GRAPH 1 is for the bottom graph when both are displayed
-  //Iterate through those components and pass the test values to a PerfComponent method to take care of filling it up 
-  //I return the value, which gets sent to allComponents in the state. 
+  //Iterate through those components and pass the test values to a PerfComponent method to take care of filling it up
+  //I return the value, which gets sent to allComponents in the state.
   createTestComponents(testValuesArray){
 
     let testComponentArray = this.createPerfComponent('Dashboard', 'Comment', 'Profile', 'Message');
 
-    let testComponentValues = [ 
+    let testComponentValues = [
       [100, 30, 'timeWasted', 0],
       [100, 15, 'instanceCount', 0],
       [5,5, 'renderCount', 1],
@@ -113,15 +113,15 @@ class Visualizer extends Component {
     let perfComponent;
     let currentPerfCategory = 'wasted';
     let currentPerfData;
-    
+
     for (perfData in perfs[currentPerfCategory]['0'])
       currentPerfData = perfs[currentPerfCategory]['0'][perfData];
-      if (typeof currentPerfData === 'string'){ 
+      if (typeof currentPerfData === 'string'){
         console.log(currentPerfData.substring(currentPerfData.indexOf('>')+2))
       }
   }
 
-  //This iterates through this.state.allComponents and calls each PerfComponent's exportGraphData method, which returns all the data for graphs that is ACTIVE on, ignoring all data that isn't active. 
+  //This iterates through this.state.allComponents and calls each PerfComponent's exportGraphData method, which returns all the data for graphs that is ACTIVE on, ignoring all data that isn't active.
   //the compiledGraphData gets passed to the Plot component as a prop
   compileGraphData() {
     this.compiledGraphData = [];
@@ -137,7 +137,7 @@ class Visualizer extends Component {
     return this.compiledGraphData;
   }
 
-  //this get's passed to the TwoGraphToggler component as a bound prop, which is a radio button used by the Plot component. 
+  //this get's passed to the TwoGraphToggler component as a bound prop, which is a radio button used by the Plot component.
   //this method gets fired every time the user presses one of the button, and we update the state accordingly
   twoGraphToggler(bool){
     this.resetComponentGraphAnimation();
@@ -207,7 +207,7 @@ class Visualizer extends Component {
     <div id='main_container'>
       <div id='plot-container'>
 
-        <Plot 
+        <Plot
           compiledGraphData = {compiledGraphData}
           twoGraphsAreActive={this.state.twoGraphsAreActive}
           twoGraphToggler={this.twoGraphToggler.bind(this)}
@@ -217,11 +217,9 @@ class Visualizer extends Component {
         <Toolbar
           tooltipValues={this.state.tooltipValues}
           toggleTooltipValues={this.toggleTooltipValues.bind(this)}
-
           componentsActiveOnGraphs={this.componentsActiveOnGraphs}
           removeActiveComponentFromGraph={this.removeActiveComponentFromGraph.bind(this)}
         />
-
         <button onClick={this.fireDataScript.bind(this)}>Add Data</button>
         <button onClick={this.fireComponentScript.bind(this)}>Add Component</button>
       </div>
@@ -231,4 +229,3 @@ class Visualizer extends Component {
 }
 
 export default Visualizer;
-
