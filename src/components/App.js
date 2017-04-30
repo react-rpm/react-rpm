@@ -1,27 +1,25 @@
 import React, { Component } from 'react';
 import Plot from './Plot';
 import PerfComponent from './PerfComponent';
-import Toolbar from './Toolbar';
-//import Sample from './sample_perfs'
+import Perf from 'react-addons-perf';
 
-
+window.Perf = Perf;
 // import { getUIName } from '../utils/UI_metricText';
 // import Toolbar from './Toolbar';
 // import TagSelect from './TagSelect';
 
 
-class Visualizer extends Component {
+
+
+class App extends Component {
 
   constructor(props){
     super(props)
-
+    
     this.compiledGraphData = [];
     //this stores all plot data for each active PerfComponent, and is passed to the Plot component as a prop in render
     //see compileGraphData() below to see how that information is compiled.
     //I will probably make this a state object at some point, but for the sake of testing it was easier to not include in state
-
-    this.componentsActiveOnGraphs = [];
-    
 
     this.state = {
 
@@ -34,28 +32,16 @@ class Visualizer extends Component {
       //this is just a boolean toggle that tracks whether or not the user wants to display one or two graphs 
       //its in the state beacuse we want to trigger the page to rerender immediately when this changes
 
-      tooltipValues: {
-        'timeWasted':true,
-        'instanceCount':false,
-        'renderCount':false,
-        'renderTime':false,
-        'totalRenderTime':false,
-        'averageRenderTime':false,
-        'totalTime':false,
-      },
-
       simData: false
 
     }
 
-    for (let key in this.state.allComponents[0]){
-      console.log('{');
-      console.log(key+':'+JSON.stringify(this.state.allComponents[0][key]));
-      console.log('}');
-    }
-    //this.importPerfs(Sample);
-
   }
+
+  componentWillMount(){
+    window.Perf = Perf;
+  }
+
 
   //this method handles creation of PerfComponent elements and returns an array
   //it accepts any number of strings (the names of the components), or a single string if we only want one.
@@ -84,46 +70,17 @@ class Visualizer extends Component {
 
     let testComponentValues = [ 
       [100, 30, 'timeWasted', 0],
-      [100, 15, 'instanceCount', 0],
-      [5,5, 'renderCount', 1],
-      [5,5, 'timeWasted', 1]
+      [100, 15, 'recycledCount', 0],
+      [5,5, 'recycledCount', 1],
+      [5,5, 'recycledCount', 1]
     ]
 
     testComponentValues.forEach((valuesArray, i) => {
       testComponentArray[i].addRandomValues(...valuesArray);
     })
 
-    testComponentArray.forEach(component => {
-      console.log('SHOULD BE ELEMENT 40:', component.getValue('RENDER', 'timeWasted')[40]);
-    })
-
     return testComponentArray;
 
-  }
-
-  getComponent(name){
-    let perfIndex;
-    let allComponents = this.state.allComponents;
-
-    this.allComponents.forEach((component, i) =>{
-      if (component.name === name) perfIndex = i;
-    })
-
-    if (!perfIndex) return false;
-    return allComponents[perfIndex];
-  }
-
-  importPerfs(perfs){
-
-    let perfComponent;
-    let currentPerfCategory = 'wasted';
-    let currentPerfData;
-    
-    for (perfData in perfs[currentPerfCategory]['0'])
-      currentPerfData = perfs[currentPerfCategory]['0'][perfData];
-      if (typeof currentPerfData === 'string'){ 
-        console.log(currentPerfData.substring(currentPerfData.indexOf('>')+2))
-      }
   }
 
   //This iterates through this.state.allComponents and calls each PerfComponent's exportGraphData method, which returns all the data for graphs that is ACTIVE on, ignoring all data that isn't active. 
@@ -133,13 +90,7 @@ class Visualizer extends Component {
     let placeHolder = [];
     this.state.allComponents.forEach(component => {
       component.exportGraphData().forEach(array => {
-        if (array.length) {
-          this.componentsActiveOnGraphs.push({
-            name: component.name,
-            activeGraphs: component
-          })
-          this.compiledGraphData.push(array)
-        }
+        if (array.length) this.compiledGraphData.push(array)
       })
     })
     return this.compiledGraphData;
@@ -164,17 +115,15 @@ class Visualizer extends Component {
 
       let metrics = [
         [100, 30, 'timeWasted', 0],
-        [100, 15, 'instanceCount', 0],
-        [5,5, 'renderCount', 1],
-        [5,5, 'timeWasted', 1]
+        [100, 15, 'recycledCount', 0],
+        [5,5, 'recycledCount', 1],
+        [5,5, 'recycledCount', 1]
       ]
 
       let componentMetric = metrics[i][2];
       let data = component.getValue('RENDER', componentMetric);
       let num = data[data.length - 1];
       let negative;
-
-      component.disableMetricOnGraph('timeWasted', 0);
 
       Math.random() < .5 ? negative = -1 : negative = 1;
 
@@ -196,42 +145,18 @@ class Visualizer extends Component {
     this.setState({simData: !this.state.simData});
   }
 
-  toggleTooltipValues(value){
-    let tooltipValues = this.state.tooltipValues;
-    tooltipValues[value] = !tooltipValues[value];
-    this.setState({tooltipValues});
-  }
-
-  removeActiveComponentFromGraph(componentName, graph){
-
-  }
 
   render(){
-
-    const compiledGraphData = this.compileGraphData()
 
     return(
 
     <div id='main_container'>
       <div id='plot-container'>
-
         <Plot 
-          compiledGraphData = {compiledGraphData}
+          compiledGraphData = {this.compileGraphData()}
           twoGraphsAreActive={this.state.twoGraphsAreActive}
           twoGraphToggler={this.twoGraphToggler.bind(this)}
-
-          tooltipValues={this.state.tooltipValues}
         />
-        <Toolbar
-          tooltipValues={this.state.tooltipValues}
-          toggleTooltipValues={this.toggleTooltipValues.bind(this)}
-
-          componentsActiveOnGraphs={this.componentsActiveOnGraphs}
-          removeActiveComponentFromGraph={this.removeActiveComponentFromGraph.bind(this)}
-
-          allComponents={this.state.allComponents}
-        />
-
         <button onClick={this.fireDataScript.bind(this)}>Add Data</button>
         <button onClick={this.fireComponentScript.bind(this)}>Add Component</button>
       </div>
@@ -240,5 +165,5 @@ class Visualizer extends Component {
   }
 }
 
-export default Visualizer;
+export default App;
 

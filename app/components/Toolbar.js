@@ -1,16 +1,18 @@
-import React, { PropTypes } from 'react';
-import styles from './styles/toolbar.css'
+import React, { Component } from 'react';
+import styles from './styles/toolbar.css';
+import GraphPicker from './GraphPicker';
 
 const Toolbar = (props) => {
 
   const {
         tooltipValues,
         toggleTooltipValues,
-        
+  
         componentsActiveOnGraphs,
-        removeActiveComponentFromGraph
+        removeActiveComponentFromGraph,
 
-  } = props;
+        allComponents
+        } = props;
 
   return (
     <div>
@@ -18,11 +20,13 @@ const Toolbar = (props) => {
         <div className={styles.toolbarPanel}>
           <div className={styles.toolbarPanelTitle}>
             <span>Displayed Graphs</span>
+            
           </div>
         </div>
         <div className={styles.toolbarPanel}>
           <div className={styles.toolbarPanelTitle}>
             <span>Graph Selector</span>
+            <GraphPicker allComponents={allComponents}/>
           </div>
         </div>
       </div>

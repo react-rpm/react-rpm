@@ -15,6 +15,7 @@
   height:200px;
   outline-style:solid;
   outline-width:thin;
+  vertical-align:top;
 }
 
 #toolbarToggleTooltips{

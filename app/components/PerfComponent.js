@@ -79,106 +79,106 @@ export default class PerfComponent {
       let categoryTracker = 'RENDER';
       let activeMetrics = [];
 
-      for (let i = 0; i < 6; i += 1) {
-        if (i > 1) categoryTracker = 'SUMMARY';
+      Object.keys(this[categoryTracker]).forEach(metric => {
+        this.getActiveGraphsForMetric(metric).forEach(graph => {
 
-        if(categoryTracker === 'RENDER' && i < 2) {
-          Object.keys(this[categoryTracker]).forEach(metric => {
-            if(this.RENDER[metric].activeGraphs[i]) {
+          this.RENDER[metric].isRenderedOnGraph[graph] ? this.RENDER[metric].animationIsActive = false
+          : this.RENDER[metric].animationIsActive = true
 
-
-              this.RENDER[metric].isRenderedOnGraph[i] ? this.RENDER[metric].animationIsActive = false
-              : this.RENDER[metric].animationIsActive = true
-
-              this.RENDER[metric].cache= [
-                this.RENDER[metric],
-                this.name, 
-                metric, 
-                i,
-                this.RENDER[metric].animationIsActive
-              ]
-              this.RENDER[metric].cacheIsCurrent = true;
-              this.RENDER[metric].isRenderedOnGraph[i] = true;
-              activeMetrics.push(this.RENDER[metric].cache);
-            }
-          })
-        }else {
-          Object.keys(this.SUMMARY).forEach(metric => {
-            if (this.SUMMARY[metric].activeGraphs[i]) {
-              activeMetrics.push( [
-                this[category][metric],
-                this.name, 
-                metric, 
-                i, 
-                this.getValue('SUMMARY', metric) 
-              ]);
-            }
-          })
-        }
-      }
-      return activeMetrics;
-    }
-
-    setValues(value, category, metric) {
-      this[category][metric].data = value;
-    }
-
-    addValue(value, category, metric) {
-      this[category][metric].data.push(value);
-    }
-
-    getValue(category, metric) {
-      return this[category][metric].data;
-    }
-
-    getMetricObject(category, metric) {
-      return this[category][metric];
-    }
-
-    exportGraphData(){
-      this.graphData= this.getActiveMetrics();
-      return this.graphData;
-    }
-
-    enableMetricAnimation(category, metric){
-      this[category][metric].animationIsActive = true;
-    }
-
-    disableMetricAnimation(category, metric){
-      this[category][metric].animationIsActive = false;
-    }
-
-    enableAllMetricAnimation(){
-      Object.keys(this.RENDER).forEach(metric => {
-        [0,1,2,3,4,5,6].forEach(graph =>{
-          this.RENDER[metric].isRenderedOnGraph[graph] = false;
+          this.RENDER[metric].cache= [
+            this.RENDER[metric],
+            this.name, 
+            metric, 
+            graph,
+            this.RENDER[metric].animationIsActive
+          ]
+          this.RENDER[metric].cacheIsCurrent = true;
+          this.RENDER[metric].isRenderedOnGraph[graph] = true;
+          activeMetrics.push(this.RENDER[metric].cache);
         })
-        this.enableMetricAnimation('RENDER', metric);
       })
+        // }else {
+        //   Object.keys(this.SUMMARY).forEach(metric => {
+        //     if (this.SUMMARY[metric].activeGraphs[i]) {
+        //       activeMetrics.push( [
+        //         this[category][metric],
+        //         this.name, 
+        //         metric, 
+        //         i, 
+        //         this.getValue('SUMMARY', metric) 
+        //       ]);
+        //     }
+        //   })
+    return activeMetrics;
+  }
+  
+  setValues(value, category, metric) {
+    this[category][metric].data = value;
+  }
+
+  addValue(value, category, metric) {
+    this[category][metric].data.push(value);
+  }
+
+  getValue(category, metric) {
+    return this[category][metric].data;
+  }
+
+  getMetricObject(category, metric) {
+    return this[category][metric];
+  }
+
+  exportGraphData(){
+    this.graphData= this.getActiveMetrics();
+    return this.graphData;
+  }
+
+  enableMetricAnimation(category, metric){
+    this[category][metric].animationIsActive = true;
+  }
+
+  disableMetricAnimation(category, metric){
+    this[category][metric].animationIsActive = false;
+  }
+
+  enableAllMetricAnimation(){
+    Object.keys(this.RENDER).forEach(metric => {
+      [0,1,2,3,4,5,6].forEach(graph =>{
+        this.RENDER[metric].isRenderedOnGraph[graph] = false;
+      })
+      this.enableMetricAnimation('RENDER', metric);
+    })
+  }
+
+  getActiveGraphsForMetric(metric){
+    let arr = [];
+    if (this.RENDER[metric].activeGraphs[0]) arr.push(0);
+    if (this.RENDER[metric].activeGraphs[1]) arr.push(1);
+    return arr;
+  }
+
+  disableMetricOnGraph(metric,graph){
+    this.RENDER[metric].activeGraphs[graph] = false;
+  }
+
+  //used only for testing to build out random values so I can see if it's displaying properly on a graph
+  addRandomValues(count, range, metric, graph) {
+    
+    this.toggleActiveMetric('RENDER', metric, graph);
+
+    let negative;
+    let wildCard;
+
+    for (let i = 0; i < count; i += 1) {
+
+      Math.random() < .5 ? negative = -1 : negative = 1;
+
+      Math.random() < .2  
+        ? wildCard = Math.floor(Math.random(range))
+        : wildCard = 0;
+
+      range += Math.floor(Math.random() * 10 +wildCard) * negative;
+      this.addValue(range, 'RENDER', metric);
     }
-
-    disableMetricOnGraph(metric,graph){
-      this.RENDER[metric].activeGraphs[graph] = false;
-    }
-
-    //used only for testing to build out random values so I can see if it's displaying properly on a graph
-    addRandomValues(count, range, metric, graph) {
-      
-      this.toggleActiveMetric('RENDER', metric, graph);
-
-      let negative;
-      let wildCard;
-
-      for (let i = 0; i < count; i += 1) {
-
-        Math.random() < .5 ? negative = -1 : negative = 1;
-
-        Math.random() < .2  
-          ? wildCard = Math.floor(Math.random(range))
-          : wildCard = 0;
-
-        range += Math.floor(Math.random() * 10 +wildCard) * negative;
-        this.addValue(range, 'RENDER', metric);
-      }
-    }
+  }
 }
