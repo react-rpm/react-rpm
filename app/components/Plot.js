@@ -142,7 +142,7 @@ const Plot = (props) => {
           <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1" />
           <Tooltip />
           <Legend />
-          {graphRenders[1].timeWasted},
+          {graphRenders[1].timeWasted}
           {graphRenders[1].renderCount}
           {graphRenders[1].renderTime}
           {graphRenders[1].totalRenderTime}
@@ -165,12 +165,12 @@ const Plot = (props) => {
           <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1" />
           <Tooltip />
           <Legend />
-          {graphRenders[0]['timeWasted']},
-          {graphRenders[0]['renderCount']}
-          {graphRenders[0]['renderTime']}
-          {graphRenders[0]['totalRenderTime']}
-          {graphRenders[0]['averageRenderTime']}
-          {graphRenders[0]['totalTime']}
+          {graphRenders[0].timeWasted}
+          {graphRenders[0].renderCount}
+          {graphRenders[0].renderTime}
+          {graphRenders[0].totalRenderTime}
+          {graphRenders[0].averageRenderTime}
+          {graphRenders[0].totalTime}
           <Brush />
         </ComposedChart>
       </div>
