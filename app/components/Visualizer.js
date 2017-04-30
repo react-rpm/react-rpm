@@ -34,14 +34,25 @@ class Visualizer extends Component {
       //its in the state beacuse we want to trigger the page to rerender immediately when this changes
 
       tooltipValues: {
-        'timeWasted':true,
-        'instanceCount':false,
-        'renderCount':false,
-        'renderTime':false,
-        'totalRenderTime':false,
-        'averageRenderTime':false,
-        'totalTime':false,
+        timeWasted: true,
+        instanceCount: false,
+        renderCount: false,
+        renderTime: false,
+        totalRenderTime: false,
+        averageRenderTime: false,
+        totalTime: false,
       },
+
+      // Can we use this instead:
+      dataItems: [
+        {id: 0, selected: true, label: timeWasted},
+        {id: 1, selected: false, label: instanceCount},
+        {id: 2, selected: false, label: renderCount},
+        {id: 3, selected: false, label: renderTime},
+        {id: 4, selected: false, label: totalRenderTime},
+        {id: 5, selected: false, label: avgRenderTime},
+        {id: 6, selected: false, label: totalTime},
+      ],
 
       simData: false
 
@@ -211,8 +222,7 @@ class Visualizer extends Component {
           compiledGraphData = {compiledGraphData}
           twoGraphsAreActive={this.state.twoGraphsAreActive}
           twoGraphToggler={this.twoGraphToggler.bind(this)}
-
-          tooltipValues={this.state.tooltipValues}
+          dataItems={this.state.dataItems}
         />
         <Toolbar
           tooltipValues={this.state.tooltipValues}

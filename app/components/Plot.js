@@ -9,7 +9,7 @@ const Plot = (props) => {
     compiledGraphData, //holds all graph data exported from each PerfComponent
     twoGraphsAreActive,
     twoGraphToggler,
-    tooltipToggleValues
+    dataItems
   } = props;
 
   //this holds all the data in an arrays for the six graphs that are available. Only two are active in the current build
@@ -117,78 +117,64 @@ const Plot = (props) => {
     });
   });
 
+  // function for toggling the listed data items
+  const onDataItemClick = (dataItem) => {
+    dataItem.selected = !dataItem.selected;
+  };
+
   console.log(JSON.stringify(data[0]));
 
+  let graphTwo;
   if (twoGraphsAreActive) {
-
-    return (
-      <div className='plotContainer'>
-        <div>
-            <TwoPaneToggle twoGraphsAreActive={twoGraphsAreActive} handleChange={twoGraphToggler}/>
-            <ComposedChart width={600} height={225} data={data[0]} fill={'#C3C8CC'} syncId='anyId'>
-              <XAxis dataKey={'name'}/>
-              <YAxis/>
-              <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1"/>
-              <Tooltip />
-              <Legend/>
-              {graphRenders[0]['timeWasted']},
-              {graphRenders[0]['renderCount']}
-              {graphRenders[0]['renderTime']}
-              {graphRenders[0]['totalRenderTime']}
-              {graphRenders[0]['averageRenderTime']}
-              {graphRenders[0]['totalTime']}
-              <Brush/>
-            </ComposedChart>
-          </div>
-          <br/>
-          <div>
-            <ComposedChart width={600} height={225} data={data[1]} fill={'#C3C8CC'} syncId='anyId'>
-              <XAxis dataKey={'name'} label={'Render'}/>
-              <YAxis/>
-              <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1"/>
-              <Tooltip/>
-              <Legend/>
-              {graphRenders[1]['timeWasted']},
-              {graphRenders[1]['renderCount']}
-              {graphRenders[1]['renderTime']}
-              {graphRenders[1]['totalRenderTime']}
-              {graphRenders[1]['averageRenderTime']}
-              {graphRenders[1]['totalTime']}
-            </ComposedChart>
-            <div className={styles.toolbarToggleTooltips}>
-
-            </div>
-          </div>
-        </div>
-
-      );
+    graphTwo = (
+      <div>
+        <ComposedChart width={600} height={225} data={data[1]} fill={'#C3C8CC'} syncId='anyId'>
+          <XAxis dataKey={'name'} label={'Render'}/>
+          <YAxis/>
+          <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1"/>
+          <Tooltip/>
+          <Legend/>
+          {graphRenders[1]['timeWasted']},
+          {graphRenders[1]['renderCount']}
+          {graphRenders[1]['renderTime']}
+          {graphRenders[1]['totalRenderTime']}
+          {graphRenders[1]['averageRenderTime']}
+          {graphRenders[1]['totalTime']}
+        </ComposedChart>
+      </div>
+    );
   } else {
-    return (
-
-        <div className='plotContainer'>
-            <TwoPaneToggle twoGraphsAreActive={twoGraphsAreActive} handleChange={twoGraphToggler}/>
-            <ComposedChart width={600} height={450} data={data[0]} fill={'#C3C8CC'} syncId='anyId'
-            >
-              <XAxis dataKey={'name'}/>
-              <YAxis/>
-              <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1"/>
-              <Tooltip/>
-              <Legend/>
-              {graphRenders[0]['timeWasted']},
-              {graphRenders[0]['renderCount']}
-              {graphRenders[0]['renderTime']}
-              {graphRenders[0]['totalRenderTime']}
-              {graphRenders[0]['averageRenderTime']}
-              {graphRenders[0]['totalTime']}
-              <Brush/>
-            </ComposedChart>
-            <div className={styles.toolbarToggleTooltips}>
-
-            </div>
-        </div>
-
-      );
+    graphTwo = (<div></div>);
   }
+
+  return (
+    <div className='plotContainer'>
+      <div>
+        <TwoPaneToggle twoGraphsAreActive={twoGraphsAreActive} handleChange={twoGraphToggler}/>
+        <ComposedChart width={600} height={225} data={data[0]} fill={'#C3C8CC'} syncId='anyId'>
+          <XAxis dataKey={'name'}/>
+          <YAxis/>
+          <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1"/>
+          <Tooltip />
+          <Legend/>
+          {graphRenders[0]['timeWasted']},
+          {graphRenders[0]['renderCount']}
+          {graphRenders[0]['renderTime']}
+          {graphRenders[0]['totalRenderTime']}
+          {graphRenders[0]['averageRenderTime']}
+          {graphRenders[0]['totalTime']}
+          <Brush/>
+        </ComposedChart>
+      </div>
+      <br/>
+      { graphTwo }
+      <div className={styles.toolbarToggleTooltips}>
+        <DataItemList dataItems={dataItems} onDataItemClick={this.onDataItemClick} />
+      </div>
+    </div>
+  );
+
 }
+
 //margin={{top: 5, right: 30, left: 20, bottom: 5}}
 export default Plot;
