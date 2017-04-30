@@ -29,8 +29,8 @@ class Visualizer extends Component {
       // see createTestComponents() for more details on how I create and initiate them so they show on the graph
 
       twoGraphsAreActive: false,
-      //this is just a boolean toggle that tracks whether or not the user wants to display one or two graphs
-      //its in the state beacuse we want to trigger the page to rerender immediately when this changes
+      // this is just a boolean toggle that tracks whether or not the user wants to display one or two graphs
+      // its in the state beacuse we want to trigger the page to rerender immediately when this changes
 
       tooltipValues: {
         timeWasted: true,
@@ -82,13 +82,6 @@ class Visualizer extends Component {
   // I set an array of testComponentValues with the following format:
   //  [Random Number Gen starting number, Random Number Gen Range, metric to activate, graph to activate on]
   // GRAPH 0 is the top graph, or when there's only one graph displayed. GRAPH 1 is for the bottom graph when both are displayed
-<<<<<<< HEAD
-  //Iterate through those components and pass the test values to a PerfComponent method to take care of filling it up
-  //I return the value, which gets sent to allComponents in the state.
-  createTestComponents(testValuesArray){
-
-    let testComponentArray = this.createPerfComponent('Dashboard', 'Comment', 'Profile', 'Message');
-=======
   // Iterate through those components and pass the test values to a PerfComponent method to take care of filling it up
   // I return the value, which gets sent to allComponents in the state.
   createTestComponents(testValuesArray) {
@@ -98,7 +91,6 @@ class Visualizer extends Component {
       'Profile',
       'Message'
     );
->>>>>>> 8c15431e65478b62edbd535c4288c499d645252a
 
     let testComponentValues = [
       [100, 30, 'timeWasted', 0],
@@ -133,15 +125,6 @@ class Visualizer extends Component {
 
     for (perfData in perfs[currentPerfCategory]['0'])
       currentPerfData = perfs[currentPerfCategory]['0'][perfData];
-<<<<<<< HEAD
-      if (typeof currentPerfData === 'string'){
-        console.log(currentPerfData.substring(currentPerfData.indexOf('>')+2))
-      }
-  }
-
-  //This iterates through this.state.allComponents and calls each PerfComponent's exportGraphData method, which returns all the data for graphs that is ACTIVE on, ignoring all data that isn't active.
-  //the compiledGraphData gets passed to the Plot component as a prop
-=======
     if (typeof currentPerfData === 'string') {
       console.log(currentPerfData.substring(currentPerfData.indexOf('>') + 2));
     }
@@ -149,7 +132,6 @@ class Visualizer extends Component {
 
   // This iterates through this.state.allComponents and calls each PerfComponent's exportGraphData method, which returns all the data for graphs that is ACTIVE on, ignoring all data that isn't active.
   // the compiledGraphData gets passed to the Plot component as a prop
->>>>>>> 8c15431e65478b62edbd535c4288c499d645252a
   compileGraphData() {
     this.compiledGraphData = [];
     let placeHolder = [];
@@ -164,15 +146,9 @@ class Visualizer extends Component {
     return this.compiledGraphData;
   }
 
-<<<<<<< HEAD
-  //this get's passed to the TwoGraphToggler component as a bound prop, which is a radio button used by the Plot component.
-  //this method gets fired every time the user presses one of the button, and we update the state accordingly
-  twoGraphToggler(bool){
-=======
   // this get's passed to the TwoGraphToggler component as a bound prop, which is a radio button used by the Plot component.
   // this method gets fired every time the user presses one of the button, and we update the state accordingly
   twoGraphToggler(bool) {
->>>>>>> 8c15431e65478b62edbd535c4288c499d645252a
     this.resetComponentGraphAnimation();
     this.setState({ twoGraphsAreActive: bool });
   }
@@ -266,31 +242,6 @@ class Visualizer extends Component {
           </button>
         </div>
 
-<<<<<<< HEAD
-    const compiledGraphData = this.compileGraphData()
-
-    return(
-
-    <div id='main_container'>
-      <div id='plot-container'>
-
-        <Plot
-          compiledGraphData = {compiledGraphData}
-          twoGraphsAreActive={this.state.twoGraphsAreActive}
-          twoGraphToggler={this.twoGraphToggler.bind(this)}
-
-          tooltipValues={this.state.tooltipValues}
-        />
-        <Toolbar
-          tooltipValues={this.state.tooltipValues}
-          toggleTooltipValues={this.toggleTooltipValues.bind(this)}
-          componentsActiveOnGraphs={this.componentsActiveOnGraphs}
-          removeActiveComponentFromGraph={this.removeActiveComponentFromGraph.bind(this)}
-        />
-        <button onClick={this.fireDataScript.bind(this)}>Add Data</button>
-        <button onClick={this.fireComponentScript.bind(this)}>Add Component</button>
-=======
->>>>>>> 8c15431e65478b62edbd535c4288c499d645252a
       </div>
     );
   }

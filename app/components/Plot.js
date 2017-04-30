@@ -17,7 +17,7 @@ import styles from './styles/plot.css';
 
 const Plot = (props) => {
   const {
-    compiledGraphData, // holds all graph data exported from each PerfComponent
+    compiledGraphData,
     twoGraphsAreActive,
     twoGraphToggler,
     dataItems
