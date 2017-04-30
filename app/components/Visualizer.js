@@ -64,6 +64,13 @@ class Visualizer extends Component {
     // this.importPerfs(Sample);
   }
 
+  // method for toggling the listed data items
+  onDataItemClick(dataItem) {
+    dataItem.selected = !dataItem.selected;
+    const dataItems = this.state.dataItems;
+    this.setState({ dataItems });
+  }
+
   // this method handles creation of PerfComponent elements and returns an array
   // it accepts any number of strings (the names of the components), or a single string if we only want one.
   createPerfComponent(...args) {
@@ -222,14 +229,13 @@ class Visualizer extends Component {
             twoGraphToggler={this.twoGraphToggler.bind(this)}
             tooltipValues={this.state.tooltipValues}
             dataItems={this.state.dataItems}
+            onDataItemClick={this.onDataItemClick.bind(this)}
           />
           <Toolbar
             tooltipValues={this.state.tooltipValues}
             toggleTooltipValues={this.toggleTooltipValues.bind(this)}
             componentsActiveOnGraphs={this.componentsActiveOnGraphs}
-            removeActiveComponentFromGraph={this.removeActiveComponentFromGraph.bind(
-              this
-            )}
+            removeActiveComponentFromGraph={this.removeActiveComponentFromGraph.bind(this)}
           />
           {/*<Tooltip content={<CustomToolTip />} 
           componentsActiveOnGraphs = {this.componentsActiveOnGraphs}
