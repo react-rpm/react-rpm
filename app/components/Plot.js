@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import { ComposedChart, Bar, Line, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Brush} from 'Recharts';
 import TwoPaneToggle from './TwoPaneToggle';
-import styles from './styles/plot.css'
+import DataItemList from './DataItemList';
+import styles from './styles/plot.css';
 
 const Plot = (props) => {
 
@@ -152,9 +153,9 @@ const Plot = (props) => {
       <div>
         <TwoPaneToggle twoGraphsAreActive={twoGraphsAreActive} handleChange={twoGraphToggler}/>
         <ComposedChart width={600} height={225} data={data[0]} fill={'#C3C8CC'} syncId='anyId'>
-          <XAxis dataKey={'name'}/>
+          <XAxis dataKey={'name'} />
           <YAxis/>
-          <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1"/>
+          <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1" />
           <Tooltip />
           <Legend/>
           {graphRenders[0]['timeWasted']},
@@ -169,7 +170,7 @@ const Plot = (props) => {
       <br/>
       { graphTwo }
       <div className={styles.toolbarToggleTooltips}>
-        <DataItemList dataItems={dataItems} onDataItemClick={this.onDataItemClick} />
+        <DataItemList dataItems={dataItems} onDataItemClick={onDataItemClick.bind(this)} />
       </div>
     </div>
   );

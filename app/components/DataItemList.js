@@ -11,7 +11,7 @@ const DataItemList = ({ dataItems, onDataItemClick }) => (
       />
     )}
   </ul>
-)
+);
 
 DataItem.propTypes = {
   dataItems: PropTypes.arrayOf(PropTypes.shape({
@@ -20,6 +20,6 @@ DataItem.propTypes = {
     label: PropTypes.string.isRequired,
   }).isRequired).isRequired,
   onDataItemClick: PropTypes.func.isRequired,
-}
+};
 
 export default DataItemList;
