@@ -120,6 +120,7 @@ export default class PerfComponent {
   }
 
   addValue(value, category, metric) {
+    console.log('METRIC:',metric);
     this[category][metric].data.push(value);
   }
 
@@ -167,32 +168,31 @@ export default class PerfComponent {
   //used only for testing to build out random values so I can see if it's displaying properly on a graph
   addRandomValues(count, range) {
     
-    const renderMetrics = [
-            'timeWasted',
-            'instanceCount',
-            'renderCount',
-            'renderTime',
-            'totalRenderTime',
-            'averageRenderTime',
-            'totalTime'
-          ]
-    const graphs =[0,1];
-    let negative;
-    let wildCard;
+    // const renderMetrics:[
+    //       'averageRenderTime',
+    //       'instanceCount',
+    //       'renderCount',
+    //       'totalLifeCycleTime',
+    //       'totalRenderTime',
+    //       'totalTime',
+    //     ]
+    // const graphs =[0,1];
+    // let negative;
+    // let wildCard;
 
-    renderMetrics.forEach(metric => { 
-      graphs.forEach(graph => {
-        for (let i = 0; i < count; i += 1) {
-          Math.random() < .5 ? negative = -1 : negative = 1;
+    // renderMetrics.forEach(metric => { 
+    //   graphs.forEach(graph => {
+    //     for (let i = 0; i < count; i += 1) {
+    //       Math.random() < .5 ? negative = -1 : negative = 1;
 
-          Math.random() < .2  
-            ? wildCard = Math.floor(Math.random(range))
-            : wildCard = 0;
+    //       Math.random() < .2  
+    //         ? wildCard = Math.floor(Math.random(range))
+    //         : wildCard = 0;
 
-          range += Math.floor(Math.random() * 10 +wildCard) * negative;
-          this.addValue(range, 'RENDER', metric);
-        }
-      })
-    })
+    //       range += Math.floor(Math.random() * 10 +wildCard) * negative;
+    //       this.addValue(range, 'RENDER', metric);
+    //     }
+    //   })
+    // })
   }
 }

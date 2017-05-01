@@ -8,14 +8,13 @@ class GraphPicker extends Component {
     super(props)
 
     const metrics = [
-                    'timeWasted',
-                    'instanceCount',
-                    'renderCount',
-                    'renderTime',
-                    'totalRenderTime',
-                    'averageRenderTime',
-                    'totalTime'
-                  ]
+                      'averageRenderTime',
+                      'instanceCount',
+                      'renderCount',
+                      'totalLifeCycleTime',
+                      'totalRenderTime',
+                      'totalTime',
+                    ]
     this.graphs = ['Bar', 'Line', 'Area'];
     this.graphsLabels = ['Bar', 'Line', 'Area', 'Bar (Secondary Graph)', 'Line (Secondary Graph)',  'Area (Secondary Graph)']
 
@@ -35,6 +34,11 @@ class GraphPicker extends Component {
       selectColorValue: null,
     }
 
+  }
+
+  componentWillReceiveProps(){
+    this.componentOptions = this.loadOptions(this.props.allComponents);
+    this.forceUpdate();
   }
   updateComponentValue (newValue) {
     console.log(newValue);
