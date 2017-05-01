@@ -57,7 +57,7 @@ class Visualizer extends Component {
         { id: 6, selected: false, label: 'Total Time' },
       ],
 
-      simData: false
+      simData: false,
     };
 
     for (let key in this.state.allComponents[0]) {
@@ -74,7 +74,6 @@ class Visualizer extends Component {
     const dataItems = this.state.dataItems;
     this.setState({ dataItems });
   }
-  
 
   // this method handles creation of PerfComponent elements and returns an array
   // it accepts any number of strings (the names of the components), or a single string if we only want one.
@@ -224,9 +223,45 @@ class Visualizer extends Component {
     this.setState({ tooltipValues });
   }
 
+<<<<<<< HEAD
   checkIfTwoGraphsActive(){
     return this.state.twoGraphsAreActive;
   }
+=======
+  removeActiveComponentFromGraph(componentName, graph) {}
+
+  render() {
+    const compiledGraphData = this.compileGraphData();
+
+    return (
+      <div id="main_container">
+        <div id="plot-container">
+
+          <Plot
+            compiledGraphData={compiledGraphData}
+            twoGraphsAreActive={this.state.twoGraphsAreActive}
+            twoGraphToggler={this.twoGraphToggler.bind(this)}
+            tooltipValues={this.state.tooltipValues}
+            dataItems={this.state.dataItems}
+            onDataItemClick={this.onDataItemClick.bind(this)}
+          />
+          <Toolbar
+            tooltipValues={this.state.tooltipValues}
+            toggleTooltipValues={this.toggleTooltipValues.bind(this)}
+            componentsActiveOnGraphs={this.componentsActiveOnGraphs}
+            removeActiveComponentFromGraph={this.removeActiveComponentFromGraph.bind(this)}
+          />
+          {/*<Tooltip content={<CustomToolTip />} 
+          componentsActiveOnGraphs = {this.componentsActiveOnGraphs}
+          tooltipValues = {this.tooltipValues}
+          />*/}
+
+          <button onClick={this.fireDataScript.bind(this)}>Add Data</button>
+          <button onClick={this.fireComponentScript.bind(this)}>
+            Add Component
+          </button>
+        </div>
+>>>>>>> edits
 
   render(){
 
