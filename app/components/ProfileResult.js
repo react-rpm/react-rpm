@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ResultControlContainer from '../containers/ResultControlContainer';
 import Console from './Console';
-import DataItemO from './DataItemO';
 import styles from './ProfileResult.css';
 
 const propTypes = {
@@ -44,7 +43,7 @@ export default class ProfileResult extends Component {
       </div>
     );
   }
-// LINE 42 {messages.map((item, index) => <Console key={index} data={item} />)}
+
   renderResult() {
     const empty = <div>Nothing to print. Click on "Start" to start recording</div>;
     return (
