@@ -72,14 +72,6 @@ class GraphPicker extends Component {
     let arr = []
 
     options.forEach(option => {
-
-      if(this.graphsLabels.indexOf(option) && this.props.twoGraphsAreActive()) {
-        console.log('OPTION:',option);
-        arr.push(
-        { value: option, label: option },
-        )
-      } else {
-
         if(option.name) {
           option = option.name;
         }
@@ -87,7 +79,6 @@ class GraphPicker extends Component {
         arr.push(
           { value: option, label: option }
         )
-      }
     })
     return arr;
   }
@@ -96,12 +87,13 @@ class GraphPicker extends Component {
     let graph = 0;
     let graphStyle = this.state.selectGraphValue
     if (graphStyle.includes('Secondary')) {
+      graph = 1;
+      this.props.twoGraphToggler(true);
       this.graphs.forEach(graph =>{
         if(graphStyle.includes(graph)) {
           graphStyle = graph;
         }
       })
-      graph = 1;
     }
 
     this.props.allComponents.forEach(component => {

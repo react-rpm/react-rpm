@@ -1,25 +1,38 @@
 import React, { Component } from 'react';
 import styles from './styles/toolbar.css';
 import GraphPicker from './GraphPicker';
+import DisplayedGraphs from './DisplayedGraphs'
 
 const Toolbar = (props) => {
   const {
         tooltipValues,
         toggleTooltipValues,
-  
-        componentsActiveOnGraphs,
-        removeActiveComponentFromGraph,
 
         allComponents,
         twoGraphsAreActive,
-        updateGraph
-        } = props;
+        twoGraphToggler,
+        updateGraph,
+  
+        componentsActiveOnGraphs,
+        getComponent
+      } = props;
+
+  console.log(getComponent);
+      
+  console.log('Components Active On Graphs:',componentsActiveOnGraphs)
+
   return (
     <div>
       <div id={styles.toolbarContainer}>
         <div className={styles.toolbarPanel}>
           <div className={styles.toolbarPanelTitle}>
             <span>Displayed Graphs</span>
+            <DisplayedGraphs 
+            componentsActiveOnGraphs={componentsActiveOnGraphs}
+            updateGraph={updateGraph}
+            getComponent={getComponent}
+            
+            />
             
           </div>
         </div>
@@ -30,6 +43,7 @@ const Toolbar = (props) => {
               allComponents={allComponents} 
               twoGraphsAreActive={twoGraphsAreActive}
               updateGraph={updateGraph}
+              twoGraphToggler={twoGraphToggler}
               />
           </div>
         </div>

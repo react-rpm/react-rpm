@@ -5,6 +5,7 @@ import Toolbar from './Toolbar';
 import CustomToolTip from './CustomToolTip';
 import {sample_perfs} from './sample_perfs'
 import styles from './styles/visualizer.css';
+import banner from './styles/banner_logo.png'
 
 // import Sample from './sample_perfs'
 
@@ -74,6 +75,7 @@ class Visualizer extends Component {
     const dataItems = this.state.dataItems;
     this.setState({ dataItems });
   }
+  
 
   // this method handles creation of PerfComponent elements and returns an array
   // it accepts any number of strings (the names of the components), or a single string if we only want one.
@@ -115,12 +117,12 @@ class Visualizer extends Component {
   getComponent(name) {
     let perfIndex;
     let allComponents = this.state.allComponents;
-
-    this.allComponents.forEach((component, i) => {
+    console.log('looking for component!',name);
+    allComponents.forEach((component, i) => {
       if (component.name === name) perfIndex = i;
     });
 
-    if (!perfIndex) return false;
+    if (perfIndex === undefined) return false;
     return allComponents[perfIndex];
   }
 
@@ -190,23 +192,33 @@ class Visualizer extends Component {
     console.log('compileGraphData Running!');
     let compiledGraphData = [];
     let placeHolder = [];
+    let newActiveComponent;
+    this.componentsActiveOnGraphs = [];
     this.state.allComponents.forEach(component => {
       component.exportGraphData().forEach(array => {
         if (array.length) {
-          this.componentsActiveOnGraphs.push({
+          newActiveComponent = {
             name: component.name,
-            activeGraphs: component
-          })
+            metric: array[2],
+            activeGraphs: array[3],
+            data: component.RENDER[array[2]].data,
+            colorTheme: component.RENDER[array[2]].colorTheme,
+            graphDisplay: component.RENDER[array[2]].graphDisplay
+          }
+          this.componentsActiveOnGraphs.push(newActiveComponent);
+          console.log('****',this.componentsActiveOnGraphs);
           compiledGraphData.push(array)
         }
       })
     })
     return compiledGraphData;
+
   }
 
   // this get's passed to the TwoGraphToggler component as a bound prop, which is a radio button used by the Plot component.
   // this method gets fired every time the user presses one of the button, and we update the state accordingly
   twoGraphToggler(bool) {
+    console.log('TWO GRAPH TOGGLED!!!');
     this.resetComponentGraphAnimation();
     this.setState({ twoGraphsAreActive: bool });
   }
@@ -224,39 +236,47 @@ class Visualizer extends Component {
   }
 
   checkIfTwoGraphsActive(){
-    return this.state.twoGraphsAreActive;
+    
+    let returnVal = this.state.twoGraphsAreActive;
+    return returnVal
   }
 
   render(){
-
-    console.log('ALL COMPONENTS:',this.state.allComponents);
     this.compiledGraphData = this.compileGraphData();
 
     return(
 
     <div id={styles.main_container}>
       <div id='plot-container'>
-        <img src='http://i.imgur.com/dJiykos.png'/>
+        <img src={require('./styles/banner_logo.png')}/>
         <Plot 
           compiledGraphData = {this.compiledGraphData}
-          twoGraphsAreActive={this.state.twoGraphsAreActive}
+          checkIfTwoGraphsActive={this.checkIfTwoGraphsActive.bind(this)}
           twoGraphToggler={this.twoGraphToggler.bind(this)}
-          
+
+          //for custom tooltip
+          componentsActiveOnGraphs={this.componentsActiveOnGraphs}
+
           dataItems={this.state.dataItems}
           onDataItemClick={this.onDataItemClick.bind(this)}
 
           tooltipValues={this.state.tooltipValues}
         />
+        
         <Toolbar
           tooltipValues={this.state.tooltipValues}
           toggleTooltipValues={this.toggleTooltipValues.bind(this)}
 
-          componentsActiveOnGraphs={this.componentsActiveOnGraphs}
-
           //GraphPicker Props
           allComponents={this.state.allComponents}
           twoGraphsAreActive={this.checkIfTwoGraphsActive.bind(this)}
+          twoGraphToggler={this.twoGraphToggler.bind(this)}
           updateGraph={this.updateGraph.bind(this)}
+
+          //DisplayedGraphs Props
+          componentsActiveOnGraphs={this.componentsActiveOnGraphs}
+          getComponent={this.getComponent.bind(this)}
+
         />
       </div>
     </div>
@@ -265,3 +285,5 @@ class Visualizer extends Component {
 }
 
 export default Visualizer;
+
+

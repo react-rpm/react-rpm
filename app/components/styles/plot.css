@@ -19,3 +19,13 @@
   background:red;
 }
 
+#graphPlaceholder{
+  position:relative;
+  display:block;
+  margin-right:auto;
+  margin-left:auto;
+  height: 450px;
+  width: 100px;
+  
+}
+
