@@ -36,9 +36,9 @@ class GraphPicker extends Component {
 
   }
 
-  componentWillReceiveProps(){
-    this.componentOptions = this.loadOptions(this.props.allComponents);
-    this.forceUpdate();
+  componentWillReceiveProps(props){
+      this.componentOptions = this.loadOptions(this.props.allComponents);
+      this.forceUpdate();
   }
   updateComponentValue (newValue) {
     console.log(newValue);

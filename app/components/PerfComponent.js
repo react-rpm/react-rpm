@@ -53,7 +53,9 @@ export default class PerfComponent {
             emptyRenderTemplate[metric] = template.data.RENDER
             
             //this assigns a random hex color to the PerfComponent. We'll eventually switch to a user selected version, but this works for now.
-            emptyRenderTemplate[metric].colorTheme = '#'+Math.floor(Math.random()*16777215).toString(16);
+            if (emptyRenderTemplate[metric].colorTheme = 'Random'){
+              emptyRenderTemplate[metric].colorTheme = '#'+Math.floor(Math.random()*16777215).toString(16);
+            }
           })
         } 
         else if (categoryTracker === 'SUMMARY') {
@@ -69,9 +71,10 @@ export default class PerfComponent {
 
     //this sets a metric to active on a specific graph, or turns it off. 
     toggleActiveMetric(category, metric, graph, graphStyle=null, color=null) {
-      console.log(metric,graph,graphStyle,color);
+      console.log('ACTIVE METRICS ASSIGNED to',this.name+":",metric,graph,graphStyle,color);
       if (graphStyle && color) {
         this[category][metric].graphDisplay = graphStyle
+        this[category][metric].colorTheme = color;
       }
       this[category][metric].activeGraphs[graph] = !this[category][metric].activeGraphs[graph]; 
     }
@@ -168,31 +171,32 @@ export default class PerfComponent {
   //used only for testing to build out random values so I can see if it's displaying properly on a graph
   addRandomValues(count, range) {
     
-    // const renderMetrics:[
-    //       'averageRenderTime',
-    //       'instanceCount',
-    //       'renderCount',
-    //       'totalLifeCycleTime',
-    //       'totalRenderTime',
-    //       'totalTime',
-    //     ]
-    // const graphs =[0,1];
-    // let negative;
-    // let wildCard;
+    const renderMetrics =[
+          'timeWasted',
+          'averageRenderTime',
+          'instanceCount',
+          'renderCount',
+          'totalLifeCycleTime',
+          'totalRenderTime',
+          'totalTime',
+        ]
+    const graphs =[0,1];
+    let negative;
+    let wildCard;
 
-    // renderMetrics.forEach(metric => { 
-    //   graphs.forEach(graph => {
-    //     for (let i = 0; i < count; i += 1) {
-    //       Math.random() < .5 ? negative = -1 : negative = 1;
+    renderMetrics.forEach(metric => { 
+      graphs.forEach(graph => {
+        for (let i = 0; i < count; i += 1) {
+          Math.random() < .5 ? negative = -1 : negative = 1;
 
-    //       Math.random() < .2  
-    //         ? wildCard = Math.floor(Math.random(range))
-    //         : wildCard = 0;
+          Math.random() < .2  
+            ? wildCard = Math.floor(Math.random(range))
+            : wildCard = 0;
 
-    //       range += Math.floor(Math.random() * 10 +wildCard) * negative;
-    //       this.addValue(range, 'RENDER', metric);
-    //     }
-    //   })
-    // })
+          range += Math.floor(Math.random() * 10 +wildCard) * negative;
+          this.addValue(range, 'RENDER', metric);
+        }
+      })
+    })
   }
 }

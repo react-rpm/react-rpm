@@ -3,6 +3,7 @@ import Plot from './Plot';
 import PerfComponent from './PerfComponent';
 import Toolbar from './Toolbar';
 import {sample_perfs} from './sample_perfs'
+import styles from './styles/visualizer.css';
 
 
 // import { getUIName } from '../utils/UI_metricText';
@@ -23,7 +24,7 @@ class Visualizer extends Component {
     
     this.state = {
 
-      allComponents: [],
+      allComponents: this.createTestComponents(),
       //an array that holds every PerfComponent that exists during the life-span of the app.
       //here, I built a tester method to build four components and fill them with random values
       //see createTestComponents() for more details on how I create and initiate them so they show on the graph
@@ -55,8 +56,8 @@ class Visualizer extends Component {
   //it accepts any number of strings (the names of the components), or a single string if we only want one.
 
   componentDidMount(){
-    this.importPerfs(sample_perfs);
-    this.forceUpdate();
+    //this.importPerfs(sample_perfs);
+    console.log('check this out',this.state.allComponents[0]);
   }
 
   createPerfComponent(...args) {
@@ -85,11 +86,11 @@ class Visualizer extends Component {
 
     let testComponentArray = this.createPerfComponent('Dashboard', 'Comment', 'Profile', 'Message');
 
-    // testComponentArray.forEach(component => {
-    //   component.addRandomValues(10, 30)
-    // })
+    testComponentArray.forEach(component => {
+      component.addRandomValues(10, 30)
+    })
 
-    //testComponentArray[0].toggleActiveMetric('RENDER', 'timeWasted', 0)
+    testComponentArray[0].toggleActiveMetric('RENDER', 'renderCount', 0)
 
     return testComponentArray;
 
@@ -116,7 +117,8 @@ class Visualizer extends Component {
     const existingComponents = this.state.allComponents;
 
     for (let perfType in perfs) {
-      perfs.exclusive[0].forEach(data => {
+      perfs.exclusive[0].forEach((data,i) => {
+        console.log(data)
         if(!existingComponents.includes(data['Component'])) {
           values.push(
             data['Average render time (ms)'],
@@ -127,32 +129,13 @@ class Visualizer extends Component {
             data['Total time (ms)']
           )
 
-          let counter = 0;
-
-          console.log(counter)
-          counter++
-
           newPerfComponent = new PerfComponent(data['Component']);
-          console.log(counter)
-          counter++
           newPerfComponent.addValue(values[0], 'RENDER', 'averageRenderTime');
-          console.log(counter)
-          counter++
           newPerfComponent.addValue(values[1], 'RENDER', 'instanceCount');
-          console.log(counter)
-          counter++
           newPerfComponent.addValue(values[2], 'RENDER', 'renderCount');
-          console.log(counter)
-          counter++
           newPerfComponent.addValue(values[3], 'RENDER', 'totalLifeCycleTime');
-          console.log(counter)
-          counter++
           newPerfComponent.addValue(values[4], 'RENDER', 'totalRenderTime');
-          console.log(counter)
-          counter++
           newPerfComponent.addValue(values[5], 'RENDER', 'totalTime');
-          console.log(counter)
-          counter++
 
           existingComponents.push(data['Component']);
           arr.push(newPerfComponent);          
@@ -239,9 +222,9 @@ class Visualizer extends Component {
 
     return(
 
-    <div id='main_container'>
+    <div id={styles.main_container}>
       <div id='plot-container'>
-
+        <img src='http://i.imgur.com/dJiykos.png'/>
         <Plot 
           compiledGraphData = {this.compiledGraphData}
           twoGraphsAreActive={this.state.twoGraphsAreActive}

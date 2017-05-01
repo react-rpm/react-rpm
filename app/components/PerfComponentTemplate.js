@@ -1,6 +1,7 @@
 module.exports =  {
 
   renderMetrics:[
+    'timeWasted',
     'averageRenderTime',
     'instanceCount',
     'renderCount',
