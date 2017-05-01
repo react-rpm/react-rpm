@@ -12,11 +12,11 @@ import styles from './styles/visualizer.css';
 // import Toolbar from './Toolbar';
 // import TagSelect from './TagSelect';
 
-//eslint
-
 class Visualizer extends Component {
   constructor(props) {
     super(props);
+
+    this.perfs = this.props.perfs;
 
     this.compiledGraphData = [];
     // this stores all plot data for each active PerfComponent, and is passed to the Plot component as a prop in render
@@ -241,11 +241,8 @@ class Visualizer extends Component {
           compiledGraphData = {this.compiledGraphData}
           twoGraphsAreActive={this.state.twoGraphsAreActive}
           twoGraphToggler={this.twoGraphToggler.bind(this)}
-          
           dataItems={this.state.dataItems}
           onDataItemClick={this.onDataItemClick.bind(this)}
-
-          tooltipValues={this.state.tooltipValues}
         />
         <Toolbar
           tooltipValues={this.state.tooltipValues}
