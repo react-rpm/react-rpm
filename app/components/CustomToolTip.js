@@ -4,15 +4,18 @@ import React, { PropTypes } from 'react';
 // tooltipValues
 
 const CustomToolTip = props => {
-  const {} = props;
-  if (active) {
-    const { payload, label } = this.props;
-    return (
-      <div className="custom-tooltip">
-        <p className="label">{`${label} : ${payload[0].value}`}</p>
-        <p className="intro">{this.getIntroOfPage(label)}</p>
-        <p className="desc">Anything you want can be displayed here.</p>
-      </div>
-    );
-  }
+  const { componentsActiveOnGraphs, dataItems } = props;
+
+  console.log('componentsActiveOnGraphs looks like',componentsActiveOnGraphs);
+  console.log('dataItems looks like',dataItems);
+
+  return (
+    <div className="custom-tooltip">
+      <p className="label">test1</p>
+      <p className="intro">test2</p>
+      <p className="desc">test3</p>
+    </div>
+  );
 };
+
+export default CustomToolTip;
