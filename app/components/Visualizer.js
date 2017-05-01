@@ -57,7 +57,7 @@ class Visualizer extends Component {
         { id: 6, selected: false, label: 'Total Time' },
       ],
 
-      simData: false
+      simData: false,
     };
 
     for (let key in this.state.allComponents[0]) {
@@ -74,7 +74,6 @@ class Visualizer extends Component {
     const dataItems = this.state.dataItems;
     this.setState({ dataItems });
   }
-  
 
   // this method handles creation of PerfComponent elements and returns an array
   // it accepts any number of strings (the names of the components), or a single string if we only want one.

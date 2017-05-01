@@ -190,6 +190,7 @@ const Plot = (props) => {
         </div>
       <br/>
       {graphTwo}
+
       <div className={styles.toolbarToggleTooltips}>
         <DataItemList dataItems={dataItems} onDataItemClick={onDataItemClick} />
       </div>
