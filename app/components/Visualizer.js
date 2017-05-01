@@ -91,24 +91,27 @@ class Visualizer extends Component {
   // GRAPH 0 is the top graph, or when there's only one graph displayed. GRAPH 1 is for the bottom graph when both are displayed
   // Iterate through those components and pass the test values to a PerfComponent method to take care of filling it up
   // I return the value, which gets sent to allComponents in the state.
-  createTestComponents(testValuesArray) {
-    let testComponentArray = this.createPerfComponent(
-      'Dashboard',
-      'Comment',
-      'Profile',
-      'Message'
-    );
 
-    let testComponentValues = [
-      [100, 30, 'timeWasted', 0],
-      [100, 15, 'instanceCount', 0],
-      [5, 5, 'renderCount', 1],
-      [5, 5, 'timeWasted', 1]
-    ];
 
-    testComponentValues.forEach((valuesArray, i) => {
-      testComponentArray[i].addRandomValues(...valuesArray);
-    });
+//Sample Data functions
+    // createTestComponents(testValuesArray) {
+  //   let testComponentArray = this.createPerfComponent(
+  //     'Dashboard',
+  //     'Comment',
+  //     'Profile',
+  //     'Message'
+  //   );
+  //
+  //   let testComponentValues = [
+  //     [100, 30, 'timeWasted', 0],
+  //     [100, 15, 'instanceCount', 0],
+  //     [5, 5, 'renderCount', 1],
+  //     [5, 5, 'timeWasted', 1]
+  //   ];
+  //
+  //   testComponentValues.forEach((valuesArray, i) => {
+  //     testComponentArray[i].addRandomValues(...valuesArray);
+  //   });
 
     return testComponentArray;
   }

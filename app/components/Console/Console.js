@@ -21,7 +21,7 @@ function renderData(data) {
 export default function Console({ data }) {
   return (
     <div className={styles.console}>
-      {renderData(data)}
+      {JSON.stringify(data)}
     </div>
   );
 }
