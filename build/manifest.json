@@ -2,7 +2,7 @@
   "name": "ReactRPM",
   "version": "0.1.0",
   "description": "A Performance Visualization Tool for Optimization and Debugging",
-  
+
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
