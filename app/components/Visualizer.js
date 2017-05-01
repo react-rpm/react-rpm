@@ -53,7 +53,7 @@ class Visualizer extends Component {
         { id: 6, selected: false, label: 'Total Time' },
       ],
 
-      simData: false
+      simData: false,
     };
 
     for (let key in this.state.allComponents[0]) {
