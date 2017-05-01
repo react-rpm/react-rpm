@@ -58,7 +58,7 @@ class Visualizer extends Component {
         { id: 6, selected: false, label: 'Total Time' },
       ],
 
-      simData: false
+      simData: false,
     };
 
     for (let key in this.state.allComponents[0]) {
@@ -211,7 +211,8 @@ class Visualizer extends Component {
         }
       })
     })
-    return compiledGraphData
+    return compiledGraphData;
+
   }
 
   // this get's passed to the TwoGraphToggler component as a bound prop, which is a radio button used by the Plot component.

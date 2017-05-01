@@ -98,7 +98,6 @@ class GraphPicker extends Component {
 
     this.props.allComponents.forEach(component => {
       if (component.name === this.state.selectComponentValue){
-        console.log('GRAPH!!!!!!',graph)
         component.toggleActiveMetric('RENDER', this.state.selectMetricValue, graph, graphStyle, this.state.selectColorValue);
         this.props.updateGraph();
       }

@@ -20,6 +20,7 @@ const Toolbar = (props) => {
   console.log(getComponent);
       
   console.log('Components Active On Graphs:',componentsActiveOnGraphs)
+
   return (
     <div>
       <div id={styles.toolbarContainer}>
