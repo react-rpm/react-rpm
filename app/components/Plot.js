@@ -77,6 +77,7 @@ const Plot = (props) => {
   compiledGraphData.forEach((item, i) => {
     metric = item[0];
     metricName = item[2];
+
     componentName = item[1] + ': ' + metricName;
 
     Object.keys(metric.activeGraphs).forEach(graph_code => {
@@ -96,19 +97,37 @@ const Plot = (props) => {
           graphRenders[graph_code][metricName] = [];
 
         metricShouldAnimate = metric.animationIsActive;
-
+        console.log('GraphStyle |',metricName, metric.graphDisplay);
+        
         switch (metric.graphDisplay) {
-          case 'Bar':
+
+          case 'Bar': 
+            console.log('Bar graph being built!');
+            console.log(graph_code);
             graphRenders[graph_code][metricName].push(
               <Bar
                 key={i}
                 dataKey={componentName}
                 fill={"blue"}
                 isAnimationActive={metricShouldAnimate}
-              />
-            );
-
+                />)
+              break;
           case 'Line':
+            graphRenders[graph_code][metricName].push(
+              <Line
+                key={i} 
+                type='monotone' 
+                dataKey={componentName} 
+                stroke={metric.colorTheme} 
+                fill={metric.colorTheme}
+                strokeWidth={1} 
+                activeDot={{r: 8}} 
+                dot={{r:2}}
+                isAnimationActive={metricShouldAnimate}
+                />)
+              break;
+
+          case 'Area':
             graphRenders[graph_code][metricName].push(
               <Area
                 key={i}
@@ -119,65 +138,63 @@ const Plot = (props) => {
                 strokeWidth={3}
                 activeDot={{ r: 8 }}
                 isAnimationActive={metricShouldAnimate}
-              />
-            );
+                />)
+              break;
+          }
         }
-      }
+      });
     });
-  });
-
-  console.log(JSON.stringify(data[0]));
 
   let graphTwo;
   if (twoGraphsAreActive) {
     graphTwo = (
       <div>
-        <ComposedChart width={600} height={225} data={data[1]} fill={'#C3C8CC'} syncId='anyId'>
-          <XAxis dataKey={'name'} label={'Render'} />
-          <YAxis />
-          <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1" />
-          <Tooltip />
-          <Legend />
-          {graphRenders[1].timeWasted}
-          {graphRenders[1].renderCount}
-          {graphRenders[1].renderTime}
-          {graphRenders[1].totalRenderTime}
-          {graphRenders[1].averageRenderTime}
-          {graphRenders[1].totalTime}
-        </ComposedChart>
-      </div>
-    );
-  } else {
-    graphTwo = (<div></div>);
-  }
-
-  return (
+            <ComposedChart width={600} height={225} data={data[1]} fill={'#C3C8CC'} syncId='anyId'>
+              <XAxis dataKey={'name'} label={'Render'}/>
+              <YAxis/>
+              <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1"/>
+              <Tooltip/>
+              <Legend/>
+              {graphRenders[1]['timeWasted']}
+              {graphRenders[1]['renderCount']}
+              {graphRenders[1]['instanceCount']}
+              {graphRenders[1]['totalRenderTime']}
+              {graphRenders[1]['averageRenderTime']}
+              {graphRenders[1]['totalTime']}
+              {graphRenders[1]['totalLifeCycleTime']}
+            </ComposedChart>
+          </div>
+      );
+    } else {
+      graphTwo = (<div></div>);
+    }
+    return (
     <div className='plotContainer'>
       <div>
         <TwoPaneToggle twoGraphsAreActive={twoGraphsAreActive} handleChange={twoGraphToggler} />
-        <ComposedChart width={600} height={225} data={data[0]} fill={'#C3C8CC'} syncId='anyId'>
+        <ComposedChart width={600} height={450} data={data[0]} fill={'#C3C8CC'} syncId='anyId'>
           <XAxis dataKey={'name'} />
           <YAxis />
           <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1" />
           <Tooltip />
           <Legend />
-          {graphRenders[0].timeWasted}
-          {graphRenders[0].renderCount}
-          {graphRenders[0].renderTime}
-          {graphRenders[0].totalRenderTime}
-          {graphRenders[0].averageRenderTime}
-          {graphRenders[0].totalTime}
-          <Brush />
-        </ComposedChart>
-      </div>
-      <br />
-      { graphTwo }
+              {graphRenders[0]['timeWasted']}
+              {graphRenders[0]['renderCount']}
+              {graphRenders[0]['instanceCount']}
+              {graphRenders[0]['totalRenderTime']}
+              {graphRenders[0]['averageRenderTime']}
+              {graphRenders[0]['totalTime']}
+              {graphRenders[0]['totalLifeCycleTime']}
+              <Brush/>
+            </ComposedChart>
+        </div>
+      <br/>
+      {graphTwo}
       <div className={styles.toolbarToggleTooltips}>
         <DataItemList dataItems={dataItems} onDataItemClick={onDataItemClick} />
       </div>
     </div>
-  );
-};
-// margin={{top: 5, right: 30, left: 20, bottom: 5}}
-
+    );
+  }
+//margin={{top: 5, right: 30, left: 20, bottom: 5}}
 export default Plot;

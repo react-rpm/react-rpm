@@ -2,12 +2,12 @@ module.exports =  {
 
   renderMetrics:[
     'timeWasted',
+    'averageRenderTime',
     'instanceCount',
     'renderCount',
-    'renderTime',
+    'totalLifeCycleTime',
     'totalRenderTime',
-    'averageRenderTime',
-    'totalTime'
+    'totalTime',
   ],
 
   summaryMetrics: [

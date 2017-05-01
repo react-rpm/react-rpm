@@ -24,7 +24,7 @@ class App extends Component {
     console.log(JSON.stringify(this.props.perfs));
     const output = (
         <div>
-          <Visualizer/>
+          <Visualizer perfs={this.props.perfs}/>
           <DoublePanel>
             <ProfileList />
             <ProfileResult
