@@ -149,7 +149,6 @@ const Plot = (props) => {
   if (twoGraphsAreActive) {
     graphTwo = (
       <div>
-<<<<<<< HEAD
             <ComposedChart width={600} height={225} data={data[1]} fill={'#C3C8CC'} syncId='anyId'>
               <XAxis dataKey={'name'} label={'Render'}/>
               <YAxis/>

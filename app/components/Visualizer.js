@@ -223,45 +223,9 @@ class Visualizer extends Component {
     this.setState({ tooltipValues });
   }
 
-<<<<<<< HEAD
   checkIfTwoGraphsActive(){
     return this.state.twoGraphsAreActive;
   }
-=======
-  removeActiveComponentFromGraph(componentName, graph) {}
-
-  render() {
-    const compiledGraphData = this.compileGraphData();
-
-    return (
-      <div id="main_container">
-        <div id="plot-container">
-
-          <Plot
-            compiledGraphData={compiledGraphData}
-            twoGraphsAreActive={this.state.twoGraphsAreActive}
-            twoGraphToggler={this.twoGraphToggler.bind(this)}
-            tooltipValues={this.state.tooltipValues}
-            dataItems={this.state.dataItems}
-            onDataItemClick={this.onDataItemClick.bind(this)}
-          />
-          <Toolbar
-            tooltipValues={this.state.tooltipValues}
-            toggleTooltipValues={this.toggleTooltipValues.bind(this)}
-            componentsActiveOnGraphs={this.componentsActiveOnGraphs}
-            removeActiveComponentFromGraph={this.removeActiveComponentFromGraph.bind(this)}
-          />
-          {/*<Tooltip content={<CustomToolTip />} 
-          componentsActiveOnGraphs = {this.componentsActiveOnGraphs}
-          tooltipValues = {this.tooltipValues}
-          />*/}
-
-          <button onClick={this.fireDataScript.bind(this)}>Add Data</button>
-          <button onClick={this.fireComponentScript.bind(this)}>
-            Add Component
-          </button>
-        </div>
->>>>>>> edits
 
   render(){
 
