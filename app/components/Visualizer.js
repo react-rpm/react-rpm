@@ -3,9 +3,9 @@ import Plot from './Plot';
 import PerfComponent from './PerfComponent';
 import Toolbar from './Toolbar';
 import CustomToolTip from './CustomToolTip';
+import { Tooltip } from 'Recharts';
 
 // import Sample from './sample_perfs'
-
 // import { getUIName } from '../utils/UI_metricText';
 // import Toolbar from './Toolbar';
 // import TagSelect from './TagSelect';
@@ -39,7 +39,7 @@ class Visualizer extends Component {
         renderTime: false,
         totalRenderTime: false,
         averageRenderTime: false,
-        totalTime: false,
+        totalTime: false
       },
 
       // Can we use this instead:
@@ -50,7 +50,7 @@ class Visualizer extends Component {
         { id: 3, selected: false, label: 'Render Time' },
         { id: 4, selected: false, label: 'Total Render Time' },
         { id: 5, selected: false, label: 'Avg Render Time' },
-        { id: 6, selected: false, label: 'Total Time' },
+        { id: 6, selected: false, label: 'Total Time' }
       ],
 
       simData: false
@@ -235,11 +235,16 @@ class Visualizer extends Component {
             tooltipValues={this.state.tooltipValues}
             toggleTooltipValues={this.toggleTooltipValues.bind(this)}
             componentsActiveOnGraphs={this.componentsActiveOnGraphs}
-            removeActiveComponentFromGraph={this.removeActiveComponentFromGraph.bind(this)}
+            removeActiveComponentFromGraph={this.removeActiveComponentFromGraph.bind(
+              this
+            )}
           />
-          {/*<Tooltip content={<CustomToolTip />} 
-          componentsActiveOnGraphs = {this.componentsActiveOnGraphs}
-          tooltipValues = {this.tooltipValues}
+
+
+          {/* <Tooltip
+            content={<CustomToolTip />}
+            componentsActiveOnGraphs={this.componentsActiveOnGraphs}
+            dataItems={this.state.dataItems}
           />*/}
 
           <button onClick={this.fireDataScript.bind(this)}>Add Data</button>

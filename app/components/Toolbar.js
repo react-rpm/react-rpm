@@ -1,15 +1,12 @@
 import React, { PropTypes } from 'react';
-import styles from './styles/toolbar.css'
+import styles from './styles/toolbar.css';
 
-const Toolbar = (props) => {
-
+const Toolbar = props => {
   const {
-        tooltipValues,
-        toggleTooltipValues,
-        
-        componentsActiveOnGraphs,
-        removeActiveComponentFromGraph
-
+    tooltipValues,
+    toggleTooltipValues,
+    componentsActiveOnGraphs,
+    removeActiveComponentFromGraph
   } = props;
 
   return (
@@ -27,15 +24,14 @@ const Toolbar = (props) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-//Component:
-//Metric:
-//Line Style:
-//Line Color:
-//[OPTIONAL] Graph Display:
-//RENDER ON GRAPH!
-
+// Component:
+// Metric:
+// Line Style:
+// Line Color:
+// [OPTIONAL] Graph Display:
+// RENDER ON GRAPH!
 
 export default Toolbar;

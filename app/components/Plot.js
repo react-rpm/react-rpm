@@ -14,14 +14,15 @@ import {
 import TwoPaneToggle from './TwoPaneToggle';
 import DataItemList from './DataItemList';
 import styles from './styles/plot.css';
+import CustomToolTip from './CustomToolTip';
 
-const Plot = (props) => {
+const Plot = props => {
   const {
     compiledGraphData, // holds all graph data exported from each PerfComponent
     twoGraphsAreActive,
     twoGraphToggler,
     dataItems,
-    onDataItemClick,
+    onDataItemClick
   } = props;
 
   // this holds all the data in an arrays for the six graphs that are available. Only two are active in the current build
@@ -132,11 +133,17 @@ const Plot = (props) => {
   if (twoGraphsAreActive) {
     graphTwo = (
       <div>
-        <ComposedChart width={600} height={225} data={data[1]} fill={'#C3C8CC'} syncId='anyId'>
-          <XAxis dataKey={'name'} label={'Render'} />
+        <ComposedChart
+          width={600}
+          height={225}
+          data={data[1]}
+          fill={"#C3C8CC"}
+          syncId="anyId"
+        >
+          <XAxis dataKey={"name"} label={"Render"} />
           <YAxis />
-          <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1" />
-          <Tooltip />
+          <CartesianGrid stroke={"#DCFFFD"} strokeDasharray="1 1" />
+          <Tooltip content={<CustomToolTip />} />
           <Legend />
           {graphRenders[1].timeWasted}
           {graphRenders[1].renderCount}
@@ -148,18 +155,27 @@ const Plot = (props) => {
       </div>
     );
   } else {
-    graphTwo = (<div></div>);
+    graphTwo = <div />;
   }
 
   return (
-    <div className='plotContainer'>
+    <div className="plotContainer">
       <div>
-        <TwoPaneToggle twoGraphsAreActive={twoGraphsAreActive} handleChange={twoGraphToggler} />
-        <ComposedChart width={600} height={225} data={data[0]} fill={'#C3C8CC'} syncId='anyId'>
-          <XAxis dataKey={'name'} />
+        <TwoPaneToggle
+          twoGraphsAreActive={twoGraphsAreActive}
+          handleChange={twoGraphToggler}
+        />
+        <ComposedChart
+          width={600}
+          height={225}
+          data={data[0]}
+          fill={"#C3C8CC"}
+          syncId="anyId"
+        >
+          <XAxis dataKey={"name"} />
           <YAxis />
-          <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1" />
-          <Tooltip />
+          <CartesianGrid stroke={"#DCFFFD"} strokeDasharray="1 1" />
+          <Tooltip content={<CustomToolTip />} />
           <Legend />
           {graphRenders[0].timeWasted}
           {graphRenders[0].renderCount}
@@ -171,7 +187,7 @@ const Plot = (props) => {
         </ComposedChart>
       </div>
       <br />
-      { graphTwo }
+      {graphTwo}
       <div className={styles.toolbarToggleTooltips}>
         <DataItemList dataItems={dataItems} onDataItemClick={onDataItemClick} />
       </div>
