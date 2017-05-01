@@ -5,6 +5,7 @@ import Toolbar from './Toolbar';
 import CustomToolTip from './CustomToolTip';
 import {sample_perfs} from './sample_perfs'
 import styles from './styles/visualizer.css';
+import banner from './styles/banner_logo.png'
 
 // import Sample from './sample_perfs'
 
@@ -246,7 +247,7 @@ class Visualizer extends Component {
 
     <div id={styles.main_container}>
       <div id='plot-container'>
-        <img src='http://i.imgur.com/dJiykos.png'/>
+        <img src={require('./styles/banner_logo.png')}/>
         <Plot 
           compiledGraphData = {this.compiledGraphData}
           checkIfTwoGraphsActive={this.checkIfTwoGraphsActive.bind(this)}
