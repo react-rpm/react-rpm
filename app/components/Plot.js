@@ -18,11 +18,16 @@ import styles from './styles/plot.css';
 const Plot = (props) => {
   const {
     compiledGraphData, // holds all graph data exported from each PerfComponent
-    twoGraphsAreActive,
+    checkIfTwoGraphsActive,
     twoGraphToggler,
     dataItems,
     onDataItemClick,
+    componentsActiveOnGraph
   } = props;
+
+  let graphHeight = 450;
+
+  checkIfTwoGraphsActive() ? graphHeight = 225 : graphHeight = 450
 
   // this holds all the data in an arrays for the six graphs that are available. Only two are active in the current build
   // for more info on how this works check out http://recharts.org/#/en-US/examples
@@ -102,13 +107,11 @@ const Plot = (props) => {
         switch (metric.graphDisplay) {
 
           case 'Bar': 
-            console.log('Bar graph being built!');
-            console.log(graph_code);
             graphRenders[graph_code][metricName].push(
               <Bar
                 key={i}
                 dataKey={componentName}
-                fill={"blue"}
+                fill={metric.colorTheme}
                 isAnimationActive={metricShouldAnimate}
                 />)
               break;
@@ -146,7 +149,9 @@ const Plot = (props) => {
     });
 
   let graphTwo;
-  if (twoGraphsAreActive) {
+  let placeholder; 
+  if (checkIfTwoGraphsActive()) {
+    console.log('TWO GRAPHS BEING RENDERED!!!');
     graphTwo = (
       <div>
             <ComposedChart width={600} height={225} data={data[1]} fill={'#C3C8CC'} syncId='anyId'>
@@ -167,12 +172,16 @@ const Plot = (props) => {
       );
     } else {
       graphTwo = (<div></div>);
+      // twoGraphToggler(false);
     }
+
+    if (!compiledGraphData.length) placeholder = (<div id={styles.graphPlaceholder}></div>)
     return (
     <div className='plotContainer'>
+      {placeholder}
       <div>
-        <TwoPaneToggle twoGraphsAreActive={twoGraphsAreActive} handleChange={twoGraphToggler} />
-        <ComposedChart width={600} height={450} data={data[0]} fill={'#C3C8CC'} syncId='anyId'>
+        {/*<TwoPaneToggle twoGraphsAreActive={twoGraphsAreActive} handleChange={twoGraphToggler} />*/}
+        <ComposedChart width={600} height={graphHeight} data={data[0]} fill={'#C3C8CC'} syncId='anyId'>
           <XAxis dataKey={'name'} />
           <YAxis />
           <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1" />
