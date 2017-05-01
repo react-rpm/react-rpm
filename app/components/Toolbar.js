@@ -3,7 +3,6 @@ import styles from './styles/toolbar.css';
 import GraphPicker from './GraphPicker';
 
 const Toolbar = (props) => {
-
   const {
         tooltipValues,
         toggleTooltipValues,
@@ -11,9 +10,10 @@ const Toolbar = (props) => {
         componentsActiveOnGraphs,
         removeActiveComponentFromGraph,
 
-        allComponents
+        allComponents,
+        twoGraphsAreActive,
+        updateGraph
         } = props;
-
   return (
     <div>
       <div id={styles.toolbarContainer}>
@@ -26,7 +26,11 @@ const Toolbar = (props) => {
         <div className={styles.toolbarPanel}>
           <div className={styles.toolbarPanelTitle}>
             <span>Graph Selector</span>
-            <GraphPicker allComponents={allComponents}/>
+            <GraphPicker 
+              allComponents={allComponents} 
+              twoGraphsAreActive={twoGraphsAreActive}
+              updateGraph={updateGraph}
+              />
           </div>
         </div>
       </div>

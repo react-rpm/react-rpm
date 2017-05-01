@@ -68,7 +68,11 @@ export default class PerfComponent {
     }
 
     //this sets a metric to active on a specific graph, or turns it off. 
-    toggleActiveMetric(category, metric, graph) {
+    toggleActiveMetric(category, metric, graph, graphStyle=null, color=null) {
+      console.log(metric,graph,graphStyle,color);
+      if (graphStyle && color) {
+        this[category][metric].graphDisplay = graphStyle
+      }
       this[category][metric].activeGraphs[graph] = !this[category][metric].activeGraphs[graph]; 
     }
 
@@ -81,7 +85,6 @@ export default class PerfComponent {
 
       Object.keys(this[categoryTracker]).forEach(metric => {
         this.getActiveGraphsForMetric(metric).forEach(graph => {
-
           this.RENDER[metric].isRenderedOnGraph[graph] ? this.RENDER[metric].animationIsActive = false
           : this.RENDER[metric].animationIsActive = true
 
@@ -162,23 +165,34 @@ export default class PerfComponent {
   }
 
   //used only for testing to build out random values so I can see if it's displaying properly on a graph
-  addRandomValues(count, range, metric, graph) {
+  addRandomValues(count, range) {
     
-    this.toggleActiveMetric('RENDER', metric, graph);
-
+    const renderMetrics = [
+            'timeWasted',
+            'instanceCount',
+            'renderCount',
+            'renderTime',
+            'totalRenderTime',
+            'averageRenderTime',
+            'totalTime'
+          ]
+    const graphs =[0,1];
     let negative;
     let wildCard;
 
-    for (let i = 0; i < count; i += 1) {
+    renderMetrics.forEach(metric => { 
+      graphs.forEach(graph => {
+        for (let i = 0; i < count; i += 1) {
+          Math.random() < .5 ? negative = -1 : negative = 1;
 
-      Math.random() < .5 ? negative = -1 : negative = 1;
+          Math.random() < .2  
+            ? wildCard = Math.floor(Math.random(range))
+            : wildCard = 0;
 
-      Math.random() < .2  
-        ? wildCard = Math.floor(Math.random(range))
-        : wildCard = 0;
-
-      range += Math.floor(Math.random() * 10 +wildCard) * negative;
-      this.addValue(range, 'RENDER', metric);
-    }
+          range += Math.floor(Math.random() * 10 +wildCard) * negative;
+          this.addValue(range, 'RENDER', metric);
+        }
+      })
+    })
   }
 }

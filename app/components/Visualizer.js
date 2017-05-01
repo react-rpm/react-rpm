@@ -15,7 +15,6 @@ class Visualizer extends Component {
   constructor(props){
     super(props)
 
-    this.compiledGraphData = [];
     //this stores all plot data for each active PerfComponent, and is passed to the Plot component as a prop in render
     //see compileGraphData() below to see how that information is compiled.
     //I will probably make this a state object at some point, but for the sake of testing it was easier to not include in state
@@ -47,18 +46,15 @@ class Visualizer extends Component {
       simData: false
 
     }
-
-    for (let key in this.state.allComponents[0]){
-      console.log('{');
-      console.log(key+':'+JSON.stringify(this.state.allComponents[0][key]));
-      console.log('}');
-    }
     //this.importPerfs(Sample);
+    this.compiledGraphData = []
 
   }
+  
 
   //this method handles creation of PerfComponent elements and returns an array
   //it accepts any number of strings (the names of the components), or a single string if we only want one.
+
   createPerfComponent(...args) {
     if(args.length === 1) return new PerfComponent(args[0])
     const array = [];
@@ -71,6 +67,9 @@ class Visualizer extends Component {
     return array;
   }
 
+  updateGraph(){
+    this.setState({simData: !this.state.simData});
+  }
 
   //this is strictly for testing. It's hardcoded to create four PerfComponents
   //I set an array of testComponentValues with the following format:
@@ -82,20 +81,13 @@ class Visualizer extends Component {
 
     let testComponentArray = this.createPerfComponent('Dashboard', 'Comment', 'Profile', 'Message');
 
-    let testComponentValues = [ 
-      [100, 30, 'timeWasted', 0],
-      [100, 15, 'instanceCount', 0],
-      [5,5, 'renderCount', 1],
-      [5,5, 'timeWasted', 1]
-    ]
-
-    testComponentValues.forEach((valuesArray, i) => {
-      testComponentArray[i].addRandomValues(...valuesArray);
-    })
-
     testComponentArray.forEach(component => {
-      console.log('SHOULD BE ELEMENT 40:', component.getValue('RENDER', 'timeWasted')[40]);
+      component.addRandomValues(10, 30)
     })
+
+    testComponentArray[0].toggleActiveMetric('RENDER', 'timeWasted', 0)
+
+    console.log(JSON.stringify(testComponentArray[0].RENDER.timeWasted));
 
     return testComponentArray;
 
@@ -122,14 +114,15 @@ class Visualizer extends Component {
     for (perfData in perfs[currentPerfCategory]['0'])
       currentPerfData = perfs[currentPerfCategory]['0'][perfData];
       if (typeof currentPerfData === 'string'){ 
-        console.log(currentPerfData.substring(currentPerfData.indexOf('>')+2))
+        // console.log(currentPerfData.substring(currentPerfData.indexOf('>')+2))
       }
   }
 
   //This iterates through this.state.allComponents and calls each PerfComponent's exportGraphData method, which returns all the data for graphs that is ACTIVE on, ignoring all data that isn't active. 
   //the compiledGraphData gets passed to the Plot component as a prop
   compileGraphData() {
-    this.compiledGraphData = [];
+    console.log('compileGraphData Running!');
+    let compiledGraphData = [];
     let placeHolder = [];
     this.state.allComponents.forEach(component => {
       component.exportGraphData().forEach(array => {
@@ -138,11 +131,11 @@ class Visualizer extends Component {
             name: component.name,
             activeGraphs: component
           })
-          this.compiledGraphData.push(array)
+          compiledGraphData.push(array)
         }
       })
     })
-    return this.compiledGraphData;
+    return compiledGraphData;
   }
 
   //this get's passed to the TwoGraphToggler component as a bound prop, which is a radio button used by the Plot component. 
@@ -158,44 +151,6 @@ class Visualizer extends Component {
     });
   }
 
-  fireDataScript(){
-    this.state.allComponents.forEach((component, i) => {
-      //('Dashboard', 'Comment', 'Profile', 'Message');
-
-      let metrics = [
-        [100, 30, 'timeWasted', 0],
-        [100, 15, 'instanceCount', 0],
-        [5,5, 'renderCount', 1],
-        [5,5, 'timeWasted', 1]
-      ]
-
-      let componentMetric = metrics[i][2];
-      let data = component.getValue('RENDER', componentMetric);
-      let num = data[data.length - 1];
-      let negative;
-
-      component.disableMetricOnGraph('timeWasted', 0);
-
-      Math.random() < .5 ? negative = -1 : negative = 1;
-
-      component.addValue(num+Math.floor(Math.random()*10*negative), 'RENDER', componentMetric)
-      //component.addRandomValues(1, range, componentMetric, metrics[i][3])
-
-      let temp = this.state.simData;
-      temp = !temp;
-
-      this.setState({simData: temp});
-    })
-  }
-
-  fireComponentScript(){
-    let allComponents = this.state.allComponents;
-    let settings = [100, 30, 'timeWasted', 0];
-    allComponents.push(new PerfComponent('new!'+Math.random()));
-    allComponents[allComponents.length-1].addRandomValues(...settings);
-    this.setState({simData: !this.state.simData});
-  }
-
   toggleTooltipValues(value){
     let tooltipValues = this.state.tooltipValues;
     tooltipValues[value] = !tooltipValues[value];
@@ -206,9 +161,13 @@ class Visualizer extends Component {
 
   }
 
+  checkIfTwoGraphsActive(){
+    return this.state.twoGraphsAreActive;
+  }
+
   render(){
 
-    const compiledGraphData = this.compileGraphData()
+    this.compiledGraphData = this.compileGraphData();
 
     return(
 
@@ -216,7 +175,7 @@ class Visualizer extends Component {
       <div id='plot-container'>
 
         <Plot 
-          compiledGraphData = {compiledGraphData}
+          compiledGraphData = {this.compiledGraphData}
           twoGraphsAreActive={this.state.twoGraphsAreActive}
           twoGraphToggler={this.twoGraphToggler.bind(this)}
 
@@ -230,10 +189,9 @@ class Visualizer extends Component {
           removeActiveComponentFromGraph={this.removeActiveComponentFromGraph.bind(this)}
 
           allComponents={this.state.allComponents}
+          twoGraphsAreActive={this.checkIfTwoGraphsActive.bind(this)}
+          updateGraph={this.updateGraph.bind(this)}
         />
-
-        <button onClick={this.fireDataScript.bind(this)}>Add Data</button>
-        <button onClick={this.fireComponentScript.bind(this)}>Add Component</button>
       </div>
     </div>
     )

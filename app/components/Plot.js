@@ -67,6 +67,7 @@ const Plot = (props) => {
 
     metric = item[0];
     metricName = item[2];
+    console.log('PLOT // metricName:',metricName);
     componentName = item[1]+': '+metricName;
 
 
@@ -88,10 +89,13 @@ const Plot = (props) => {
         if(!graphRenders[graph_code][metricName]) graphRenders[graph_code][metricName] = [];
 
         metricShouldAnimate = metric.animationIsActive;
-
+        console.log('GraphStyle |',metricName, metric.graphDisplay);
+        
         switch (metric.graphDisplay) {
 
           case 'Bar': 
+            console.log('Bar graph being built!');
+            console.log(graph_code);
             graphRenders[graph_code][metricName].push(
               <Bar 
                 key={i} 
@@ -99,8 +103,24 @@ const Plot = (props) => {
                 fill={'blue'}
                 isAnimationActive={metricShouldAnimate}
                 />)
+              break;
 
           case 'Line':
+            graphRenders[graph_code][metricName].push(
+              <Line
+                key={i} 
+                type='monotone' 
+                dataKey={componentName} 
+                stroke={metric.colorTheme} 
+                fill={metric.colorTheme}
+                strokeWidth={1} 
+                activeDot={{r: 8}} 
+                dot={{r:2}}
+                isAnimationActive={metricShouldAnimate}
+                />)
+              break;
+
+          case 'Area':
             graphRenders[graph_code][metricName].push(
               <Area
                 key={i} 
@@ -112,12 +132,11 @@ const Plot = (props) => {
                 activeDot={{r: 8}} 
                 isAnimationActive={metricShouldAnimate}
                 />)
+              break;
         }
       }
     });
   });
-
-  console.log(JSON.stringify(data[0]));
 
   if (twoGraphsAreActive) {
 
@@ -131,7 +150,7 @@ const Plot = (props) => {
               <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1"/>
               <Tooltip />
               <Legend/>
-              {graphRenders[0]['timeWasted']},
+              {graphRenders[0]['timeWasted']}
               {graphRenders[0]['renderCount']}
               {graphRenders[0]['renderTime']}
               {graphRenders[0]['totalRenderTime']}

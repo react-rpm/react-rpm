@@ -30,7 +30,7 @@ chrome.devtools.panels.create('ReactRPM',
 
 chrome.devtools.inspectedWindow.eval(script,
   (result, isException) => {
-    console.log(result);
+    console.log('!!!!!!!',result);
   });
 
 
