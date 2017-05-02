@@ -13,8 +13,6 @@ import banner from './styles/banner_logo.png'
 // import Toolbar from './Toolbar';
 // import TagSelect from './TagSelect';
 
-//eslint
-
 class Visualizer extends Component {
   constructor(props) {
     super(props);
@@ -259,8 +257,6 @@ class Visualizer extends Component {
 
           dataItems={this.state.dataItems}
           onDataItemClick={this.onDataItemClick.bind(this)}
-
-          tooltipValues={this.state.tooltipValues}
         />
         
         <Toolbar
