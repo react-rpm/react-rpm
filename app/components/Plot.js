@@ -23,15 +23,16 @@ const Plot = props => {
     twoGraphToggler,
     dataItems,
     onDataItemClick,
-    componentsActiveOnGraphs
+    componentsActiveOnGraphs,
+    getComponent
   } = props;
 
-  console.log('dataItems in Plot.js is', dataItems);
+  // console.log('dataItems in Plot.js is', dataItems);
 
-  console.log(
-    'componentsActiveOnGraphs in Plot.js is',
-    componentsActiveOnGraphs
-  );
+  // console.log(
+  //   'componentsActiveOnGraphs in Plot.js is',
+  //   componentsActiveOnGraphs
+  // );
 
   let graphHeight = 450;
 
@@ -178,6 +179,8 @@ const Plot = props => {
             content={
               <CustomToolTip
                 componentsActiveOnGraphs={componentsActiveOnGraphs}
+                dataItems={dataItems}
+                getComponent={getComponent}
               />
             }
           />
@@ -219,6 +222,8 @@ const Plot = props => {
             content={
               <CustomToolTip
                 componentsActiveOnGraphs={componentsActiveOnGraphs}
+                dataItems={dataItems}
+                getComponent={getComponent}
               />
             }
           />
