@@ -6,7 +6,7 @@ import React, { PropTypes } from 'react';
 const CustomToolTip = props => {
   const { componentsActiveOnGraphs, dataItems } = props;
 
-  console.log('componentsActiveOnGraphs looks like',componentsActiveOnGraphs);
+// let activeComponents = componentsActiveOnGraphs
   console.log('dataItems looks like',dataItems);
 
   return (

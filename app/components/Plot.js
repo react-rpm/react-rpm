@@ -23,8 +23,15 @@ const Plot = props => {
     twoGraphToggler,
     dataItems,
     onDataItemClick,
-    componentsActiveOnGraph
+    componentsActiveOnGraphs
   } = props;
+
+  console.log('dataItems in Plot.js is', dataItems);
+
+  console.log(
+    'componentsActiveOnGraphs in Plot.js is',
+    componentsActiveOnGraphs
+  );
 
   let graphHeight = 450;
 
@@ -167,7 +174,13 @@ const Plot = props => {
           <XAxis dataKey={"name"} label={"Render"} />
           <YAxis />
           <CartesianGrid stroke={"#DCFFFD"} strokeDasharray="1 1" />
-          <Tooltip content={<CustomToolTip />} />
+          <Tooltip
+            content={
+              <CustomToolTip
+                componentsActiveOnGraphs={componentsActiveOnGraphs}
+              />
+            }
+          />
           <Legend />
           {graphRenders[1]['timeWasted']}
           {graphRenders[1]['renderCount']}
@@ -186,6 +199,7 @@ const Plot = props => {
 
   if (!compiledGraphData.length)
     placeholder = <div id={styles.graphPlaceholder} />;
+  // console.log(console.log('$$$$',this.componentsActiveOnGraphs));
   return (
     <div className="plotContainer">
       {placeholder}
@@ -201,7 +215,13 @@ const Plot = props => {
           <XAxis dataKey={"name"} />
           <YAxis />
           <CartesianGrid stroke={"#DCFFFD"} strokeDasharray="1 1" />
-          <Tooltip content={<CustomToolTip />} />
+          <Tooltip
+            content={
+              <CustomToolTip
+                componentsActiveOnGraphs={componentsActiveOnGraphs}
+              />
+            }
+          />
           <Legend />
           {graphRenders[0]['timeWasted']}
           {graphRenders[0]['renderCount']}
