@@ -16,8 +16,6 @@ class Visualizer extends Component {
   constructor(props) {
     super(props);
 
-    this.perfs = this.props.perfs;
-
     this.compiledGraphData = [];
     // this stores all plot data for each active PerfComponent, and is passed to the Plot component as a prop in render
     // see compileGraphData() below to see how that information is compiled.
