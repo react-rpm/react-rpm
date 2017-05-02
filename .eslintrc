@@ -17,7 +17,6 @@
       'ignoreRefs': true,
       'allowArrowFunctions': true,
     }],
-    "comma-dangle": 0,
     "id-length": 0,
     "new-cap": 0,
     "eol-last": 0,
