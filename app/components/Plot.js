@@ -13,21 +13,29 @@ import {
 } from 'Recharts';
 import TwoPaneToggle from './TwoPaneToggle';
 import DataItemList from './DataItemList';
+import CustomToolTip from './CustomToolTip';
 import styles from './styles/plot.css';
 
-const Plot = (props) => {
+const Plot = props => {
   const {
     compiledGraphData, // holds all graph data exported from each PerfComponent
     checkIfTwoGraphsActive,
     twoGraphToggler,
     dataItems,
     onDataItemClick,
-    componentsActiveOnGraph
+    componentsActiveOnGraphs
   } = props;
+
+  console.log('dataItems in Plot.js is', dataItems);
+
+  console.log(
+    'componentsActiveOnGraphs in Plot.js is',
+    componentsActiveOnGraphs
+  );
 
   let graphHeight = 450;
 
-  checkIfTwoGraphsActive() ? graphHeight = 225 : graphHeight = 450
+  checkIfTwoGraphsActive() ? (graphHeight = 225) : (graphHeight = 450);
 
   // this holds all the data in an arrays for the six graphs that are available. Only two are active in the current build
   // for more info on how this works check out http://recharts.org/#/en-US/examples
@@ -102,33 +110,34 @@ const Plot = (props) => {
           graphRenders[graph_code][metricName] = [];
 
         metricShouldAnimate = metric.animationIsActive;
-        console.log('GraphStyle |',metricName, metric.graphDisplay);
-        
-        switch (metric.graphDisplay) {
+        console.log('GraphStyle |', metricName, metric.graphDisplay);
 
-          case 'Bar': 
+        switch (metric.graphDisplay) {
+          case 'Bar':
             graphRenders[graph_code][metricName].push(
               <Bar
                 key={i}
                 dataKey={componentName}
                 fill={metric.colorTheme}
                 isAnimationActive={metricShouldAnimate}
-                />)
-              break;
+              />
+            );
+            break;
           case 'Line':
             graphRenders[graph_code][metricName].push(
               <Line
-                key={i} 
-                type='monotone' 
-                dataKey={componentName} 
-                stroke={metric.colorTheme} 
+                key={i}
+                type="monotone"
+                dataKey={componentName}
+                stroke={metric.colorTheme}
                 fill={metric.colorTheme}
-                strokeWidth={1} 
-                activeDot={{r: 8}} 
-                dot={{r:2}}
+                strokeWidth={1}
+                activeDot={{ r: 8 }}
+                dot={{ r: 2 }}
                 isAnimationActive={metricShouldAnimate}
-                />)
-              break;
+              />
+            );
+            break;
 
           case 'Area':
             graphRenders[graph_code][metricName].push(
@@ -141,69 +150,96 @@ const Plot = (props) => {
                 strokeWidth={3}
                 activeDot={{ r: 8 }}
                 isAnimationActive={metricShouldAnimate}
-                />)
-              break;
-          }
+              />
+            );
+            break;
         }
-      });
+      }
     });
+  });
 
   let graphTwo;
-  let placeholder; 
+  let placeholder;
   if (checkIfTwoGraphsActive()) {
     console.log('TWO GRAPHS BEING RENDERED!!!');
     graphTwo = (
       <div>
-            <ComposedChart width={600} height={225} data={data[1]} fill={'#C3C8CC'} syncId='anyId'>
-              <XAxis dataKey={'name'} label={'Render'}/>
-              <YAxis/>
-              <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1"/>
-              <Tooltip/>
-              <Legend/>
-              {graphRenders[1]['timeWasted']}
-              {graphRenders[1]['renderCount']}
-              {graphRenders[1]['instanceCount']}
-              {graphRenders[1]['totalRenderTime']}
-              {graphRenders[1]['averageRenderTime']}
-              {graphRenders[1]['totalTime']}
-              {graphRenders[1]['totalLifeCycleTime']}
-            </ComposedChart>
-          </div>
-      );
-    } else {
-      graphTwo = (<div></div>);
-      // twoGraphToggler(false);
-    }
+        <ComposedChart
+          width={600}
+          height={225}
+          data={data[1]}
+          fill={"#C3C8CC"}
+          syncId="anyId"
+        >
+          <XAxis dataKey={"name"} label={"Render"} />
+          <YAxis />
+          <CartesianGrid stroke={"#DCFFFD"} strokeDasharray="1 1" />
+          <Tooltip
+            content={
+              <CustomToolTip
+                componentsActiveOnGraphs={componentsActiveOnGraphs}
+              />
+            }
+          />
+          <Legend />
+          {graphRenders[1]['timeWasted']}
+          {graphRenders[1]['renderCount']}
+          {graphRenders[1]['instanceCount']}
+          {graphRenders[1]['totalRenderTime']}
+          {graphRenders[1]['averageRenderTime']}
+          {graphRenders[1]['totalTime']}
+          {graphRenders[1]['totalLifeCycleTime']}
+        </ComposedChart>
+      </div>
+    );
+  } else {
+    graphTwo = <div />;
+    // twoGraphToggler(false);
+  }
 
-    if (!compiledGraphData.length) placeholder = (<div id={styles.graphPlaceholder}></div>)
-    return (
-    <div className='plotContainer'>
+  if (!compiledGraphData.length)
+    placeholder = <div id={styles.graphPlaceholder} />;
+  // console.log(console.log('$$$$',this.componentsActiveOnGraphs));
+  return (
+    <div className="plotContainer">
       {placeholder}
       <div>
-        {/*<TwoPaneToggle twoGraphsAreActive={twoGraphsAreActive} handleChange={twoGraphToggler} />*/}
-        <ComposedChart width={600} height={graphHeight} data={data[0]} fill={'#C3C8CC'} syncId='anyId'>
-          <XAxis dataKey={'name'} />
+        {/* <TwoPaneToggle twoGraphsAreActive={twoGraphsAreActive} handleChange={twoGraphToggler} />*/}
+        <ComposedChart
+          width={600}
+          height={graphHeight}
+          data={data[0]}
+          fill={"#C3C8CC"}
+          syncId="anyId"
+        >
+          <XAxis dataKey={"name"} />
           <YAxis />
-          <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1" />
-          <Tooltip />
+          <CartesianGrid stroke={"#DCFFFD"} strokeDasharray="1 1" />
+          <Tooltip
+            content={
+              <CustomToolTip
+                componentsActiveOnGraphs={componentsActiveOnGraphs}
+              />
+            }
+          />
           <Legend />
-              {graphRenders[0]['timeWasted']}
-              {graphRenders[0]['renderCount']}
-              {graphRenders[0]['instanceCount']}
-              {graphRenders[0]['totalRenderTime']}
-              {graphRenders[0]['averageRenderTime']}
-              {graphRenders[0]['totalTime']}
-              {graphRenders[0]['totalLifeCycleTime']}
-              <Brush/>
-            </ComposedChart>
-        </div>
-      <br/>
+          {graphRenders[0]['timeWasted']}
+          {graphRenders[0]['renderCount']}
+          {graphRenders[0]['instanceCount']}
+          {graphRenders[0]['totalRenderTime']}
+          {graphRenders[0]['averageRenderTime']}
+          {graphRenders[0]['totalTime']}
+          {graphRenders[0]['totalLifeCycleTime']}
+          <Brush />
+        </ComposedChart>
+      </div>
+      <br />
       {graphTwo}
       <div className={styles.toolbarToggleTooltips}>
         <DataItemList dataItems={dataItems} onDataItemClick={onDataItemClick} />
       </div>
     </div>
-    );
-  }
-//margin={{top: 5, right: 30, left: 20, bottom: 5}}
+  );
+};
+// margin={{top: 5, right: 30, left: 20, bottom: 5}}
 export default Plot;
