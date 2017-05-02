@@ -114,15 +114,17 @@ class Visualizer extends Component {
     return testComponentArray;
   }
 
-  getComponent(name) {
+  //if only name specified as parameter, will return reference to PerfComponent
+  //if name and metrics specified as parameters, will return data value array for that perf component's metric
+  getComponent(name, metric=null) {
     let perfIndex;
     let allComponents = this.state.allComponents;
-    console.log('looking for component!',name);
     allComponents.forEach((component, i) => {
       if (component.name === name) perfIndex = i;
     });
 
     if (perfIndex === undefined) return false;
+    if (metric) return allComponents[perfIndex].RENDER[metric].data;
     return allComponents[perfIndex];
   }
 
@@ -256,8 +258,9 @@ class Visualizer extends Component {
 
           //for custom tooltip
           componentsActiveOnGraphs={this.componentsActiveOnGraphs}
-
           dataItems={this.state.dataItems}
+          getComponent={this.getComponent.bind(this)}
+
           onDataItemClick={this.onDataItemClick.bind(this)}
 
           tooltipValues={this.state.tooltipValues}

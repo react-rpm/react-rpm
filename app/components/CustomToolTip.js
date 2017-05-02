@@ -1,15 +1,22 @@
 import React, { PropTypes } from 'react';
 
-// get 'selected' prop from dataItems
-// build out an array of p's, is time wasted true or false in dataItems?
-// declare an array
-
 const CustomToolTip = props => {
-  const { componentsActiveOnGraphs, dataItems } = props;
+  const { componentsActiveOnGraphs, dataItems, getComponent } = props;
 
-  var toolTipDisplay = []; // this is what will berender
-  // if tool til is active, push p to it
+  var toolTipDisplay = []; 
+  // container to hold elements to be rendered
+  // if tool tip is 'selected', push to this array
   // time wasted = data[name]
+
+  // call getComponent, get the whole perf component back 
+  // get whatever is at index of 'label' which is a built in attribute by Recharts. plug this into the return of running getComponent
+
+  console.log("we are in CustomToolTip.js, componentsActiveOnGraphs[0]['name'] looks like", componentsActiveOnGraphs[0]['name']);
+  console.log("we are in CustomToolTip.js, componentsActiveOnGraphs[0]['metric'] looks like", componentsActiveOnGraphs[0]['metric']);
+  
+  var result = getComponent(componentsActiveOnGraphs[0]['name'],componentsActiveOnGraphs[0]['metric']);
+  console.log("we are in CustomToolTip.js, result looks like", result);
+  console.log("we are in CustomToolTip.js, result['label'] looks like", result['label']);
 
   for (var i = 0; i < dataItems.length; i++) {
     if (dataItems[i]['selected'] === true) {
@@ -19,16 +26,9 @@ const CustomToolTip = props => {
   }
 
   for (var j = 0; j < componentsActiveOnGraphs.length; j++){
-    console.log("we are looping through componentsActiveOnGraphs", componentsActiveOnGraphs[j]);
+    // console.log("we are looping through componentsActiveOnGraphs", componentsActiveOnGraphs[j]);
   }
 
-  // console.log(
-  //   'componentsActiveOnGraphs in CustomToolTips.js is',
-  //   componentsActiveOnGraphs
-  // );
-  // console.log('dataItems in CustomToolTips.js is', dataItems);
-
-  console.log('toolTipDisplay in CustomToolTips.js is', toolTipDisplay);
   return (
     <div className="custom-tooltip">
       {toolTipDisplay}
