@@ -26,12 +26,12 @@ const Plot = props => {
     componentsActiveOnGraphs
   } = props;
 
-  console.log('dataItems in Plot.js is', dataItems);
+  // console.log('dataItems in Plot.js is', dataItems);
 
-  console.log(
-    'componentsActiveOnGraphs in Plot.js is',
-    componentsActiveOnGraphs
-  );
+  // console.log(
+  //   'componentsActiveOnGraphs in Plot.js is',
+  //   componentsActiveOnGraphs
+  // );
 
   let graphHeight = 450;
 
@@ -178,6 +178,7 @@ const Plot = props => {
             content={
               <CustomToolTip
                 componentsActiveOnGraphs={componentsActiveOnGraphs}
+                dataItems={dataItems}
               />
             }
           />
@@ -219,6 +220,7 @@ const Plot = props => {
             content={
               <CustomToolTip
                 componentsActiveOnGraphs={componentsActiveOnGraphs}
+                dataItems={dataItems}
               />
             }
           />
