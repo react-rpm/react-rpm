@@ -3,11 +3,9 @@ import Plot from './Plot';
 import PerfComponent from './PerfComponent';
 import Toolbar from './Toolbar';
 import CustomToolTip from './CustomToolTip';
-import {sample_perfs} from './sample_perfs'
+import { samplePerfs } from './sample_perfs';
 import styles from './styles/visualizer.css';
 import banner from './styles/banner_logo.png'
-
-// import Sample from './sample_perfs'
 
 // import { getUIName } from '../utils/UI_metricText';
 // import Toolbar from './Toolbar';
@@ -59,12 +57,21 @@ class Visualizer extends Component {
       simData: false,
     };
 
+    const perfData = [];
+    const wastedTime = [];
+    console.log('********** hello **********');
+    console.log(samplePerfs);
+    samplePerfs.wasted[0].forEach((set) => {
+      wastedTime.push(set);
+    });
+    perfData.push(wastedTime);
+    this.perfData = perfData;
+
     for (let key in this.state.allComponents[0]) {
       console.log('{');
       console.log(key + ':' + JSON.stringify(this.state.allComponents[0][key]));
       console.log('}');
     }
-    // this.importPerfs(Sample);
   }
 
   // method for toggling the listed data items
@@ -74,7 +81,6 @@ class Visualizer extends Component {
     this.setState({ dataItems });
   }
   
-
   // this method handles creation of PerfComponent elements and returns an array
   // it accepts any number of strings (the names of the components), or a single string if we only want one.
   createPerfComponent(...args) {
@@ -100,91 +106,62 @@ class Visualizer extends Component {
   //Iterate through those components and pass the test values to a PerfComponent method to take care of filling it up 
   //I return the value, which gets sent to allComponents in the state. 
   createTestComponents(testValuesArray){
-
     let testComponentArray = this.createPerfComponent('Dashboard', 'Comment', 'Profile', 'Message');
-
     testComponentArray.forEach(component => {
       component.addRandomValues(10, 30)
     })
-
     testComponentArray[0].toggleActiveMetric('RENDER', 'renderCount', 0)
-
     return testComponentArray;
   }
 
-  //if only name specified as parameter, will return reference to PerfComponent
-  //if name and metrics specified as parameters, will return data value array for that perf component's metric
-  getComponent(name, metric=null) {
+  getComponent(name) {
     let perfIndex;
     let allComponents = this.state.allComponents;
+    console.log('looking for component!',name);
     allComponents.forEach((component, i) => {
       if (component.name === name) perfIndex = i;
     });
 
     if (perfIndex === undefined) return false;
-    if (metric) return allComponents[perfIndex].RENDER[metric].data;
     return allComponents[perfIndex];
   }
 
-  importPerfs(perfs){
+    // let componentDoesExist = false;
+    // let newPerfComponent;
+    // let arr = []
+    // let values = []
+    // const existingComponents = this.state.allComponents;
 
-    let componentDoesExist = false;
-    let newPerfComponent;
-    let arr = []
-    let values = []
-    const existingComponents = this.state.allComponents;
+    // for (let perfType in perfs) {
+    //   perfs.exclusive[0].forEach((data,i) => {
+    //     console.log(data)
+    //     if(!existingComponents.includes(data['Component'])) {
+    //       values.push(
+    //         data['Average render time (ms)'],
+    //         data['Instance count'],
+    //         data['Render count'],
+    //         data['Total lifecycle time (ms)'],
+    //         data['Total render time (ms)'],
+    //         data['Total time (ms)']
+    //       )
 
-    for (let perfType in perfs) {
-      perfs.exclusive[0].forEach((data,i) => {
-        console.log(data)
-        if(!existingComponents.includes(data['Component'])) {
-          values.push(
-            data['Average render time (ms)'],
-            data['Instance count'],
-            data['Render count'],
-            data['Total lifecycle time (ms)'],
-            data['Total render time (ms)'],
-            data['Total time (ms)']
-          )
+    //       newPerfComponent = new PerfComponent(data['Component']);
+    //       newPerfComponent.addValue(values[0], 'RENDER', 'averageRenderTime');
+    //       newPerfComponent.addValue(values[1], 'RENDER', 'instanceCount');
+    //       newPerfComponent.addValue(values[2], 'RENDER', 'renderCount');
+    //       newPerfComponent.addValue(values[3], 'RENDER', 'totalLifeCycleTime');
+    //       newPerfComponent.addValue(values[4], 'RENDER', 'totalRenderTime');
+    //       newPerfComponent.addValue(values[5], 'RENDER', 'totalTime');
 
-          newPerfComponent = new PerfComponent(data['Component']);
-          newPerfComponent.addValue(values[0], 'RENDER', 'averageRenderTime');
-          newPerfComponent.addValue(values[1], 'RENDER', 'instanceCount');
-          newPerfComponent.addValue(values[2], 'RENDER', 'renderCount');
-          newPerfComponent.addValue(values[3], 'RENDER', 'totalLifeCycleTime');
-          newPerfComponent.addValue(values[4], 'RENDER', 'totalRenderTime');
-          newPerfComponent.addValue(values[5], 'RENDER', 'totalTime');
-
-          existingComponents.push(data['Component']);
-          arr.push(newPerfComponent);          
-        }
-      })
-    }
-    this.setState({allComponents: arr,
-                    simData: !this.state.simData
-                  });
-    }
-// Average render time (ms)
-// :
-// 0.05
-// Component
-// :
-// "App"
-// Instance count
-// :
-// 1
-// Render count
-// :
-// 1
-// Total lifecycle time (ms)
-// :
-// 0
-// Total render time (ms)
-// :
-// 0.05
-// Total time (ms)
-// :
-// 0.05
+    //       existingComponents.push(data['Component']);
+    //       arr.push(newPerfComponent);          
+    //     }
+    //   })
+    // }
+    // this.setState({allComponents: arr,
+    //                 simData: !this.state.simData
+    //               });
+// }
 
   // This iterates through this.state.allComponents and calls each PerfComponent's exportGraphData method, which returns all the data for graphs that is ACTIVE on, ignoring all data that isn't active.
   // the compiledGraphData gets passed to the Plot component as a prop
@@ -249,7 +226,8 @@ class Visualizer extends Component {
     <div id={styles.main_container}>
       <div id='plot-container'>
         <img src={require('./styles/banner_logo.png')}/>
-        <Plot 
+        <Plot
+          perfData = {this.perfData}
           compiledGraphData = {this.compiledGraphData}
           checkIfTwoGraphsActive={this.checkIfTwoGraphsActive.bind(this)}
           twoGraphToggler={this.twoGraphToggler.bind(this)}
@@ -257,8 +235,6 @@ class Visualizer extends Component {
           //for custom tooltip
           componentsActiveOnGraphs={this.componentsActiveOnGraphs}
           dataItems={this.state.dataItems}
-          getComponent={this.getComponent.bind(this)}
-
           onDataItemClick={this.onDataItemClick.bind(this)}
         />
         
@@ -284,3 +260,5 @@ class Visualizer extends Component {
 }
 
 export default Visualizer;
+
+
