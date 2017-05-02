@@ -1,9 +1,4 @@
 **/dist/*
 **/node_modules/*
 **/server.js
-<<<<<<< HEAD
 **/webpack.config*.js
-**
-=======
-**/webpack.config*.js
->>>>>>> 0b32f2fdeb313e1fa5d05780efabc17fb7052025
