@@ -4,6 +4,7 @@ import DoublePanel from '../components/DoublePanel';
 import ProfileList from '../components/ProfileList';
 import ProfileResult from '../components/ProfileResult';
 import Visualizer from '../components/Visualizer';
+import ProfileView from '../components/ProfileView';
 import {
   connect as connectToContentScript
 } from '../actions';
@@ -20,21 +21,24 @@ class App extends Component {
   componentWillMount() {
     this.props.connectToContentScript();
   }
+
   render() {
-    console.log(JSON.stringify(this.props.perfs));
+    let view;
+    view = (<ProfileView perfs={this.props.perfs} />);
+    // else view = (<Visualizer perfs={this.props.perfs} />);
     const output = (
-        <div>
-          <Visualizer perfs={this.props.perfs} />
-          <DoublePanel>
-            <ProfileList />
-            <ProfileResult
-              perfs={this.props.perfs}
-              showItems={this.props.showItems}
-              recording={this.props.recording}
-            />
-          </DoublePanel>
-        </div>
-      );
+      <div>
+        { view }
+        <DoublePanel>
+          <ProfileList />
+          <ProfileResult
+            perfs={this.props.perfs}
+            showItems={this.props.showItems}
+            recording={this.props.recording}
+          />
+        </DoublePanel>
+      </div>
+    );
     return output;
   }
 }
