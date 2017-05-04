@@ -3,7 +3,7 @@ import PerfItem from './PerfItem';
 import styles from './DataItemList.css';
 
 const PerfItemList = ({ perfItems, onPerfItemClick, showDataKeys }) => (
-  <ul>
+  <div>
     {perfItems.map(perfItem =>
       <PerfItem
         key={perfItem.id}
@@ -14,7 +14,7 @@ const PerfItemList = ({ perfItems, onPerfItemClick, showDataKeys }) => (
         }}
       />
     )}
-  </ul>
+  </div>
 );
 
 PerfItem.propTypes = {

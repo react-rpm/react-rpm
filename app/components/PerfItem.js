@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
 
 const PerfItem = ({ onClick, selected, label }) => (
-  <li
+  <button
     onClick={onClick}
     style={{ backgroundColor: selected ? '#03A9F4' : 'white' }}
   >
     {label}
-  </li>
+  </button>
 );
 
 PerfItem.propTypes = {

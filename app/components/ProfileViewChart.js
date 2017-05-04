@@ -10,7 +10,6 @@ import {
   Brush,
 } from 'Recharts';
 import PerfItemList from './PerfItemList';
-import styles from './styles/plot.css';
 
 const ProfileViewChart = (props) => {
   const {
@@ -29,10 +28,12 @@ const ProfileViewChart = (props) => {
     }
   });
 
-  let dataKey;
+  let xDataKey;
+
+  let yDataKey;
   dataKeys.forEach((key) => {
     if (key.selected) {
-      dataKey = key.label;
+      yDataKey = key.label;
     }
   });
 
@@ -47,7 +48,7 @@ const ProfileViewChart = (props) => {
         <CartesianGrid stroke={'#F8BBD0'} strokeDasharray="1 1" />
         <Tooltip />
         <Legend />
-        <Bar dataKey={dataKey} fill='#673ab7' />
+        <Bar dataKey={yDataKey} fill='#673ab7' />
         <Brush />
       </BarChart>
     </div>
@@ -62,7 +63,7 @@ const ProfileViewChart = (props) => {
           <CartesianGrid stroke={'#F8BBD0'} strokeDasharray="1 1" />
           <Tooltip />
           <Legend />
-          <Bar dataKey={dataKey} fill='#673ab7' />
+          <Bar dataKey={yDataKey} fill='#673ab7' />
         </BarChart>
       </div>
     );
@@ -71,11 +72,11 @@ const ProfileViewChart = (props) => {
   }
 
   return (
-  <div className='plotContainer'>
+  <div className='chartContainer'>
     {graphOne}
     <br />
     {graphTwo}
-    <div className={styles.toolbarToggleTooltips}>
+    <div className='perfItemContainer'>
       <PerfItemList
         perfItems={perfItems}
         onPerfItemClick={onPerfItemClick}

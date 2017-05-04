@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import ProfileDataKey from './ProfileDataKey';
 
 const ProfileDataKeyList = ({ dataKeys, onDataKeyClick }) => (
-  <ul>
+  <div>
     {dataKeys.map(dataKey =>
       <ProfileDataKey
         key={dataKey.id}
@@ -10,7 +10,7 @@ const ProfileDataKeyList = ({ dataKeys, onDataKeyClick }) => (
         onClick={() => onDataKeyClick(dataKey)}
       />
     )}
-  </ul>
+  </div>
 );
 
 ProfileDataKeyList.propTypes = {

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ProfileViewChart from './ProfileViewChart';
 import ProfileToolbar from './ProfileToolbar';
+import styles from './styles/profileView.css';
 import { samplePerfs } from './sample_perfs';
-import styles from './styles/visualizer.css';
 
 class ProfileView extends Component {
   constructor(props) {
@@ -47,7 +47,7 @@ class ProfileView extends Component {
   showDataKeys = (perfItem) => {
     let dataKeys;
     switch (perfItem.label) {
-      case 'WastedTime':
+      case 'Wasted Time':
         dataKeys = [
           { id: 0, selected: true, label: 'Inclusive wasted time (ms)' },
           { id: 1, selected: false, label: 'Instance count' },
@@ -102,23 +102,21 @@ class ProfileView extends Component {
   render() {
     return (
     <div id={styles.main_container}>
-      <div id='plot-container'>
-        <img src={require('./styles/banner_logo.png')} />
-        <ProfileViewChart
-          perfData = {this.perfData}
-          perfItems={this.state.perfItems}
-          dataKeys={this.state.dataKeys}
-          onPerfItemClick={this.onPerfItemClick}
-          showDataKeys={this.showDataKeys}
-          checkIfTwoGraphsActive={this.checkIfTwoGraphsActive}
-          twoGraphToggler={this.twoGraphToggler}
-        />
-        <ProfileToolbar
-          perfItems={this.state.perfItems}
-          dataKeys={this.state.dataKeys}
-          onDataKeyClick={this.onDataKeyClick}
-        />
-      </div>
+      <img src={require('./styles/banner_logo.png')} />
+      <ProfileViewChart
+        perfData = {this.perfData}
+        perfItems={this.state.perfItems}
+        dataKeys={this.state.dataKeys}
+        onPerfItemClick={this.onPerfItemClick}
+        showDataKeys={this.showDataKeys}
+        checkIfTwoGraphsActive={this.checkIfTwoGraphsActive}
+        twoGraphToggler={this.twoGraphToggler}
+      />
+      <ProfileToolbar
+        perfItems={this.state.perfItems}
+        dataKeys={this.state.dataKeys}
+        onDataKeyClick={this.onDataKeyClick}
+      />
     </div>
     );
   }

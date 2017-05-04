@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
 
 const ProfileDataKey = ({ onClick, selected, label }) => (
-  <li
+  <button
     onClick={onClick}
     style={{ backgroundColor: selected ? '#03A9F4' : 'white' }}
   >
     {label}
-  </li>
+  </button>
 );
 
 ProfileDataKey.propTypes = {

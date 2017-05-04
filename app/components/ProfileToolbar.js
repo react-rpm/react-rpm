@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import ProfileDataKeyList from './ProfileDataKeyList';
 
 const ProfileToolbar = ({ dataKeys, onDataKeyClick }) => (
-  <div>
+  <div className='toolbar'>
     <ProfileDataKeyList
       dataKeys={dataKeys}
       onDataKeyClick={onDataKeyClick}
