@@ -16,18 +16,20 @@ class ProfileView extends Component {
         { id: 2, selected: false, label: 'Exclusive' },
         { id: 3, selected: false, label: 'Operations' },
       ],
+      dataKeys: [
+        { id: 0, selected: true, label: 'Inclusive wasted time (ms)' },
+        { id: 1, selected: false, label: 'Instance count' },
+        { id: 2, selected: false, label: 'Render count' },
+      ],
     };
-
     const wastedTime = [];
     const inclusive = [];
     const exclusive = [];
     const dom = [];
-
     samplePerfs.wasted[0].forEach((set) => { wastedTime.push(set); });
     samplePerfs.inclusive[0].forEach((set) => { inclusive.push(set); });
     samplePerfs.exclusive[0].forEach((set) => { exclusive.push(set); });
     samplePerfs.dom[0].forEach((set) => { dom.push(set); });
-
     const perfData = [];
     perfData.push(wastedTime);
     perfData.push(inclusive);
@@ -40,6 +42,45 @@ class ProfileView extends Component {
     perfItem.selected = !perfItem.selected;
     const perfItems = this.state.perfItems;
     this.setState({ perfItems });
+  }
+
+  showDataKeys = (perfItem) => {
+    let dataKeys;
+    switch (perfItem.label) {
+      case 'WastedTime':
+        dataKeys = [
+          { id: 0, selected: true, label: 'Inclusive wasted time (ms)' },
+          { id: 1, selected: false, label: 'Instance count' },
+          { id: 2, selected: false, label: 'Render count' },
+        ];
+        this.setState({ dataKeys });
+        break;
+      case 'Inclusive':
+        dataKeys = [
+          { id: 0, selected: true, label: 'Inclusive render time (ms)' },
+          { id: 1, selected: false, label: 'Instance count' },
+          { id: 2, selected: false, label: 'Render count' },
+        ];
+        this.setState({ dataKeys });
+        break;
+      case 'Exclusive':
+        dataKeys = [
+          { id: 0, selected: true, label: 'Total time (ms)' },
+          { id: 1, selected: false, label: 'Instance count' },
+          { id: 2, selected: false, label: 'Total render time (ms)' },
+          { id: 3, selected: false, label: 'Average render time (ms)' },
+          { id: 4, selected: false, label: 'Render count' },
+          { id: 5, selected: false, label: 'Total lifecycle time (ms)' },
+        ];
+        this.setState({ dataKeys });
+        break;
+    }
+  }
+
+  onDataKeyClick = (dataKey) => {
+    dataKey.selected = !dataKey.selected;
+    const dataKeys = this.state.dataKeys;
+    this.setState({ dataKeys });
   }
 
   twoGraphToggler = (bool) => {
@@ -65,15 +106,18 @@ class ProfileView extends Component {
         <img src={require('./styles/banner_logo.png')} />
         <ProfileViewChart
           perfData = {this.perfData}
+          perfItems={this.state.perfItems}
+          dataKeys={this.state.dataKeys}
+          onPerfItemClick={this.onPerfItemClick}
+          showDataKeys={this.showDataKeys}
           checkIfTwoGraphsActive={this.checkIfTwoGraphsActive}
           twoGraphToggler={this.twoGraphToggler}
-          perfItems={this.state.perfItems}
-          onPerfItemClick={this.onPerfItemClick}
         />
-        {/*<ProfileToolbar
-          twoGraphsAreActive={this.checkIfTwoGraphsActive}
-          twoGraphToggler={this.twoGraphToggler}
-        />*/}
+        <ProfileToolbar
+          perfItems={this.state.perfItems}
+          dataKeys={this.state.dataKeys}
+          onDataKeyClick={this.onDataKeyClick}
+        />
       </div>
     </div>
     );

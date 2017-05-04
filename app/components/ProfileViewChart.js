@@ -16,13 +16,28 @@ const ProfileViewChart = (props) => {
   const {
     perfData,
     perfItems,
+    dataKeys,
     onPerfItemClick,
+    showDataKeys,
     checkIfTwoGraphsActive,
   } = props;
 
+  let data;
+  perfItems.forEach((perfItem) => {
+    if (perfItem.selected) {
+      data = perfData[perfItem.id];
+    }
+  });
+
+  let dataKey;
+  dataKeys.forEach((key) => {
+    if (key.selected) {
+      dataKey = key.label;
+    }
+  });
+
   console.log('********** hello **********');
   console.log(perfData);
-  const data = perfData[0];
 
   const graphOne = (
     <div>
@@ -32,7 +47,7 @@ const ProfileViewChart = (props) => {
         <CartesianGrid stroke={'#F8BBD0'} strokeDasharray="1 1" />
         <Tooltip />
         <Legend />
-        <Bar dataKey='Inclusive wasted time (ms)' fill='#673ab7' />
+        <Bar dataKey={dataKey} fill='#673ab7' />
         <Brush />
       </BarChart>
     </div>
@@ -47,7 +62,7 @@ const ProfileViewChart = (props) => {
           <CartesianGrid stroke={'#F8BBD0'} strokeDasharray="1 1" />
           <Tooltip />
           <Legend />
-          <Bar dataKey='Inclusive wasted time (ms)' fill='#673ab7' />
+          <Bar dataKey={dataKey} fill='#673ab7' />
         </BarChart>
       </div>
     );
@@ -61,16 +76,22 @@ const ProfileViewChart = (props) => {
     <br />
     {graphTwo}
     <div className={styles.toolbarToggleTooltips}>
-      <PerfItemList perfItems={perfItems} onPerfItemClick={onPerfItemClick} />
+      <PerfItemList
+        perfItems={perfItems}
+        onPerfItemClick={onPerfItemClick}
+        showDataKeys={showDataKeys}
+      />
     </div>
   </div>
   );
 };
 
 ProfileViewChart.propTypes = {
-  perfData: PropTypes.object.isRequired,
-  perfItems: PropTypes.object.isRequired,
+  perfData: PropTypes.array.isRequired,
+  perfItems: PropTypes.array.isRequired,
+  dataKeys: PropTypes.array.isRequired,
   onPerfItemClick: PropTypes.func.isRequired,
+  showDataKeys: PropTypes.func.isRequired,
   checkIfTwoGraphsActive: PropTypes.func.isRequired,
 };
 

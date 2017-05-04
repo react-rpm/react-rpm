@@ -1,47 +1,19 @@
-import React, { Component } from 'react';
-import styles from './styles/toolbar.css';
-import GraphPicker from './GraphPicker';
-import DisplayedGraphs from './DisplayedGraphs'
+import React, { PropTypes } from 'react';
+import ProfileDataKeyList from './ProfileDataKeyList';
 
-const ProfileToolbar = (props) => {
-  const {
-        tooltipValues,
-        toggleTooltipValues,
-        allComponents,
-        twoGraphsAreActive,
-        twoGraphToggler,
-        updateGraph,
-        componentsActiveOnGraphs,
-        getComponent
-      } = props;
+const ProfileToolbar = ({ dataKeys, onDataKeyClick }) => (
+  <div>
+    <ProfileDataKeyList
+      dataKeys={dataKeys}
+      onDataKeyClick={onDataKeyClick}
+    />
+  </div>
+);
 
-  return (
-    <div>
-      <div id={styles.toolbarContainer}>
-        <div className={styles.toolbarPanel}>
-          <div className={styles.toolbarPanelTitle}>
-            <span>Displayed Graphs</span>
-            <DisplayedGraphs
-              componentsActiveOnGraphs={componentsActiveOnGraphs}
-              updateGraph={updateGraph}
-              getComponent={getComponent}
-            />
-          </div>
-        </div>
-        <div className={styles.toolbarPanel}>
-          <div className={styles.toolbarPanelTitle}>
-            <span>Graph Selector</span>
-            <GraphPicker
-              allComponents={allComponents}
-              twoGraphsAreActive={twoGraphsAreActive}
-              updateGraph={updateGraph}
-              twoGraphToggler={twoGraphToggler}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
+ProfileToolbar.propTypes = {
+  perfItems: PropTypes.array.isRequired,
+  dataKeys: PropTypes.array.isRequired,
+  onDataKeyClick: PropTypes.func.isRequired,
+};
 
 export default ProfileToolbar;
