@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import ProfileDataKeyList from './ProfileDataKeyList';
 
-const ProfileToolbar = ({ dataKeys, onDataKeyClick }) => (
-  <div
+const ProfileContent = ({ dataKeys, onDataKeyClick }) => (
+  <div className='dataKeyList'
     style={{
       margin: '16px 64px',
     }}
@@ -14,10 +14,10 @@ const ProfileToolbar = ({ dataKeys, onDataKeyClick }) => (
   </div>
 );
 
-ProfileToolbar.propTypes = {
+ProfileContent.propTypes = {
   perfItems: PropTypes.array.isRequired,
   dataKeys: PropTypes.array.isRequired,
   onDataKeyClick: PropTypes.func.isRequired,
 };
 
-export default ProfileToolbar;
+export default ProfileContent;

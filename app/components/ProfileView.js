@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import ProfileViewChart from './ProfileViewChart';
-import ProfileToolbar from './ProfileToolbar';
+import ProfileChart from './ProfileChart';
+import ProfileBar from './ProfileBar';
+import ProfileContent from './ProfileContent';
 import styles from './styles/profileView.css';
 import { samplePerfs } from './sample_perfs';
 
@@ -97,36 +98,27 @@ class ProfileView extends Component {
     this.setState({ dataKeys });
   }
 
-  twoGraphToggler = (bool) => {
-    this.resetComponentGraphAnimation();
-    this.setState({ twoGraphsAreActive: bool });
-  }
-
   resetComponentGraphAnimation = () => {
     this.state.allComponents.forEach(component => {
       component.enableAllMetricAnimation();
     });
   }
 
-  checkIfTwoGraphsActive = () => {
-    const returnVal = this.state.twoGraphsAreActive;
-    return returnVal;
-  }
-
   render() {
     return (
     <div id={styles.main_container}>
       <img src={require('./styles/banner_logo.png')} />
-      <ProfileViewChart
+      <ProfileChart
         perfData = {this.perfData}
         perfItems={this.state.perfItems}
         dataKeys={this.state.dataKeys}
+      />
+      <ProfileBar
+        perfItems={this.state.perfItems}
         onPerfItemClick={this.onPerfItemClick}
         showDataKeys={this.showDataKeys}
-        checkIfTwoGraphsActive={this.checkIfTwoGraphsActive}
-        twoGraphToggler={this.twoGraphToggler}
       />
-      <ProfileToolbar
+      <ProfileContent
         perfItems={this.state.perfItems}
         dataKeys={this.state.dataKeys}
         onDataKeyClick={this.onDataKeyClick}
