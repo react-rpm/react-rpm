@@ -3,7 +3,10 @@ import React, { PropTypes } from 'react';
 const ProfileDataKey = ({ onClick, selected, label }) => (
   <button
     onClick={onClick}
-    style={{ backgroundColor: selected ? '#8BC34A' : 'white' }}
+    style={{
+      backgroundColor: selected ? '#DCEDC8' : 'white',
+      color: selected ? 'black' : '#757575',
+    }}
   >
     {label}
   </button>

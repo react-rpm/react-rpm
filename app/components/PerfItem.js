@@ -3,7 +3,10 @@ import React, { PropTypes } from 'react';
 const PerfItem = ({ onClick, selected, label }) => (
   <button
     onClick={onClick}
-    style={{ backgroundColor: selected ? '#03A9F4' : 'white' }}
+    style={{
+      backgroundColor: selected ? '#B3E5FC' : 'white',
+      color: selected ? 'black' : '#757575',
+    }}
   >
     {label}
   </button>

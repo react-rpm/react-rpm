@@ -29,6 +29,20 @@ const ProfileViewChart = (props) => {
   });
 
   let xDataKey;
+  const keys = Object.keys(data[0]);
+  keys.forEach((key) => {
+    switch (key) {
+      case 'Owner > Component':
+        xDataKey = key;
+        break;
+      case 'Component':
+        xDataKey = key;
+        break;
+      case 'Owner > Node':
+        xDataKey = key;
+        break;
+    }
+  });
 
   let yDataKey;
   dataKeys.forEach((key) => {
@@ -37,15 +51,12 @@ const ProfileViewChart = (props) => {
     }
   });
 
-  console.log('********** hello **********');
-  console.log(perfData);
-
   const graphOne = (
     <div>
       <BarChart width={600} height={450} data={data} syncId='anyId'>
-        <XAxis dataKey={'Owner > Component'} />
+        <XAxis dataKey={xDataKey} />
         <YAxis />
-        <CartesianGrid stroke={'#F8BBD0'} strokeDasharray="1 1" />
+        <CartesianGrid stroke={'#D1C4E9'} strokeDasharray="1 1" />
         <Tooltip />
         <Legend />
         <Bar dataKey={yDataKey} fill='#673ab7' />
@@ -58,9 +69,9 @@ const ProfileViewChart = (props) => {
     graphTwo = (
       <div>
         <BarChart width={600} height={225} data={data} syncId='anyId'>
-          <XAxis dataKey={'name'} label={'Render'} />
+          <XAxis dataKey={xDataKey} />
           <YAxis />
-          <CartesianGrid stroke={'#F8BBD0'} strokeDasharray="1 1" />
+          <CartesianGrid stroke={'#D1C4E9'} strokeDasharray="1 1" />
           <Tooltip />
           <Legend />
           <Bar dataKey={yDataKey} fill='#673ab7' />
@@ -76,7 +87,7 @@ const ProfileViewChart = (props) => {
     {graphOne}
     <br />
     {graphTwo}
-    <div className='perfItemContainer'>
+    <div className='buttonContainer'>
       <PerfItemList
         perfItems={perfItems}
         onPerfItemClick={onPerfItemClick}

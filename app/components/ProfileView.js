@@ -22,6 +22,8 @@ class ProfileView extends Component {
         { id: 2, selected: false, label: 'Render count' },
       ],
     };
+    // Parse perfs (passed down from App) to create a perfData prop,
+    // which can be used by the ProfileViewChart component for data input.
     const perfData = [];
     const wastedTime = [];
     const inclusive = [];
