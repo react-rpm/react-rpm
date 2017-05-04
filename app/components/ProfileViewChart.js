@@ -53,14 +53,16 @@ const ProfileViewChart = (props) => {
 
   const graphOne = (
     <div>
-      <BarChart width={600} height={450} data={data} syncId='anyId'>
+      <BarChart width={560} height={400} data={data}
+        margin={{ top: 5, right: 30, left: 20, bottom: 5 }} syncId='anyId'
+      >
         <XAxis dataKey={xDataKey} />
         <YAxis />
         <CartesianGrid stroke={'#D1C4E9'} strokeDasharray="1 1" />
         <Tooltip />
-        <Legend />
-        <Bar dataKey={yDataKey} fill='#673ab7' />
-        <Brush />
+        <Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px' }} />
+        <Bar dataKey={yDataKey} fill='#673ab7' barSize={64} />
+        <Brush height={16} stroke='#7E57C2' />
       </BarChart>
     </div>
   );
@@ -87,7 +89,17 @@ const ProfileViewChart = (props) => {
     {graphOne}
     <br />
     {graphTwo}
-    <div className='buttonContainer'>
+    <div className='perfItemBar'
+      style={{
+        borderBottom: '1px solid #EEEEEE',
+        borderTop: '1px solid #EEEEEE',
+        margin: '0 auto',
+        paddingBottom: '8px',
+        paddingTop: '8px',
+        textAlign: 'center',
+        width: '100%',
+      }}
+    >
       <PerfItemList
         perfItems={perfItems}
         onPerfItemClick={onPerfItemClick}

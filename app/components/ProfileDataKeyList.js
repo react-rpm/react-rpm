@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import ProfileDataKey from './ProfileDataKey';
 
 const ProfileDataKeyList = ({ dataKeys, onDataKeyClick }) => (
-  <div>
+  <div className='dataKeyContainer'>
     {dataKeys.map(dataKey =>
       <ProfileDataKey
         key={dataKey.id}

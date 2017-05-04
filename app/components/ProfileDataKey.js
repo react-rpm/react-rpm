@@ -4,6 +4,7 @@ const ProfileDataKey = ({ onClick, selected, label }) => (
   <button
     onClick={onClick}
     style={{
+      display: 'block',
       backgroundColor: selected ? '#DCEDC8' : 'white',
       color: selected ? 'black' : '#757575',
     }}

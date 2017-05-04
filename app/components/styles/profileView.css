@@ -16,23 +16,10 @@
   width: 650px;
 }
 
-.perfItemContainer {
-  margin-left: 20px;
-}
-
 button {
   border: none;
   border-radius: 2px;
   font-size: 11pt;
   outline: none;
   padding: 8px 16px;
-}
-
-.buttonContainer button {
-  display: inline-block;
-  margin-top: 24px;
-}
-
-.toolbar button {
-  display: block;
 }
