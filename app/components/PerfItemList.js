@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import PerfItem from './PerfItem';
-import styles from './DataItemList.css';
 
 const PerfItemList = ({ perfItems, onPerfItemClick, showDataKeys }) => (
   <div>

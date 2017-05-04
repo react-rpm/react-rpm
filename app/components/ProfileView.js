@@ -22,6 +22,7 @@ class ProfileView extends Component {
         { id: 2, selected: false, label: 'Render count' },
       ],
     };
+    const perfData = [];
     const wastedTime = [];
     const inclusive = [];
     const exclusive = [];
@@ -30,7 +31,6 @@ class ProfileView extends Component {
     samplePerfs.inclusive[0].forEach((set) => { inclusive.push(set); });
     samplePerfs.exclusive[0].forEach((set) => { exclusive.push(set); });
     samplePerfs.dom[0].forEach((set) => { dom.push(set); });
-    const perfData = [];
     perfData.push(wastedTime);
     perfData.push(inclusive);
     perfData.push(exclusive);
@@ -39,8 +39,14 @@ class ProfileView extends Component {
   }
 
   onPerfItemClick = (perfItem) => {
-    perfItem.selected = !perfItem.selected;
+    const item = perfItem;
+    item.selected = !item.selected;
     const perfItems = this.state.perfItems;
+    perfItems.forEach((p) => {
+      if (p.label !== item.label && p.selected) {
+        p.selected = !p.selected;
+      }
+    });
     this.setState({ perfItems });
   }
 
@@ -78,8 +84,14 @@ class ProfileView extends Component {
   }
 
   onDataKeyClick = (dataKey) => {
-    dataKey.selected = !dataKey.selected;
+    const key = dataKey
+    key.selected = !key.selected;
     const dataKeys = this.state.dataKeys;
+    dataKeys.forEach((k) => {
+      if (k.label !== key.label && k.selected) {
+        k.selected = !k.selected;
+      }
+    });
     this.setState({ dataKeys });
   }
 
