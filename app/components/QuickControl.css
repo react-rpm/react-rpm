@@ -1,6 +1,6 @@
 .quickControl {
   height: 25px;
-  background: #F3F3F3;
+  background: white;
   display: flex;
   align-items: center;
 }

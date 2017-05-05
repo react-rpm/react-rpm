@@ -3,9 +3,9 @@ import Plot from './Plot';
 import PerfComponent from './PerfComponent';
 import Toolbar from './Toolbar';
 import CustomToolTip from './CustomToolTip';
-import {sample_perfs} from './sample_perfs'
+import {sample_perfs} from '.././sample_perfs';
 import styles from './styles/visualizer.css';
-import banner from './styles/banner_logo.png'
+import banner from './styles/banner_logo.png';
 
 // import Sample from './sample_perfs'
 
