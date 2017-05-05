@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import ProfileView from './ProfileView';
 import DoublePanel from '../components/DoublePanel';
 import ProfileList from '../components/ProfileList';
 import ProfileResult from '../components/ProfileResult';
 import Visualizer from '../components/Visualizer';
-import ProfileView from '../components/ProfileView';
 import {
   connect as connectToContentScript
 } from '../actions';

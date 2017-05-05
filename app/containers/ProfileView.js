@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import ProfileChart from './ProfileChart';
-import ProfileBar from './ProfileBar';
-import ProfileContent from './ProfileContent';
-import styles from './styles/profileView.css';
-import { samplePerfs } from './sample_perfs';
+import ProfileChart from '.././components/ProfileChart';
+import ProfileBar from '.././components/ProfileBar';
+import ProfileContent from '.././components/ProfileContent';
+import styles from '.././assets/profileView.css';
+import { samplePerfs } from '.././sample_perfs';
 
 class ProfileView extends Component {
   constructor(props) {
@@ -101,7 +101,7 @@ class ProfileView extends Component {
   render() {
     return (
     <div id={styles.main_container}>
-      <img src={require('./styles/banner_logo.png')} />
+      <img src={require('.././assets/banner_logo.png')} />
       <ProfileChart
         perfData = {this.perfData}
         perfItems={this.state.perfItems}
