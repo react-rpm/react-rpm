@@ -3,7 +3,7 @@
   display:block;
   width:600px;
   height:20px;
-  background: '#ededed';
+  background: white;
   outline-style:solid;
   outline-width:thin;
   margin-left:30px;
@@ -16,7 +16,7 @@
   margin-left:auto;
   width:650px;
   height:500px;
-  background:red;
+  background: white;
 }
 
 #graphPlaceholder{

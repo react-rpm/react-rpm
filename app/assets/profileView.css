@@ -1,0 +1,25 @@
+#main_container {
+  background: white;
+  background-repeat: repeat;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.chartContainer {
+  background: white;
+  display: block;
+  height: 500px;
+  margin-right: auto;
+  margin-left: auto;
+  position: relative;
+  width: 650px;
+}
+
+button {
+  border: none;
+  border-radius: 2px;
+  font-size: 11pt;
+  outline: none;
+  padding: 8px 16px;
+}

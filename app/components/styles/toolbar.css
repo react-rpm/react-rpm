@@ -3,14 +3,14 @@
   display:block;
   width:fit-content;
   height:fit-content;
-  background:#d8d8d8;
+  background: white;
   margin-left:30px;
 }
 
 .toolbarPanel {
   position:relative;
   display:inline-block;
-  background: #ededed;
+  background: white;
   width:300px;
   height:200px;
   outline-style:solid;
@@ -23,7 +23,7 @@
   display:block;
   width:600px;
   height:50px;
-  background: #ededed;
+  background: white;
   outline-style:solid;
   outline-width:thin;
 }

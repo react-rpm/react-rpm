@@ -1,20 +1,22 @@
 import React, { PropTypes } from 'react';
 
-const DataItem = ({ onClick, selected, label }) => (
+const ProfileDataKey = ({ onClick, selected, label }) => (
   <button
     onClick={onClick}
     style={{
-      backgroundColor: selected ? 'gray' : 'white'
+      display: 'block',
+      backgroundColor: selected ? '#FFCCBC' : 'white',
+      color: selected ? 'black' : '#757575',
     }}
   >
     {label}
   </button>
 );
 
-DataItem.propTypes = {
+ProfileDataKey.propTypes = {
   onClick: PropTypes.func.isRequired,
   selected: PropTypes.bool.isRequired,
   label: PropTypes.string.isRequired,
 };
 
-export default DataItem;
+export default ProfileDataKey;
