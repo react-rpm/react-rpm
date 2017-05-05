@@ -1,14 +1,19 @@
 import React, { PropTypes } from 'react';
+import styles from './DataItemList.css';
+
+
 
 const DataItem = ({ onClick, selected, label }) => (
-  <li
+  <div
+    className={styles.data_item}
     onClick={onClick}
     style={{
-      backgroundColor: selected ? 'gray' : 'white'
+      backgroundColor: selected ? 'rgba(1,190,229, .9)' : 'transparent',
+      color: selected ? 'black' : 'white'
     }}
   >
     {label}
-  </li>
+  </div>
 );
 
 DataItem.propTypes = {

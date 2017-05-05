@@ -1,45 +1,56 @@
 #toolbarContainer{
   position:relative;
   display:block;
-  width:fit-content;
-  height:fit-content;
-  background:#d8d8d8;
-  margin-left:30px;
+  margin-left:auto;
+  margin-right:auto;
+  width:650px;
+  height:235px;
+  background:url('./bg_toolbar_texture.png');
+  box-shadow: 3px 3px 3px 3px black;
 }
 
 .toolbarPanel {
   position:relative;
   display:inline-block;
-  background: #ededed;
-  width:300px;
-  height:200px;
-  outline-style:solid;
-  outline-width:thin;
+  width:304px;
+  height:225px;
   vertical-align:top;
+  background:url('./bg_panel_texture.png');
 }
 
-#toolbarToggleTooltips{
+#toolbarToCenter{
   position:relative;
   display:block;
-  width:600px;
-  height:50px;
-  background: #ededed;
-  outline-style:solid;
-  outline-width:thin;
+  margin-right:auto;
+  margin-left:auto;
+  width:fit-content;
+  height:fit-content;
 }
 
 .toolbarPanelTitle {
   width: 100%;
-  height: 20px;
+  height: 25px;
   float:top;
   text-align:center;
-  font-size: 14px;
   font-family:sans-serif;
-  outline-style:solid;
-  outline-width:thin;
   margin-bottom:5px;
+  background:url('./bg_dataitem_texture.png');
+  outline-style:solid;
+  outline-width:1px;
+  outline-color: slategrey;
+  color:white;
 }
 
 .toolbarPanelTitle span {
   margin-top:5px;
+  margin-top:13px;
+}
+
+#spacer {
+  position:relative;
+  display:inline-block;
+  width:10px;
+  height:200px;
+  vertical-align:top;
+  background:url('./bg_toolbar_texture.png');
 }

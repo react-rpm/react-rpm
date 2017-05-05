@@ -5,7 +5,12 @@ import Toolbar from './Toolbar';
 import CustomToolTip from './CustomToolTip';
 import {sample_perfs} from './sample_perfs'
 import styles from './styles/visualizer.css';
-import banner from './styles/banner_logo.png'
+import banner from './styles/bannerLogo.png';
+
+
+require('./styles/bg_graph_texture.png');
+require('./styles/bg_container_texture.png');
+require('./styles/bg_panel_texture.png');
 
 // import Sample from './sample_perfs'
 
@@ -59,6 +64,8 @@ class Visualizer extends Component {
       ],
 
       simData: false,
+
+      perfs: this.props.perfs
     };
 
     for (let key in this.state.allComponents[0]) {
@@ -76,6 +83,11 @@ class Visualizer extends Component {
     this.setState({ dataItems });
   }
   
+  componentWillReceiveProps(){
+    console.log(this.props.perfs);
+    // this.importPerfs(this.props.perfs);
+  }
+
 
   // this method handles creation of PerfComponent elements and returns an array
   // it accepts any number of strings (the names of the components), or a single string if we only want one.
@@ -92,7 +104,8 @@ class Visualizer extends Component {
   }
 
   updateGraph(){
-    this.setState({simData: !this.state.simData});
+    this.forceUpdate();
+    // this.setState({simData: !this.state.simData});
   }
 
   //this is strictly for testing. It's hardcoded to create four PerfComponents
@@ -109,20 +122,22 @@ class Visualizer extends Component {
       component.addRandomValues(10, 30)
     })
 
-    testComponentArray[0].toggleActiveMetric('RENDER', 'renderCount', 0)
+    // testComponentArray[0].toggleActiveMetric('RENDER', 'renderCount', 0)
 
     return testComponentArray;
   }
 
-  getComponent(name) {
+  //if only name specified as parameter, will return reference to PerfComponent
+  //if name and metrics specified as parameters, will return data value array for that perf component's metric
+  getComponent(name, metric=null) {
     let perfIndex;
     let allComponents = this.state.allComponents;
-    console.log('looking for component!',name);
     allComponents.forEach((component, i) => {
       if (component.name === name) perfIndex = i;
     });
 
-    if (perfIndex === undefined) return false;
+    if (perfIndex === undefined) return null;
+    if (metric) return allComponents[perfIndex].RENDER[metric].data;
     return allComponents[perfIndex];
   }
 
@@ -135,9 +150,14 @@ class Visualizer extends Component {
     const existingComponents = this.state.allComponents;
 
     for (let perfType in perfs) {
-      perfs.exclusive[0].forEach((data,i) => {
-        console.log(data)
-        if(!existingComponents.includes(data['Component'])) {
+      perfs.excluded.forEach((data,i) => {
+        let componentName = data.Component //string of the component's name. Will pass to getComponent to check to see if it exists. If it does, fill that component with new perf data. If it doesn't, you need to create a new perf component
+        let temp = this.getComponent(componentName)
+        if(!temp) 
+          newPerfComponent = new PerfComponent(data['Component']);
+        else 
+          newPerfComponent = temp
+
           values.push(
             data['Average render time (ms)'],
             data['Instance count'],
@@ -147,7 +167,7 @@ class Visualizer extends Component {
             data['Total time (ms)']
           )
 
-          newPerfComponent = new PerfComponent(data['Component']);
+          
           newPerfComponent.addValue(values[0], 'RENDER', 'averageRenderTime');
           newPerfComponent.addValue(values[1], 'RENDER', 'instanceCount');
           newPerfComponent.addValue(values[2], 'RENDER', 'renderCount');
@@ -157,39 +177,16 @@ class Visualizer extends Component {
 
           existingComponents.push(data['Component']);
           arr.push(newPerfComponent);          
-        }
-      })
+            }
+          })
     }
     this.setState({allComponents: arr,
-                    simData: !this.state.simData
                   });
     }
-// Average render time (ms)
-// :
-// 0.05
-// Component
-// :
-// "App"
-// Instance count
-// :
-// 1
-// Render count
-// :
-// 1
-// Total lifecycle time (ms)
-// :
-// 0
-// Total render time (ms)
-// :
-// 0.05
-// Total time (ms)
-// :
-// 0.05
 
   // This iterates through this.state.allComponents and calls each PerfComponent's exportGraphData method, which returns all the data for graphs that is ACTIVE on, ignoring all data that isn't active.
   // the compiledGraphData gets passed to the Plot component as a prop
   compileGraphData() {
-    console.log('compileGraphData Running!');
     let compiledGraphData = [];
     let placeHolder = [];
     let newActiveComponent;
@@ -206,7 +203,6 @@ class Visualizer extends Component {
             graphDisplay: component.RENDER[array[2]].graphDisplay
           }
           this.componentsActiveOnGraphs.push(newActiveComponent);
-          console.log('****',this.componentsActiveOnGraphs);
           compiledGraphData.push(array)
         }
       })
@@ -218,7 +214,6 @@ class Visualizer extends Component {
   // this get's passed to the TwoGraphToggler component as a bound prop, which is a radio button used by the Plot component.
   // this method gets fired every time the user presses one of the button, and we update the state accordingly
   twoGraphToggler(bool) {
-    console.log('TWO GRAPH TOGGLED!!!');
     this.resetComponentGraphAnimation();
     this.setState({ twoGraphsAreActive: bool });
   }
@@ -242,30 +237,40 @@ class Visualizer extends Component {
   }
 
   render(){
+    
     this.compiledGraphData = this.compileGraphData();
+    
 
     return(
 
     <div id={styles.main_container}>
-      <div id='plot-container'>
-        <img src={require('./styles/banner_logo.png')}/>
-        <Plot 
-          compiledGraphData = {this.compiledGraphData}
-          checkIfTwoGraphsActive={this.checkIfTwoGraphsActive.bind(this)}
-          twoGraphToggler={this.twoGraphToggler.bind(this)}
+      <div id={styles.bannerContainer}>
+        <img id={styles.bannerLogo} src={require('./styles/bannerLogo.png')}/>
+      </div>
+      <div id={styles.plotContainer}>
+        <div id={styles.plotWrapper}>
+          <Plot 
+            compiledGraphData = {this.compiledGraphData}
+            checkIfTwoGraphsActive={this.checkIfTwoGraphsActive.bind(this)}
+            twoGraphToggler={this.twoGraphToggler.bind(this)}
+            
 
-          //for custom tooltip
-          componentsActiveOnGraphs={this.componentsActiveOnGraphs}
+            //for custom tooltip
+            componentsActiveOnGraphs={this.componentsActiveOnGraphs}
 
-          dataItems={this.state.dataItems}
-          onDataItemClick={this.onDataItemClick.bind(this)}
+            //for data items selector && custom tooltip
+            dataItems={this.state.dataItems}
+            onDataItemClick={this.onDataItemClick.bind(this)}
 
-          tooltipValues={this.state.tooltipValues}
-        />
+            tooltipValues={this.state.tooltipValues}
+
+            //for custom tooltip
+            getComponent={this.getComponent.bind(this)}
+            simData={this.state.simData}
+          />
+        </div>
         
         <Toolbar
-          tooltipValues={this.state.tooltipValues}
-          toggleTooltipValues={this.toggleTooltipValues.bind(this)}
 
           //GraphPicker Props
           allComponents={this.state.allComponents}
@@ -276,6 +281,8 @@ class Visualizer extends Component {
           //DisplayedGraphs Props
           componentsActiveOnGraphs={this.componentsActiveOnGraphs}
           getComponent={this.getComponent.bind(this)}
+
+          compileGraphData={this.compileGraphData.bind(this)}
 
         />
       </div>

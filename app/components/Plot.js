@@ -15,14 +15,22 @@ import TwoPaneToggle from './TwoPaneToggle';
 import DataItemList from './DataItemList';
 import styles from './styles/plot.css';
 
+require('./styles/bg_graph_texture.png')
+require('./styles/bg_dataitem_texture.png');
+require('./styles/tachometer.png');
+require('./styles/Tachometer_hover.png');
+
 const Plot = (props) => {
+
   const {
     compiledGraphData, // holds all graph data exported from each PerfComponent
     checkIfTwoGraphsActive,
     twoGraphToggler,
     dataItems,
     onDataItemClick,
-    componentsActiveOnGraph
+    componentsActiveOnGraphs,
+    getComponent,
+    simData
   } = props;
 
   let graphHeight = 450;
@@ -102,33 +110,32 @@ const Plot = (props) => {
           graphRenders[graph_code][metricName] = [];
 
         metricShouldAnimate = metric.animationIsActive;
-        console.log('GraphStyle |',metricName, metric.graphDisplay);
-        
+
         switch (metric.graphDisplay) {
 
-          case 'Bar': 
+          case 'Bar':
             graphRenders[graph_code][metricName].push(
               <Bar
                 key={i}
                 dataKey={componentName}
                 fill={metric.colorTheme}
                 isAnimationActive={metricShouldAnimate}
-                />)
-              break;
+              />)
+            break;
           case 'Line':
             graphRenders[graph_code][metricName].push(
               <Line
-                key={i} 
-                type='monotone' 
-                dataKey={componentName} 
-                stroke={metric.colorTheme} 
+                key={i}
+                type='monotone'
+                dataKey={componentName}
+                stroke={metric.colorTheme}
                 fill={metric.colorTheme}
-                strokeWidth={1} 
-                activeDot={{r: 8}} 
-                dot={{r:2}}
+                strokeWidth={1}
+                activeDot={{ r: 8 }}
+                dot={{ r: 2 }}
                 isAnimationActive={metricShouldAnimate}
-                />)
-              break;
+              />)
+            break;
 
           case 'Area':
             graphRenders[graph_code][metricName].push(
@@ -141,69 +148,87 @@ const Plot = (props) => {
                 strokeWidth={3}
                 activeDot={{ r: 8 }}
                 isAnimationActive={metricShouldAnimate}
-                />)
-              break;
-          }
+              />)
+            break;
         }
-      });
+      }
     });
-
+  });
+  
   let graphTwo;
-  let placeholder; 
+  let placeholder;
   if (checkIfTwoGraphsActive()) {
-    console.log('TWO GRAPHS BEING RENDERED!!!');
     graphTwo = (
-      <div>
-            <ComposedChart width={600} height={225} data={data[1]} fill={'#C3C8CC'} syncId='anyId'>
-              <XAxis dataKey={'name'} label={'Render'}/>
-              <YAxis/>
-              <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1"/>
-              <Tooltip/>
-              <Legend/>
-              {graphRenders[1]['timeWasted']}
-              {graphRenders[1]['renderCount']}
-              {graphRenders[1]['instanceCount']}
-              {graphRenders[1]['totalRenderTime']}
-              {graphRenders[1]['averageRenderTime']}
-              {graphRenders[1]['totalTime']}
-              {graphRenders[1]['totalLifeCycleTime']}
-            </ComposedChart>
-          </div>
-      );
-    } else {
-      graphTwo = (<div></div>);
-      // twoGraphToggler(false);
+      <div className={styles.graphContainer}>
+        <ComposedChart
+          width={600}
+          height={225}
+          data={data[1]}
+          fill={"transparent"}
+          syncId="anyId">
+          <XAxis dataKey={"name"} label={"Render"} />
+          <YAxis />
+          <CartesianGrid stroke={"#DCFFFD"} strokeDasharray="1 1" />
+          <Tooltip/>
+          <Legend />
+          {graphRenders[1]['timeWasted']}
+          {graphRenders[1]['renderCount']}
+          {graphRenders[1]['instanceCount']}
+          {graphRenders[1]['totalRenderTime']}
+          {graphRenders[1]['averageRenderTime']}
+          {graphRenders[1]['totalTime']}
+          {graphRenders[1]['totalLifeCycleTime']}
+        </ComposedChart>
+      </div>
+    );
+  } else {
+    graphTwo = (<div></div>);
+    if(graphHeight === 225) {
+      console.log('SHOULD UPDATE GRAPH SIZE');
+      graphHeight = 450
     }
-
-    if (!compiledGraphData.length) placeholder = (<div id={styles.graphPlaceholder}></div>)
-    return (
-    <div className='plotContainer'>
+  }
+  if (!compiledGraphData.length) 
+    placeholder = (
+      <div id={styles.graphPlaceholder}>
+        {/*<img 
+          id={styles.tachometer} 
+          src={require('./styles/tachometer.png')} 
+        />*/}
+      </div>
+    )
+  return (
+    <div className='graphContainer'>
       {placeholder}
       <div>
-        {/*<TwoPaneToggle twoGraphsAreActive={twoGraphsAreActive} handleChange={twoGraphToggler} />*/}
-        <ComposedChart width={600} height={graphHeight} data={data[0]} fill={'#C3C8CC'} syncId='anyId'>
-          <XAxis dataKey={'name'} />
+        <ComposedChart
+          width={600}
+          height={graphHeight}
+          data={data[0]}
+          syncId="anyId"
+        >
+          <XAxis dataKey={"name"} />
           <YAxis />
-          <CartesianGrid stroke={'#DCFFFD'} strokeDasharray="1 1" />
-          <Tooltip />
+          <CartesianGrid stroke={"#DCFFFD"} strokeDasharray="1 1" />
+          <Tooltip/>
           <Legend />
-              {graphRenders[0]['timeWasted']}
-              {graphRenders[0]['renderCount']}
-              {graphRenders[0]['instanceCount']}
-              {graphRenders[0]['totalRenderTime']}
-              {graphRenders[0]['averageRenderTime']}
-              {graphRenders[0]['totalTime']}
-              {graphRenders[0]['totalLifeCycleTime']}
-              <Brush/>
-            </ComposedChart>
-        </div>
-      <br/>
+          {graphRenders[0]['timeWasted']}
+          {graphRenders[0]['renderCount']}
+          {graphRenders[0]['instanceCount']}
+          {graphRenders[0]['totalRenderTime']}
+          {graphRenders[0]['averageRenderTime']}
+          {graphRenders[0]['totalTime']}
+          {graphRenders[0]['totalLifeCycleTime']}
+          <Brush />
+        </ComposedChart>
+      </div>
+      <br />
       {graphTwo}
       <div className={styles.toolbarToggleTooltips}>
         <DataItemList dataItems={dataItems} onDataItemClick={onDataItemClick} />
       </div>
     </div>
-    );
-  }
+  );
+}
 //margin={{top: 5, right: 30, left: 20, bottom: 5}}
 export default Plot;

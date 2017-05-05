@@ -1,31 +1,32 @@
-.toolbarToggleTooltips{
+
+#graphPlaceholder{
   position:relative;
   display:block;
-  width:600px;
-  height:20px;
-  background: '#ededed';
-  outline-style:solid;
-  outline-width:thin;
-  margin-left:30px;
+  height: 450px;
+  width: 600px;
+  background: url('./tachometer.png');
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
-.plotContainer{
+#tachometer{
+  position:relative;
+  display:block;
+  width: 550px;
+  height:350px;
+  margin-right:auto;
+  margin-left:auto;
+  
+}
+
+.toolbarToggleTooltips{
   position:relative;
   display:block;
   margin-right:auto;
   margin-left:auto;
   width:650px;
-  height:500px;
-  background:red;
+  height:30px;
+  background: url('./bg_dataitem_texture.png');
+  background-repeat:repeat;
+  font-size:11px;
 }
-
-#graphPlaceholder{
-  position:relative;
-  display:block;
-  margin-right:auto;
-  margin-left:auto;
-  height: 450px;
-  width: 100px;
-  
-}
-

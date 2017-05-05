@@ -1,4 +1,46 @@
 #main_container{
   margin:0;
   background-repeat: repeat;
+  background: url('./bg_container_texture.png');
+  width:100%;
+  height:900px;
+}
+
+#bannerContainer{
+  position:relative;
+  display:block;
+  width:100%;
+  height:30px;
+  background: url('./bg_blue_texture.png');
+  background-repeat:repeat;
+}
+
+#bannerLogo{
+  height:80%;
+  position:relative;
+  display:inline-block;
+  margin-left: 10px;
+  margin-top: 5px;
+  vertical-align:middle;
+}
+#plotContainer{
+  position:relative;
+  display:block;
+  margin-right:auto;
+  margin-left:auto;
+  width:100%;
+  height:100%;
+  margin-top:10px;
+}
+
+#plotWrapper{
+  position:relative;
+  display:block;
+  margin-right:auto;
+  margin-left:auto;
+  padding-top:20px;
+  background:url('./bg_graph_texture.png');
+  box-shadow: 3px 3px 3px 3px black;
+  width:fit-content;
+  height:fit-content;
 }

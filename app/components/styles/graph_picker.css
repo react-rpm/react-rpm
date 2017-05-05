@@ -6,6 +6,16 @@
 
 #button{
   position:relative;
-  width:300px;
-  vertical-align:middle;
+  display:block;
+  width:90%;
+  height:30px;
+  margin-right:auto;
+  margin-left:auto;
+  color:white;
+  font-size: 14px;
+  background: url('./button_texture.png');
+}
+
+#graph_picker{
+  margin-top:25px;
 }

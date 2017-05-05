@@ -188,7 +188,11 @@ export default class PerfComponent {
     renderMetrics.forEach(metric => { 
       graphs.forEach(graph => {
         for (let i = 0; i < count; i += 1) {
-          Math.random() < .5 ? negative = -1 : negative = 1;
+          if (range > 2) {
+            Math.random() < .5 ? negative = -1 : negative = 1;
+          } else {
+            negative = 1;
+          }
 
           Math.random() < .2  
             ? wildCard = Math.floor(Math.random(range))
