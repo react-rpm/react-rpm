@@ -24,7 +24,7 @@ class ProfileView extends Component {
       ],
     };
     // Parse perfs (passed down from App) to create a perfData prop,
-    // which can be used by the ProfileViewChart component for data input.
+    // which can be used by ProfileChart for data input.
     const perfData = [];
     const wastedTime = [];
     const inclusive = [];
@@ -98,12 +98,6 @@ class ProfileView extends Component {
     this.setState({ dataKeys });
   }
 
-  resetComponentGraphAnimation = () => {
-    this.state.allComponents.forEach(component => {
-      component.enableAllMetricAnimation();
-    });
-  }
-
   render() {
     return (
     <div id={styles.main_container}>
@@ -119,7 +113,6 @@ class ProfileView extends Component {
         showDataKeys={this.showDataKeys}
       />
       <ProfileContent
-        perfItems={this.state.perfItems}
         dataKeys={this.state.dataKeys}
         onDataKeyClick={this.onDataKeyClick}
       />

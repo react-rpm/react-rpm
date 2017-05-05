@@ -54,11 +54,11 @@ const ProfileChart = (props) => {
       >
         <XAxis dataKey={xDataKey} />
         <YAxis />
-        <CartesianGrid stroke={'#D1C4E9'} strokeDasharray="1 1" />
+        <CartesianGrid stroke={'#757575'} strokeDasharray="1 1" />
         <Tooltip />
         <Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px' }} />
-        <Bar dataKey={yDataKey} fill='#673ab7' barSize={64} />
-        <Brush height={16} stroke='#7E57C2' />
+        <Bar dataKey={yDataKey} fill='#7C4DFF' barSize={64} />
+        <Brush height={16} stroke='#757575' />
       </BarChart>
     </div>
   );

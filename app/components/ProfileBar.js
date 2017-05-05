@@ -6,7 +6,7 @@ const ProfileBar = ({ perfItems, onPerfItemClick, showDataKeys }) => (
     style={{
       borderBottom: '1px solid #EEEEEE',
       borderTop: '1px solid #EEEEEE',
-      margin: '0 auto',
+      margin: '8px auto 0px auto',
       paddingBottom: '8px',
       paddingTop: '8px',
       textAlign: 'center',

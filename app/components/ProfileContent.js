@@ -15,7 +15,6 @@ const ProfileContent = ({ dataKeys, onDataKeyClick }) => (
 );
 
 ProfileContent.propTypes = {
-  perfItems: PropTypes.array.isRequired,
   dataKeys: PropTypes.array.isRequired,
   onDataKeyClick: PropTypes.func.isRequired,
 };

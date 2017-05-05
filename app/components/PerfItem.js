@@ -4,7 +4,7 @@ const PerfItem = ({ onClick, selected, label }) => (
   <button
     onClick={onClick}
     style={{
-      backgroundColor: selected ? '#B3E5FC' : 'white',
+      backgroundColor: selected ? '#81D4FA' : 'white',
       color: selected ? 'black' : '#757575',
     }}
   >
