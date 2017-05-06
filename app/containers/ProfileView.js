@@ -3,7 +3,6 @@ import ProfileChart from '.././components/ProfileChart';
 import ProfileBar from '.././components/ProfileBar';
 import ProfileContent from '.././components/ProfileContent';
 import styles from '.././assets/profileView.css';
-import { samplePerfs } from '.././sample_perfs';
 
 class ProfileView extends Component {
   constructor(props) {
@@ -25,15 +24,53 @@ class ProfileView extends Component {
     };
     // Parse perfs (passed down from App) to create a perfData prop,
     // which can be used by ProfileChart for data input.
+    const perfs = this.props.perfs;
     const perfData = [];
     const wastedTime = [];
     const inclusive = [];
     const exclusive = [];
     const dom = [];
-    samplePerfs.wasted[0].forEach((set) => { wastedTime.push(set); });
-    samplePerfs.inclusive[0].forEach((set) => { inclusive.push(set); });
-    samplePerfs.exclusive[0].forEach((set) => { exclusive.push(set); });
-    samplePerfs.dom[0].forEach((set) => { dom.push(set); });
+    if (perfs.wasted[0]) perfs.wasted[0].forEach((set) => { wastedTime.push(set); });
+    else {
+      wastedTime.push({
+        'Owner > Component': 'N/A',
+        'Inclusive wasted time (ms)': 0,
+        'Instance count': 0,
+        'Render count': 0,
+      });
+    }
+    if (perfs.inclusive[0]) perfs.inclusive[0].forEach((set) => { inclusive.push(set); });
+    else {
+      inclusive.push({
+        'Owner > Component': 'N/A',
+        'Inclusive render time (ms)': 0,
+        'Instance count': 0,
+        'Render count': 0,
+      });
+    }
+    if (perfs.exclusive[0]) perfs.exclusive[0].forEach((set) => { exclusive.push(set); });
+    else {
+      exclusive.push({
+        'Component': 'N/A',
+        'Total time (ms)': 0,
+        'Instance count': 0,
+        'Total render time (ms)': 0,
+        'Average render time (ms)': 0,
+        'Render count': 0,
+        'Total lifecycle time (ms)': 0,
+      });
+    }
+    if (perfs.dom[0]) perfs.dom[0].forEach((set) => { dom.push(set); });
+    else {
+      dom.push({
+        'Owner > Node': 'N/A',
+        'Operation': 'N/A',
+        'Payload': 'N/A',
+        'Flush index': 0,
+        'Owner Component ID': 0,
+        'DOM Component ID': 0,
+      });
+    }
     perfData.push(wastedTime);
     perfData.push(inclusive);
     perfData.push(exclusive);

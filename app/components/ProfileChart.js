@@ -47,10 +47,10 @@ const ProfileChart = (props) => {
     }
   });
 
-  const graph = (
+  const chart = (
     <div>
       <BarChart width={560} height={400} data={data}
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }} syncId='anyId'
+        margin={{ top: 8, right: 56, left: 0, bottom: 16 }} syncId='anyId'
       >
         <XAxis dataKey={xDataKey} />
         <YAxis />
@@ -64,8 +64,13 @@ const ProfileChart = (props) => {
   );
 
   return (
-    <div className='chartContainer'>
-      {graph}
+    <div className='chartContainer'
+      style={{
+        margin: '0 auto',
+        width: '560px',
+      }}
+    >
+      {chart}
     </div>
   );
 };

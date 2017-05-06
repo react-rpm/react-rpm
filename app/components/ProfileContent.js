@@ -2,15 +2,18 @@ import React, { PropTypes } from 'react';
 import ProfileDataKeyList from './ProfileDataKeyList';
 
 const ProfileContent = ({ dataKeys, onDataKeyClick }) => (
-  <div className='dataKeyList'
-    style={{
-      margin: '16px 64px',
-    }}
-  >
-    <ProfileDataKeyList
-      dataKeys={dataKeys}
-      onDataKeyClick={onDataKeyClick}
-    />
+  <div>
+    <div className='dataKeyListContainer'
+      style={{
+        margin: '0 auto',
+        width: '420px',
+      }}
+    >
+      <ProfileDataKeyList
+        dataKeys={dataKeys}
+        onDataKeyClick={onDataKeyClick}
+      />
+    </div>
   </div>
 );
 
