@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import PerfItem from './PerfItem';
 
 const PerfItemList = ({ perfItems, onPerfItemClick, showDataKeys }) => (
