@@ -47,28 +47,28 @@ const ProfileChart = (props) => {
       yDataKey = key.label;
     }
   });
-
+  console.log(data);
   let chart;
   if (perfItems[3].selected) {
     chart = (
       <table>
         <thead>
           <tr>
-            <th>(index)</th>
+            <th>Index</th>
             {keys.map(k => <th key={k}>{k}</th>)}
           </tr>
         </thead>
         <tbody>
-          {data.map((row, i) => {
+          {data.map((row, i) =>
             <tr key={i}>
               <td>{i}</td>
               {keys.map((k) => {
                 const value = row[k];
-                if (typeof value === 'string') return <td key={k}>"{value}"</td>;
+                // if (typeof value === 'string') return <td key={k}>"{value}"</td>;
                 return <td key={k}>{value}</td>;
               })}
-            </tr>;
-          })}
+            </tr>,
+          )}
         </tbody>
       </table>
     );
