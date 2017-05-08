@@ -48,24 +48,52 @@ const ProfileChart = (props) => {
     }
   });
 
-  const chart = (
-    <div>
-      <BarChart width={560} height={400} data={data}
-        margin={{ top: 8, right: 56, left: 0, bottom: 16 }} syncId='anyId'
-      >
-        <XAxis dataKey={xDataKey} />
-        <YAxis />
-        <CartesianGrid stroke={'#757575'} strokeDasharray="1 1" />
-        <Tooltip />
-        <Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px' }} />
-        <Bar dataKey={yDataKey} fill='#7C4DFF' barSize={64} />
-        <Brush height={16} stroke='#757575' />
-      </BarChart>
-    </div>
-  );
+  let chart;
+  if (perfItems[3].selected) {
+    chart = (
+      <table>
+        <thead>
+          <tr>
+            <th>(index)</th>
+            {keys.map(k => <th key={k}>{k}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((row, i) => {
+            <tr key={i}>
+              <td>{i}</td>
+              {keys.map((k) => {
+                const value = row[k];
+                if (typeof value === 'string') return <td key={k}>"{value}"</td>;
+                return <td key={k}>{value}</td>;
+              })}
+            </tr>;
+          })}
+        </tbody>
+      </table>
+    );
+  } else {
+    chart = (
+      <div>
+        <BarChart
+          width={560} height={400} data={data}
+          margin={{ top: 8, right: 56, left: 0, bottom: 16 }} syncId='anyId'
+        >
+          <XAxis dataKey={xDataKey} />
+          <YAxis />
+          <CartesianGrid stroke={'#757575'} strokeDasharray="1 1" />
+          <Tooltip />
+          <Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px' }} />
+          <Bar dataKey={yDataKey} fill='#7C4DFF' barSize={64} />
+          <Brush height={16} stroke='#757575' />
+        </BarChart>
+      </div>
+    );
+  }
 
   return (
-    <div className='chartContainer'
+    <div
+      className='chartContainer'
       style={{
         margin: '0 auto',
         width: '560px',

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import PerfItem from './PerfItem';
 
 const PerfItemList = ({ perfItems, onPerfItemClick, showDataKeys }) => (
-  <div>
+  <div className='PerfItemContainer'>
     {perfItems.map(perfItem =>
       <PerfItem
         key={perfItem.id}
@@ -12,17 +12,18 @@ const PerfItemList = ({ perfItems, onPerfItemClick, showDataKeys }) => (
           onPerfItemClick(perfItem);
           showDataKeys(perfItem);
         }}
-      />
+      />,
     )}
   </div>
 );
 
-PerfItem.propTypes = {
-  perfItems: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    selected: PropTypes.bool.isRequired,
-    label: PropTypes.string.isRequired,
-  }).isRequired).isRequired,
+PerfItemList.propTypes = {
+  perfItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      selected: PropTypes.bool.isRequired,
+      label: PropTypes.string.isRequired,
+    }).isRequired).isRequired,
   onPerfItemClick: PropTypes.func.isRequired,
   showDataKeys: PropTypes.func.isRequired,
 };

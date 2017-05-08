@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ProfileChart from '.././components/ProfileChart';
 import ProfileBar from '.././components/ProfileBar';
 import ProfileContent from '.././components/ProfileContent';
 import styles from '.././assets/profileView.css';
+import { samplePerfs } from '.././sample_perfs';
 
 class ProfileView extends Component {
+  static propTypes = {
+    perfs: PropTypes.object.isRequired,
+  };
   constructor(props) {
     super(props);
-
     this.state = {
       twoGraphsAreActive: false,
       perfItems: [
@@ -30,7 +34,7 @@ class ProfileView extends Component {
     const inclusive = [];
     const exclusive = [];
     const dom = [];
-    if (perfs.wasted[0]) perfs.wasted[0].forEach((set) => { wastedTime.push(set); });
+    if (samplePerfs.wasted[0]) samplePerfs.wasted[0].forEach((set) => { wastedTime.push(set); });
     else {
       wastedTime.push({
         'Owner > Component': 'N/A',
@@ -39,7 +43,7 @@ class ProfileView extends Component {
         'Render count': 0,
       });
     }
-    if (perfs.inclusive[0]) perfs.inclusive[0].forEach((set) => { inclusive.push(set); });
+    if (samplePerfs.inclusive[0]) samplePerfs.inclusive[0].forEach((set) => { inclusive.push(set); });
     else {
       inclusive.push({
         'Owner > Component': 'N/A',
@@ -48,7 +52,7 @@ class ProfileView extends Component {
         'Render count': 0,
       });
     }
-    if (perfs.exclusive[0]) perfs.exclusive[0].forEach((set) => { exclusive.push(set); });
+    if (samplePerfs.exclusive[0]) samplePerfs.exclusive[0].forEach((set) => { exclusive.push(set); });
     else {
       exclusive.push({
         'Component': 'N/A',
@@ -60,7 +64,7 @@ class ProfileView extends Component {
         'Total lifecycle time (ms)': 0,
       });
     }
-    if (perfs.dom[0]) perfs.dom[0].forEach((set) => { dom.push(set); });
+    if (samplePerfs.dom[0]) samplePerfs.dom[0].forEach((set) => { dom.push(set); });
     else {
       dom.push({
         'Owner > Node': 'N/A',
@@ -120,6 +124,16 @@ class ProfileView extends Component {
         ];
         this.setState({ dataKeys });
         break;
+      case 'Operations':
+        dataKeys = [
+          { id: 0, selected: true, label: 'Operation' },
+          { id: 1, selected: false, label: 'Payload' },
+          { id: 2, selected: false, label: 'Flush index' },
+          { id: 3, selected: false, label: 'Owner Component ID' },
+          { id: 4, selected: false, label: 'DOM Component ID' },
+        ];
+        this.setState({ dataKeys });
+        break;
     }
   }
 
@@ -137,23 +151,22 @@ class ProfileView extends Component {
 
   render() {
     return (
-    <div id={styles.main_container}>
-      <img src={require('.././assets/banner_logo.png')} />
-      <ProfileChart
-        perfData = {this.perfData}
-        perfItems={this.state.perfItems}
-        dataKeys={this.state.dataKeys}
-      />
-      <ProfileBar
-        perfItems={this.state.perfItems}
-        onPerfItemClick={this.onPerfItemClick}
-        showDataKeys={this.showDataKeys}
-      />
-      <ProfileContent
-        dataKeys={this.state.dataKeys}
-        onDataKeyClick={this.onDataKeyClick}
-      />
-    </div>
+      <div id={styles.main_container}>
+        <ProfileChart
+          perfData={this.perfData}
+          perfItems={this.state.perfItems}
+          dataKeys={this.state.dataKeys}
+        />
+        <ProfileBar
+          perfItems={this.state.perfItems}
+          onPerfItemClick={this.onPerfItemClick}
+          showDataKeys={this.showDataKeys}
+        />
+        <ProfileContent
+          dataKeys={this.state.dataKeys}
+          onDataKeyClick={this.onDataKeyClick}
+        />
+      </div>
     );
   }
 }

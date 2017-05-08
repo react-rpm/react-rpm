@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import PerfItemList from './PerfItemList';
 
 const ProfileBar = ({ perfItems, onPerfItemClick, showDataKeys }) => (
-  <div className='perfItemBar'
+  <div
+    className='perfItemBar'
     style={{
       borderBottom: '1px solid #EEEEEE',
       borderTop: '1px solid #EEEEEE',
