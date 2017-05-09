@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from '.././assets/profileView.css';
 import {
   BarChart,
   Bar,
@@ -49,17 +48,17 @@ const ProfileChart = (props) => {
     }
   });
 
-  const striped = { };
-
   let chart;
   if (perfItems[3].selected) {
     chart = (
       <div
+        className='opsTableContainer'
         style={{
-          height: '400',
+          height: '400px',
+          margin: '0 auto',
           overflowX: 'auto',
           overflowY: 'auto',
-          width: '560',
+          width: '640px',
         }}
       >
         <table>
@@ -78,8 +77,12 @@ const ProfileChart = (props) => {
                 <td style={{ backgroundColor: i % 2 ? '#E1F5FE' : 'white' }}>{i}</td>
                 {keys.map(k => <td
                   key={k}
-                  style={{ backgroundColor: k === yDataKey ? '#FFCCBC' :
-                    i % 2 ? '#E1F5FE' : 'white' }}
+                  style={{
+                    backgroundColor: k === yDataKey ? '#FFCCBC' :
+                      i % 2 ? '#E1F5FE' : 'white',
+                    maxWidth: '300px',
+                    overflowX: 'auto',
+                  }}
                 >{row[k]}</td>)}
               </tr>,
             )}
@@ -89,7 +92,13 @@ const ProfileChart = (props) => {
     );
   } else {
     chart = (
-      <div>
+      <div
+        className='barChartContainer'
+        style={{
+          margin: '0 auto',
+          width: '560px',
+        }}
+      >
         <BarChart
           width={560} height={400} data={data}
           margin={{ top: 8, right: 56, left: 0, bottom: 16 }} syncId='anyId'
@@ -107,13 +116,7 @@ const ProfileChart = (props) => {
   }
 
   return (
-    <div
-      className='chartContainer'
-      style={{
-        margin: '0 auto',
-        width: '560px',
-      }}
-    >
+    <div>
       {chart}
     </div>
   );
