@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ProfileView from './ProfileView';
 import DoublePanel from '../components/DoublePanel';
@@ -9,26 +10,28 @@ import {
   connect as connectToContentScript
 } from '../actions';
 
+const propTypes = {
+  connectToContentScript: PropTypes.func.isRequired,
+  perfs: PropTypes.object.isRequired,
+  showItems: PropTypes.object.isRequired,
+  recording: PropTypes.bool.isRequired,
+  perfReady: PropTypes.bool.isRequired,
+};
+
 class App extends Component {
-  static propTypes = {
-    connectToContentScript: PropTypes.func.isRequired,
-    perfs: PropTypes.object.isRequired,
-    showItems: PropTypes.object.isRequired,
-    recording: PropTypes.bool.isRequired,
-    perfReady: PropTypes.bool.isRequired,
-  };
+  static propTypes = propTypes;
 
   componentWillMount() {
     this.props.connectToContentScript();
   }
 
   render() {
-    let view;
-    view = (<ProfileView perfs={this.props.perfs} />);
+    // let view;
+    // view = (<ProfileView perfs={this.props.perfs} />);
     // else view = (<Visualizer perfs={this.props.perfs} />);
     const output = (
       <div>
-        { view }
+        <ProfileView perfs={this.props.perfs} />
         <DoublePanel>
           <ProfileList />
           <ProfileResult
