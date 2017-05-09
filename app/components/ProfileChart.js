@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from '.././assets/profileView.css';
 import {
   BarChart,
   Bar,
@@ -47,30 +48,44 @@ const ProfileChart = (props) => {
       yDataKey = key.label;
     }
   });
-  console.log(data);
+
+  const striped = { };
+
   let chart;
   if (perfItems[3].selected) {
     chart = (
-      <table>
-        <thead>
-          <tr>
-            <th>Index</th>
-            {keys.map(k => <th key={k}>{k}</th>)}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((row, i) =>
-            <tr key={i}>
-              <td>{i}</td>
-              {keys.map((k) => {
-                const value = row[k];
-                // if (typeof value === 'string') return <td key={k}>"{value}"</td>;
-                return <td key={k}>{value}</td>;
-              })}
-            </tr>,
-          )}
-        </tbody>
-      </table>
+      <div
+        style={{
+          height: '400',
+          overflowX: 'auto',
+          overflowY: 'auto',
+          width: '560',
+        }}
+      >
+        <table>
+          <thead>
+            <tr>
+              <th>Index</th>
+              {keys.map(k => <th
+                key={k}
+                style={{ backgroundColor: k === yDataKey ? '#FFCCBC' : 'white' }}
+              >{k}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row, i) =>
+              <tr key={i}>
+                <td style={{ backgroundColor: i % 2 ? '#E1F5FE' : 'white' }}>{i}</td>
+                {keys.map(k => <td
+                  key={k}
+                  style={{ backgroundColor: k === yDataKey ? '#FFCCBC' :
+                    i % 2 ? '#E1F5FE' : 'white' }}
+                >{row[k]}</td>)}
+              </tr>,
+            )}
+          </tbody>
+        </table>
+      </div>
     );
   } else {
     chart = (
