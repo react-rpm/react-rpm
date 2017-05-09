@@ -1,11 +1,64 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 #graph_picker{
-  width:100%;
-  height:100%;
-  margin-bottom: -50px;
+  position:relative;
+  display:block;
+  margin-right:auto;
+  margin-left:auto;
+  width:80%;
+  height:80%;
+  margin-top:25px;
+  font-family: 'Open Sans', sans-serif;
 }
 
-#button{
-  position:relative;
-  width:300px;
-  vertical-align:middle;
+#button {
+  width:30px;
+  height:30px;
+  color: #919191;
+  font-size: 14px;
+  font-family: sans-serif;
+  text-decoration: none;
+  border-style:none;
+  border-radius:100px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  transition-duration: .2s;
+  -webkit-transition-duration: .2s;
+  -moz-transition-duration: .2s;
+  background-color: #ffffff;
+  text-align:center;
+  font-family: 'Open Sans', sans-serif;
+  outline:none;
+  overflow:hidden;
+  line-height:30px;
+}
+
+#button:hover {
+  color: #919191;
+  width:55px;
+  background-color: #bff5ff;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.26);
+  transition-duration: .2s;
+  -webkit-transition-duration: .2s;
+  -moz-transition-duration: .2s;
+  overflow:hidden;
+}
+
+#button:after {
+    content: "";
+    background: #fff;
+    display: block;
+    /*position: absolute;*/
+    padding-top: 500%;
+    padding-left: 550%;
+    margin-left: -20px!important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s;
+}
+
+#button:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
 }

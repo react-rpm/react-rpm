@@ -8,6 +8,8 @@ import {
   connect as connectToContentScript
 } from '../actions';
 
+import styles from './../components/styles/app.css';
+
 class App extends Component {
   static propTypes = {
     connectToContentScript: PropTypes.func.isRequired,
@@ -17,14 +19,18 @@ class App extends Component {
     perfReady: PropTypes.bool.isRequired,
   };
 
+
   componentWillMount() {
     this.props.connectToContentScript();
   }
   render() {
-    console.log(JSON.stringify(this.props.perfs));
     const output = (
         <div>
-          <Visualizer perfs={this.props.perfs} />
+          <Visualizer 
+            perfs={this.props.perfs}
+          />
+
+          <div id={styles.chromePerf}>
           <DoublePanel>
             <ProfileList />
             <ProfileResult
@@ -33,6 +39,7 @@ class App extends Component {
               recording={this.props.recording}
             />
           </DoublePanel>
+          </div>
         </div>
       );
     return output;
@@ -51,3 +58,5 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
   connectToContentScript
 })(App);
+
+

@@ -16,7 +16,13 @@ import DataItemList from './DataItemList';
 import CustomToolTip from './CustomToolTip';
 import styles from './styles/plot.css';
 
-const Plot = props => {
+require('./styles/bg_graph_texture.png')
+require('./styles/bg_dataitem_texture.png');
+require('./styles/tachometer.png');
+require('./styles/Tachometer_hover.png');
+
+const Plot = (props) => {
+
   const {
     compiledGraphData, // holds all graph data exported from each PerfComponent
     checkIfTwoGraphsActive,
@@ -24,7 +30,8 @@ const Plot = props => {
     dataItems,
     onDataItemClick,
     componentsActiveOnGraphs,
-    getComponent
+    getComponent,
+    simData
   } = props;
 
   // console.log('dataItems in Plot.js is', dataItems);
@@ -111,9 +118,9 @@ const Plot = props => {
           graphRenders[graph_code][metricName] = [];
 
         metricShouldAnimate = metric.animationIsActive;
-        console.log('GraphStyle |', metricName, metric.graphDisplay);
 
         switch (metric.graphDisplay) {
+
           case 'Bar':
             graphRenders[graph_code][metricName].push(
               <Bar
@@ -121,14 +128,13 @@ const Plot = props => {
                 dataKey={componentName}
                 fill={metric.colorTheme}
                 isAnimationActive={metricShouldAnimate}
-              />
-            );
+              />)
             break;
           case 'Line':
             graphRenders[graph_code][metricName].push(
               <Line
                 key={i}
-                type="monotone"
+                type='monotone'
                 dataKey={componentName}
                 stroke={metric.colorTheme}
                 fill={metric.colorTheme}
@@ -136,8 +142,7 @@ const Plot = props => {
                 activeDot={{ r: 8 }}
                 dot={{ r: 2 }}
                 isAnimationActive={metricShouldAnimate}
-              />
-            );
+              />)
             break;
 
           case 'Area':
@@ -151,38 +156,28 @@ const Plot = props => {
                 strokeWidth={3}
                 activeDot={{ r: 8 }}
                 isAnimationActive={metricShouldAnimate}
-              />
-            );
+              />)
             break;
         }
       }
     });
   });
-
   let graphTwo;
   let placeholder;
   if (checkIfTwoGraphsActive()) {
-    console.log('TWO GRAPHS BEING RENDERED!!!');
     graphTwo = (
-      <div>
+      <div className={styles.graphContainer}>
         <ComposedChart
           width={600}
           height={225}
           data={data[1]}
-          fill={"#C3C8CC"}
+          fill={"transparent"}
           syncId="anyId"
         >
           <XAxis dataKey={"name"} label={"Render"} />
           <YAxis />
           <CartesianGrid stroke={"#DCFFFD"} strokeDasharray="1 1" />
           <Tooltip
-            content={
-              <CustomToolTip
-                componentsActiveOnGraphs={componentsActiveOnGraphs}
-                dataItems={dataItems}
-                getComponent={getComponent}
-              />
-            }
           />
           <Legend />
           {graphRenders[1]['timeWasted']}
@@ -196,36 +191,42 @@ const Plot = props => {
       </div>
     );
   } else {
-    graphTwo = <div />;
-    // twoGraphToggler(false);
+    graphTwo = (<div></div>);
+    if(graphHeight === 225) {
+      console.log('SHOULD UPDATE GRAPH SIZE');
+      graphHeight = 450
+    }
   }
-
-  if (!compiledGraphData.length)
-    placeholder = <div id={styles.graphPlaceholder} />;
-  // console.log(console.log('$$$$',this.componentsActiveOnGraphs));
+  if (!compiledGraphData.length) 
+    placeholder = (
+      <div id={styles.graphPlaceholder}>
+        {/*<img 
+          id={styles.tachometer} 
+          src={require('./styles/tachometer.png')} 
+        />*/}
+      </div>
+    )
+            //     content={
+            //   <CustomToolTip
+            //     componentsActiveOnGraphs={componentsActiveOnGraphs}
+            //     dataItems={dataItems}
+            //     getComponent={getComponent}
+            //   />
+            // }
   return (
-    <div className="plotContainer">
+    <div className='graphContainer'>
       {placeholder}
       <div>
-        {/* <TwoPaneToggle twoGraphsAreActive={twoGraphsAreActive} handleChange={twoGraphToggler} />*/}
         <ComposedChart
           width={600}
           height={graphHeight}
           data={data[0]}
-          fill={"#C3C8CC"}
           syncId="anyId"
         >
           <XAxis dataKey={"name"} />
           <YAxis />
           <CartesianGrid stroke={"#DCFFFD"} strokeDasharray="1 1" />
           <Tooltip
-            content={
-              <CustomToolTip
-                componentsActiveOnGraphs={componentsActiveOnGraphs}
-                dataItems={dataItems}
-                getComponent={getComponent}
-              />
-            }
           />
           <Legend />
           {graphRenders[0]['timeWasted']}
@@ -240,9 +241,9 @@ const Plot = props => {
       </div>
       <br />
       {graphTwo}
-      <div className={styles.toolbarToggleTooltips}>
+      {/*<div className={styles.toolbarToggleTooltips}>
         <DataItemList dataItems={dataItems} onDataItemClick={onDataItemClick} />
-      </div>
+      </div>*/}
     </div>
   );
 };

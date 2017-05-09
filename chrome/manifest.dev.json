@@ -18,7 +18,7 @@
     }
   ],
 
-  "content_security_policy": "default-src 'self'; script-src 'self' http://localhost:3000 'unsafe-eval'; connect-src http://localhost:3000 ws://localhost:3000; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' data:;",
+  "content_security_policy": "default-src 'self'; script-src 'self' http://localhost:3000 'unsafe-eval'; connect-src http://localhost:3000 ws://localhost:3000; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' http://localhost:3000; font-src 'self' *" ,
 
   "background": {
     "page": "background.html",
@@ -27,7 +27,7 @@
   "manifest_version": 2,
   "devtools_page": "devtools.html",
   "permissions": ["<all_urls>", "tabs"],
-  "web_accessible_resources": ["page.bundle.js"],
+  "web_accessible_resources": ["*"],
   "externally_connectable": {
     "ids": ["*"]
   }

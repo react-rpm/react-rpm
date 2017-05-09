@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styles from './styles/graph_picker.css'
 import Select from 'react-select';
+require('./styles/button_texture.png');
 
 class GraphPicker extends Component { 
 
@@ -8,6 +9,7 @@ class GraphPicker extends Component {
     super(props)
 
     const metrics = [
+                      'timeWasted',
                       'averageRenderTime',
                       'instanceCount',
                       'renderCount',
@@ -41,28 +43,24 @@ class GraphPicker extends Component {
       this.forceUpdate();
   }
   updateComponentValue (newValue) {
-    console.log(newValue);
     this.setState({
       selectComponentValue: newValue
     });
   }
 
   updateMetricValue (newValue) {
-    console.log(newValue);
     this.setState({
       selectMetricValue: newValue
     });
   }
 
   updateGraphValue (newValue) {
-    console.log(newValue);
     this.setState({
       selectGraphValue: newValue
     });
   }
 
   updateColorValue (newValue) {
-    console.log(newValue);
     this.setState({
       selectColorValue: newValue
     });
@@ -107,20 +105,20 @@ class GraphPicker extends Component {
 
   render () {
     return (
-      <div id="graph_picker">
+      <div id={styles.graph_picker}>
         <div className="section">
-          <Select placeholder='Select Component' autofocus options={this.componentOptions} simpleValue clearable={true} name="selected-state" disabled={false} value={this.state.selectComponentValue} onChange={this.updateComponentValue.bind(this)} searchable={true} />
+          <Select placeholder='Component' autofocus={false} options={this.componentOptions} simpleValue clearable={true} name="selected-state" disabled={false} value={this.state.selectComponentValue} onChange={this.updateComponentValue.bind(this)} searchable={true} />
         </div>
         <div className="section">
-          <Select placeholder='Select Performance Metric' autofocus options={this.metricOptions} simpleValue clearable={true} name="selected-state" disabled={false} value={this.state.selectMetricValue} onChange={this.updateMetricValue.bind(this)} searchable={true} />
+          <Select placeholder='Performance Metric' autofocus={false} options={this.metricOptions} simpleValue clearable={true} name="selected-state" disabled={false} value={this.state.selectMetricValue} onChange={this.updateMetricValue.bind(this)} searchable={true} />
         </div>
         <div className="section">
-          <Select placeholder='Select Graph' autofocus options={this.graphOptions} simpleValue clearable={true} name="selected-state" disabled={false} value={this.state.selectGraphValue} onChange={this.updateGraphValue.bind(this)} searchable={true} />
+          <Select placeholder='Style' autofocus={false} options={this.graphOptions} simpleValue clearable={true} name="selected-state" disabled={false} value={this.state.selectGraphValue} onChange={this.updateGraphValue.bind(this)} searchable={true} />
         </div>
         <div className="section">
-          <Select placeholder='Select Color' autofocus options={this.colorOptions} simpleValue clearable={true} name="selected-state" disabled={false} value={this.state.selectColorValue} onChange={this.updateColorValue.bind(this)} searchable={true} />
+          <Select placeholder='Select Color' autofocus={false} options={this.colorOptions} simpleValue clearable={true} name="selected-state" disabled={false} value={this.state.selectColorValue} onChange={this.updateColorValue.bind(this)} searchable={true} />
         </div>
-        <button id='button' onClick={this.handleClick.bind(this)}>Render Data</button>
+        <button id={styles.button} onClick={this.handleClick.bind(this)}>+</button>
       </div>
     );
   }

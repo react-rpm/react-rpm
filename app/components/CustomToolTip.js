@@ -4,6 +4,7 @@ const CustomToolTip = props => {
   const { componentsActiveOnGraphs, dataItems, getComponent } = props;
 
   var toolTipDisplay = []; 
+
   // container to hold elements to be rendered
   // if tool tip is 'selected', push to this array
   // time wasted = data[name]
