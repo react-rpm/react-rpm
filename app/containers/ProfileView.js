@@ -4,7 +4,7 @@ import ProfileChart from '.././components/ProfileChart';
 import ProfileBar from '.././components/ProfileBar';
 import ProfileContent from '.././components/ProfileContent';
 import styles from '.././assets/profileView.css';
-// import { samplePerfs } from '.././sample_perfs';
+import { samplePerfs } from '.././sample_perfs';
 
 const propTypes = {
   perfs: PropTypes.object.isRequired,
@@ -37,7 +37,7 @@ class ProfileView extends Component {
     const inclusive = [];
     const exclusive = [];
     const dom = [];
-    if (perfs.wasted[0]) perfs.wasted[0].forEach((set) => { wastedTime.push(set); });
+    if (samplePerfs.wasted[0]) samplePerfs.wasted[0].forEach((set) => { wastedTime.push(set); });
     else {
       wastedTime.push({
         'Owner > Component': 'N/A',
@@ -46,7 +46,7 @@ class ProfileView extends Component {
         'Render count': 0,
       });
     }
-    if (perfs.inclusive[0]) perfs.inclusive[0].forEach((set) => { inclusive.push(set); });
+    if (samplePerfs.inclusive[0]) samplePerfs.inclusive[0].forEach((set) => { inclusive.push(set); });
     else {
       inclusive.push({
         'Owner > Component': 'N/A',
@@ -55,7 +55,7 @@ class ProfileView extends Component {
         'Render count': 0,
       });
     }
-    if (perfs.exclusive[0]) perfs.exclusive[0].forEach((set) => { exclusive.push(set); });
+    if (samplePerfs.exclusive[0]) samplePerfs.exclusive[0].forEach((set) => { exclusive.push(set); });
     else {
       exclusive.push({
         'Component': 'N/A',
@@ -67,7 +67,7 @@ class ProfileView extends Component {
         'Total lifecycle time (ms)': 0,
       });
     }
-    if (perfs.dom[0]) perfs.dom[0].forEach((set) => { dom.push(set); });
+    if (samplePerfs.dom[0]) samplePerfs.dom[0].forEach((set) => { dom.push(set); });
     else {
       dom.push({
         'Owner > Node': 'N/A',
@@ -154,7 +154,16 @@ class ProfileView extends Component {
 
   render() {
     return (
-      <div id={styles.main_container}>
+      <div 
+        className='mainContainer'
+        style={{
+          background: 'white',
+          backgroundRepeat: 'repeat',
+          fontFamily: 'Roboto, sans-serif',
+          margin: '0',
+          padding: '0',
+        }}
+      >
         <ProfileChart
           perfData={this.getPerfData()}
           perfItems={this.state.perfItems}
