@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const propTypes = {
+  onClick: PropTypes.func.isRequired,
+  selected: PropTypes.bool.isRequired,
+  label: PropTypes.string.isRequired,
+};
+
 const ProfileDataKey = ({ onClick, selected, label }) => (
   <button
     onClick={onClick}
@@ -14,10 +20,6 @@ const ProfileDataKey = ({ onClick, selected, label }) => (
   </button>
 );
 
-ProfileDataKey.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  selected: PropTypes.bool.isRequired,
-  label: PropTypes.string.isRequired,
-};
+ProfileDataKey.propTypes = propTypes;
 
 export default ProfileDataKey;

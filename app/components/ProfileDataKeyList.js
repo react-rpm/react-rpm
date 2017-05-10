@@ -2,6 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ProfileDataKey from './ProfileDataKey';
 
+const propTypes = {
+  dataKeys: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      selected: PropTypes.bool.isRequired,
+      label: PropTypes.string.isRequired,
+    }).isRequired).isRequired,
+  onDataKeyClick: PropTypes.func.isRequired,
+};
+
 const ProfileDataKeyList = ({ dataKeys, onDataKeyClick }) => (
   <div className='dataKeyContainer'>
     {dataKeys.map(dataKey =>
@@ -14,14 +24,6 @@ const ProfileDataKeyList = ({ dataKeys, onDataKeyClick }) => (
   </div>
 );
 
-ProfileDataKeyList.propTypes = {
-  dataKeys: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      selected: PropTypes.bool.isRequired,
-      label: PropTypes.string.isRequired,
-    }).isRequired).isRequired,
-  onDataKeyClick: PropTypes.func.isRequired,
-};
+ProfileDataKeyList.propTypes = propTypes;
 
 export default ProfileDataKeyList;

@@ -11,6 +11,12 @@ import {
   Brush,
 } from 'Recharts';
 
+const propTypes = {
+  perfData: PropTypes.array.isRequired,
+  perfItems: PropTypes.array.isRequired,
+  dataKeys: PropTypes.array.isRequired,
+};
+
 const ProfileChart = (props) => {
   const {
     perfData,
@@ -122,10 +128,6 @@ const ProfileChart = (props) => {
   );
 };
 
-ProfileChart.propTypes = {
-  perfData: PropTypes.array.isRequired,
-  perfItems: PropTypes.array.isRequired,
-  dataKeys: PropTypes.array.isRequired,
-};
+ProfileChart.propTypes = propTypes;
 
 export default ProfileChart;

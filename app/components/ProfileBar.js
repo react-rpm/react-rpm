@@ -2,6 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PerfItemList from './PerfItemList';
 
+const propTypes = {
+  perfItems: PropTypes.array.isRequired,
+  onPerfItemClick: PropTypes.func.isRequired,
+  showDataKeys: PropTypes.func.isRequired,
+};
+
 const ProfileBar = ({ perfItems, onPerfItemClick, showDataKeys }) => (
   <div
     className='perfItemBar'
@@ -23,10 +29,6 @@ const ProfileBar = ({ perfItems, onPerfItemClick, showDataKeys }) => (
   </div>
 );
 
-ProfileBar.propTypes = {
-  perfItems: PropTypes.array.isRequired,
-  onPerfItemClick: PropTypes.func.isRequired,
-  showDataKeys: PropTypes.func.isRequired,
-};
+ProfileBar.propTypes = propTypes;
 
 export default ProfileBar;
