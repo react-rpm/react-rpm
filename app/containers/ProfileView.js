@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ProfileChart from '.././components/ProfileChart';
 import ProfileBar from '.././components/ProfileBar';
 import ProfileContent from '.././components/ProfileContent';
 import styles from '.././assets/profileView.css';
-import { samplePerfs } from '.././sample_perfs';
+// import { samplePerfs } from '.././sample_perfs';
+
+const propTypes = {
+  perfs: PropTypes.object.isRequired,
+};
 
 class ProfileView extends Component {
+  static propTypes = propTypes;
   constructor(props) {
     super(props);
 
     this.state = {
-      twoGraphsAreActive: false,
       perfItems: [
         { id: 0, selected: true, label: 'Wasted Time' },
         { id: 1, selected: false, label: 'Inclusive' },
@@ -23,22 +28,61 @@ class ProfileView extends Component {
         { id: 2, selected: false, label: 'Render count' },
       ],
     };
-    // Parse perfs (passed down from App) to create a perfData prop,
-    // which can be used by ProfileChart for data input.
+  }
+
+  getPerfData = () => {
+    const perfs = this.props.perfs;
     const perfData = [];
     const wastedTime = [];
     const inclusive = [];
     const exclusive = [];
     const dom = [];
-    samplePerfs.wasted[0].forEach((set) => { wastedTime.push(set); });
-    samplePerfs.inclusive[0].forEach((set) => { inclusive.push(set); });
-    samplePerfs.exclusive[0].forEach((set) => { exclusive.push(set); });
-    samplePerfs.dom[0].forEach((set) => { dom.push(set); });
+    if (perfs.wasted[0]) perfs.wasted[0].forEach((set) => { wastedTime.push(set); });
+    else {
+      wastedTime.push({
+        'Owner > Component': 'N/A',
+        'Inclusive wasted time (ms)': 0,
+        'Instance count': 0,
+        'Render count': 0,
+      });
+    }
+    if (perfs.inclusive[0]) perfs.inclusive[0].forEach((set) => { inclusive.push(set); });
+    else {
+      inclusive.push({
+        'Owner > Component': 'N/A',
+        'Inclusive render time (ms)': 0,
+        'Instance count': 0,
+        'Render count': 0,
+      });
+    }
+    if (perfs.exclusive[0]) perfs.exclusive[0].forEach((set) => { exclusive.push(set); });
+    else {
+      exclusive.push({
+        'Component': 'N/A',
+        'Total time (ms)': 0,
+        'Instance count': 0,
+        'Total render time (ms)': 0,
+        'Average render time (ms)': 0,
+        'Render count': 0,
+        'Total lifecycle time (ms)': 0,
+      });
+    }
+    if (perfs.dom[0]) perfs.dom[0].forEach((set) => { dom.push(set); });
+    else {
+      dom.push({
+        'Owner > Node': 'N/A',
+        'Operation': 'N/A',
+        'Payload': 'N/A',
+        'Flush index': 0,
+        'Owner Component ID': 0,
+        'DOM Component ID': 0,
+      });
+    }
     perfData.push(wastedTime);
     perfData.push(inclusive);
     perfData.push(exclusive);
     perfData.push(dom);
-    this.perfData = perfData;
+    return perfData;
   }
 
   onPerfItemClick = (perfItem) => {
@@ -83,6 +127,16 @@ class ProfileView extends Component {
         ];
         this.setState({ dataKeys });
         break;
+      case 'Operations':
+        dataKeys = [
+          { id: 0, selected: true, label: 'Operation' },
+          { id: 1, selected: false, label: 'Payload' },
+          { id: 2, selected: false, label: 'Flush index' },
+          { id: 3, selected: false, label: 'Owner Component ID' },
+          { id: 4, selected: false, label: 'DOM Component ID' },
+        ];
+        this.setState({ dataKeys });
+        break;
     }
   }
 
@@ -100,25 +154,26 @@ class ProfileView extends Component {
 
   render() {
     return (
-    <div id={styles.main_container}>
-      <img src={require('.././assets/banner_logo.png')} />
-      <ProfileChart
-        perfData = {this.perfData}
-        perfItems={this.state.perfItems}
-        dataKeys={this.state.dataKeys}
-      />
-      <ProfileBar
-        perfItems={this.state.perfItems}
-        onPerfItemClick={this.onPerfItemClick}
-        showDataKeys={this.showDataKeys}
-      />
-      <ProfileContent
-        dataKeys={this.state.dataKeys}
-        onDataKeyClick={this.onDataKeyClick}
-      />
-    </div>
+      <div id={styles.main_container}>
+        <ProfileChart
+          perfData={this.getPerfData()}
+          perfItems={this.state.perfItems}
+          dataKeys={this.state.dataKeys}
+        />
+        <ProfileBar
+          perfItems={this.state.perfItems}
+          onPerfItemClick={this.onPerfItemClick}
+          showDataKeys={this.showDataKeys}
+        />
+        <ProfileContent
+          dataKeys={this.state.dataKeys}
+          onDataKeyClick={this.onDataKeyClick}
+        />
+      </div>
     );
   }
 }
+
+ProfileView.propTypes = propTypes;
 
 export default ProfileView;
