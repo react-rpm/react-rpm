@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {
   BarChart,
   Bar,
@@ -9,6 +10,12 @@ import {
   Legend,
   Brush,
 } from 'Recharts';
+
+const propTypes = {
+  perfData: PropTypes.array.isRequired,
+  perfItems: PropTypes.array.isRequired,
+  dataKeys: PropTypes.array.isRequired,
+};
 
 const ProfileChart = (props) => {
   const {
@@ -47,33 +54,80 @@ const ProfileChart = (props) => {
     }
   });
 
-  const graph = (
-    <div>
-      <BarChart width={560} height={400} data={data}
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }} syncId='anyId'
+  let chart;
+  if (perfItems[3].selected) {
+    chart = (
+      <div
+        className='opsTableContainer'
+        style={{
+          height: '400px',
+          margin: '0 auto',
+          overflowX: 'auto',
+          overflowY: 'auto',
+          width: '640px',
+        }}
       >
-        <XAxis dataKey={xDataKey} />
-        <YAxis />
-        <CartesianGrid stroke={'#757575'} strokeDasharray="1 1" />
-        <Tooltip />
-        <Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px' }} />
-        <Bar dataKey={yDataKey} fill='#7C4DFF' barSize={64} />
-        <Brush height={16} stroke='#757575' />
-      </BarChart>
-    </div>
-  );
+        <table>
+          <thead>
+            <tr>
+              <th>Index</th>
+              {keys.map(k => <th
+                key={k}
+                style={{ backgroundColor: k === yDataKey ? '#FFCCBC' : 'white' }}
+              >{k}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((row, i) =>
+              <tr key={i}>
+                <td style={{ backgroundColor: i % 2 ? '#E1F5FE' : 'white' }}>{i}</td>
+                {keys.map(k => <td
+                  key={k}
+                  style={{
+                    backgroundColor: k === yDataKey ? '#FFCCBC' :
+                      i % 2 ? '#E1F5FE' : 'white',
+                    maxWidth: '300px',
+                    overflowX: 'auto',
+                  }}
+                >{row[k]}</td>)}
+              </tr>,
+            )}
+          </tbody>
+        </table>
+      </div>
+    );
+  } else {
+    chart = (
+      <div
+        className='barChartContainer'
+        style={{
+          margin: '0 auto',
+          width: '560px',
+        }}
+      >
+        <BarChart
+          width={560} height={400} data={data}
+          margin={{ top: 8, right: 56, left: 0, bottom: 16 }} syncId='anyId'
+        >
+          <XAxis dataKey={xDataKey} />
+          <YAxis />
+          <CartesianGrid stroke={'#757575'} strokeDasharray="1 1" />
+          <Tooltip />
+          <Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px' }} />
+          <Bar dataKey={yDataKey} fill='#7C4DFF' barSize={64} />
+          <Brush height={16} stroke='#757575' />
+        </BarChart>
+      </div>
+    );
+  }
 
   return (
-    <div className='chartContainer'>
-      {graph}
+    <div>
+      {chart}
     </div>
   );
 };
 
-ProfileChart.propTypes = {
-  perfData: PropTypes.array.isRequired,
-  perfItems: PropTypes.array.isRequired,
-  dataKeys: PropTypes.array.isRequired,
-};
+ProfileChart.propTypes = propTypes;
 
 export default ProfileChart;
