@@ -18,11 +18,8 @@ const propTypes = {
 };
 
 const ProfileChart = (props) => {
-  const {
-    perfData,
-    perfItems,
-    dataKeys,
-  } = props;
+
+  const { perfData, perfItems, dataKeys } = props;
 
   let data;
   perfItems.forEach((perfItem) => {
@@ -54,6 +51,8 @@ const ProfileChart = (props) => {
     }
   });
 
+  const cellBgColor = i => i % 2 ? '#E1F5FE' : 'white';
+
   let chart;
   if (perfItems[3].selected) {
     chart = (
@@ -80,12 +79,11 @@ const ProfileChart = (props) => {
           <tbody>
             {data.map((row, i) =>
               <tr key={i}>
-                <td style={{ backgroundColor: i % 2 ? '#E1F5FE' : 'white' }}>{i}</td>
+                <td style={{ backgroundColor: cellBgColor(i) }}>{i}</td>
                 {keys.map(k => <td
                   key={k}
                   style={{
-                    backgroundColor: k === yDataKey ? '#FFCCBC' :
-                      i % 2 ? '#E1F5FE' : 'white',
+                    backgroundColor: k === yDataKey ? '#FFCCBC' : cellBgColor(i),
                     maxWidth: '300px',
                     overflowX: 'auto',
                   }}
@@ -122,7 +120,7 @@ const ProfileChart = (props) => {
   }
 
   return (
-    <div>
+    <div className='chartContainer'>
       {chart}
     </div>
   );
