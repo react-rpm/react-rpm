@@ -2,7 +2,8 @@
   "presets": [
     ["es2015", {"modules": false}],
     ["stage-2"],
-    ["react"]
+    ["react"],
+    ["env"]
   ],
   "plugins": [
     "transform-class-properties",

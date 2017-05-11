@@ -4,7 +4,7 @@ import ProfileChart from '.././components/ProfileChart';
 import ProfileBar from '.././components/ProfileBar';
 import ProfileContent from '.././components/ProfileContent';
 import styles from '.././assets/profileView.css';
-import { samplePerfs } from '.././sample_perfs';
+// import { samplePerfs } from '.././sample_perfs';
 
 const propTypes = {
   perfs: PropTypes.object.isRequired,
@@ -30,61 +30,6 @@ class ProfileView extends Component {
     };
   }
 
-  getPerfData = () => {
-    const perfs = this.props.perfs;
-    const perfData = [];
-    const wastedTime = [];
-    const inclusive = [];
-    const exclusive = [];
-    const dom = [];
-    if (samplePerfs.wasted[0]) samplePerfs.wasted[0].forEach((set) => { wastedTime.push(set); });
-    else {
-      wastedTime.push({
-        'Owner > Component': 'N/A',
-        'Inclusive wasted time (ms)': 0,
-        'Instance count': 0,
-        'Render count': 0,
-      });
-    }
-    if (samplePerfs.inclusive[0]) samplePerfs.inclusive[0].forEach((set) => { inclusive.push(set); });
-    else {
-      inclusive.push({
-        'Owner > Component': 'N/A',
-        'Inclusive render time (ms)': 0,
-        'Instance count': 0,
-        'Render count': 0,
-      });
-    }
-    if (samplePerfs.exclusive[0]) samplePerfs.exclusive[0].forEach((set) => { exclusive.push(set); });
-    else {
-      exclusive.push({
-        'Component': 'N/A',
-        'Total time (ms)': 0,
-        'Instance count': 0,
-        'Total render time (ms)': 0,
-        'Average render time (ms)': 0,
-        'Render count': 0,
-        'Total lifecycle time (ms)': 0,
-      });
-    }
-    if (samplePerfs.dom[0]) samplePerfs.dom[0].forEach((set) => { dom.push(set); });
-    else {
-      dom.push({
-        'Owner > Node': 'N/A',
-        'Operation': 'N/A',
-        'Payload': 'N/A',
-        'Flush index': 0,
-        'Owner Component ID': 0,
-        'DOM Component ID': 0,
-      });
-    }
-    perfData.push(wastedTime);
-    perfData.push(inclusive);
-    perfData.push(exclusive);
-    perfData.push(dom);
-    return perfData;
-  }
-
   onPerfItemClick = (perfItem) => {
     const item = perfItem;
     item.selected = !item.selected;
@@ -95,6 +40,18 @@ class ProfileView extends Component {
       }
     });
     this.setState({ perfItems });
+  }
+
+  onDataKeyClick = (dataKey) => {
+    const key = dataKey;
+    key.selected = !key.selected;
+    const dataKeys = this.state.dataKeys;
+    dataKeys.forEach((k) => {
+      if (k.label !== key.label && k.selected) {
+        k.selected = !k.selected;
+      }
+    });
+    this.setState({ dataKeys });
   }
 
   showDataKeys = (perfItem) => {
@@ -140,16 +97,59 @@ class ProfileView extends Component {
     }
   }
 
-  onDataKeyClick = (dataKey) => {
-    const key = dataKey
-    key.selected = !key.selected;
-    const dataKeys = this.state.dataKeys;
-    dataKeys.forEach((k) => {
-      if (k.label !== key.label && k.selected) {
-        k.selected = !k.selected;
-      }
-    });
-    this.setState({ dataKeys });
+  getPerfData = () => {
+    const perfs = this.props.perfs;
+    const perfData = [];
+    const wastedTime = [];
+    const inclusive = [];
+    const exclusive = [];
+    const dom = [];
+    if (perfs.wasted[0]) perfs.wasted[0].forEach((set) => { wastedTime.push(set); });
+    else {
+      wastedTime.push({
+        'Owner > Component': 'N/A',
+        'Inclusive wasted time (ms)': 0,
+        'Instance count': 0,
+        'Render count': 0,
+      });
+    }
+    if (perfs.inclusive[0]) perfs.inclusive[0].forEach((set) => { inclusive.push(set); });
+    else {
+      inclusive.push({
+        'Owner > Component': 'N/A',
+        'Inclusive render time (ms)': 0,
+        'Instance count': 0,
+        'Render count': 0,
+      });
+    }
+    if (perfs.exclusive[0]) perfs.exclusive[0].forEach((set) => { exclusive.push(set); });
+    else {
+      exclusive.push({
+        'Component': 'N/A',
+        'Total time (ms)': 0,
+        'Instance count': 0,
+        'Total render time (ms)': 0,
+        'Average render time (ms)': 0,
+        'Render count': 0,
+        'Total lifecycle time (ms)': 0,
+      });
+    }
+    if (perfs.dom[0]) perfs.dom[0].forEach((set) => { dom.push(set); });
+    else {
+      dom.push({
+        'Owner > Node': 'N/A',
+        'Operation': 'N/A',
+        'Payload': 'N/A',
+        'Flush index': 0,
+        'Owner Component ID': 0,
+        'DOM Component ID': 0,
+      });
+    }
+    perfData.push(wastedTime);
+    perfData.push(inclusive);
+    perfData.push(exclusive);
+    perfData.push(dom);
+    return perfData;
   }
 
   render() {

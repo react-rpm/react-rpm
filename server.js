@@ -13,7 +13,6 @@ app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output
 app.use(webpackHotMiddleware(compiler));
 
 app.get( '/', function(req, res) {
-  console.log('End point: /');
   res.sendFile(__dirname + '/index.html');
 });
 
