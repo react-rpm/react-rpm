@@ -55,6 +55,8 @@ function mapStateToProps(state) {
   };
 }
 
+App.propTypes = propTypes;
+
 export default connect(mapStateToProps, {
   connectToContentScript
 })(App);

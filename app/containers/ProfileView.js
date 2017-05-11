@@ -30,6 +30,73 @@ class ProfileView extends Component {
     };
   }
 
+  onPerfItemClick = (perfItem) => {
+    const item = perfItem;
+    item.selected = !item.selected;
+    const perfItems = this.state.perfItems;
+    perfItems.forEach((p) => {
+      if (p.label !== item.label && p.selected) {
+        p.selected = !p.selected;
+      }
+    });
+    this.setState({ perfItems });
+  }
+
+  onDataKeyClick = (dataKey) => {
+    const key = dataKey;
+    key.selected = !key.selected;
+    const dataKeys = this.state.dataKeys;
+    dataKeys.forEach((k) => {
+      if (k.label !== key.label && k.selected) {
+        k.selected = !k.selected;
+      }
+    });
+    this.setState({ dataKeys });
+  }
+
+  showDataKeys = (perfItem) => {
+    let dataKeys;
+    switch (perfItem.label) {
+      case 'Wasted Time':
+        dataKeys = [
+          { id: 0, selected: true, label: 'Inclusive wasted time (ms)' },
+          { id: 1, selected: false, label: 'Instance count' },
+          { id: 2, selected: false, label: 'Render count' },
+        ];
+        this.setState({ dataKeys });
+        break;
+      case 'Inclusive':
+        dataKeys = [
+          { id: 0, selected: true, label: 'Inclusive render time (ms)' },
+          { id: 1, selected: false, label: 'Instance count' },
+          { id: 2, selected: false, label: 'Render count' },
+        ];
+        this.setState({ dataKeys });
+        break;
+      case 'Exclusive':
+        dataKeys = [
+          { id: 0, selected: true, label: 'Total time (ms)' },
+          { id: 1, selected: false, label: 'Instance count' },
+          { id: 2, selected: false, label: 'Total render time (ms)' },
+          { id: 3, selected: false, label: 'Average render time (ms)' },
+          { id: 4, selected: false, label: 'Render count' },
+          { id: 5, selected: false, label: 'Total lifecycle time (ms)' },
+        ];
+        this.setState({ dataKeys });
+        break;
+      case 'Operations':
+        dataKeys = [
+          { id: 0, selected: true, label: 'Operation' },
+          { id: 1, selected: false, label: 'Payload' },
+          { id: 2, selected: false, label: 'Flush index' },
+          { id: 3, selected: false, label: 'Owner Component ID' },
+          { id: 4, selected: false, label: 'DOM Component ID' },
+        ];
+        this.setState({ dataKeys });
+        break;
+    }
+  }
+
   getPerfData = () => {
     const perfs = this.props.perfs;
     const perfData = [];
@@ -85,76 +152,18 @@ class ProfileView extends Component {
     return perfData;
   }
 
-  onPerfItemClick = (perfItem) => {
-    const item = perfItem;
-    item.selected = !item.selected;
-    const perfItems = this.state.perfItems;
-    perfItems.forEach((p) => {
-      if (p.label !== item.label && p.selected) {
-        p.selected = !p.selected;
-      }
-    });
-    this.setState({ perfItems });
-  }
-
-  showDataKeys = (perfItem) => {
-    let dataKeys;
-    switch (perfItem.label) {
-      case 'Wasted Time':
-        dataKeys = [
-          { id: 0, selected: true, label: 'Inclusive wasted time (ms)' },
-          { id: 1, selected: false, label: 'Instance count' },
-          { id: 2, selected: false, label: 'Render count' },
-        ];
-        this.setState({ dataKeys });
-        break;
-      case 'Inclusive':
-        dataKeys = [
-          { id: 0, selected: true, label: 'Inclusive render time (ms)' },
-          { id: 1, selected: false, label: 'Instance count' },
-          { id: 2, selected: false, label: 'Render count' },
-        ];
-        this.setState({ dataKeys });
-        break;
-      case 'Exclusive':
-        dataKeys = [
-          { id: 0, selected: true, label: 'Total time (ms)' },
-          { id: 1, selected: false, label: 'Instance count' },
-          { id: 2, selected: false, label: 'Total render time (ms)' },
-          { id: 3, selected: false, label: 'Average render time (ms)' },
-          { id: 4, selected: false, label: 'Render count' },
-          { id: 5, selected: false, label: 'Total lifecycle time (ms)' },
-        ];
-        this.setState({ dataKeys });
-        break;
-      case 'Operations':
-        dataKeys = [
-          { id: 0, selected: true, label: 'Operation' },
-          { id: 1, selected: false, label: 'Payload' },
-          { id: 2, selected: false, label: 'Flush index' },
-          { id: 3, selected: false, label: 'Owner Component ID' },
-          { id: 4, selected: false, label: 'DOM Component ID' },
-        ];
-        this.setState({ dataKeys });
-        break;
-    }
-  }
-
-  onDataKeyClick = (dataKey) => {
-    const key = dataKey
-    key.selected = !key.selected;
-    const dataKeys = this.state.dataKeys;
-    dataKeys.forEach((k) => {
-      if (k.label !== key.label && k.selected) {
-        k.selected = !k.selected;
-      }
-    });
-    this.setState({ dataKeys });
-  }
-
   render() {
     return (
-      <div id={styles.main_container}>
+      <div
+        className='mainContainer'
+        style={{
+          background: 'white',
+          backgroundRepeat: 'repeat',
+          fontFamily: 'Roboto, sans-serif',
+          margin: '0',
+          padding: '0',
+        }}
+      >
         <ProfileChart
           perfData={this.getPerfData()}
           perfItems={this.state.perfItems}

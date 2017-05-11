@@ -2,7 +2,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { render } from 'enzyme';
 
-describe('<ProfileDataKey />', () => {
+describe('<PerfItem />', () => {
 
   it('rendered a button', () => {
     const wrapper = render(<button />);
