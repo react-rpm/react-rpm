@@ -1,38 +1,38 @@
-/* eslint-disable no-console */
-let consoleBak;
+// /* eslint-disable no-console */
+// let consoleBak;
 
-export function mock(callbacks) {
-  if (consoleBak) {
-    // Can only mock console once before restore it.
-    return false;
-  }
+// export function mock(callbacks) {
+//   if (consoleBak) {
+//     // Can only mock console once before restore it.
+//     return false;
+//   }
 
-  consoleBak = {};
+//   consoleBak = {};
 
-  for (const property in callbacks) {
-    if (callbacks.hasOwnProperty(property)) {
-      consoleBak[property] = console[property];
-      console[property] = callbacks[property];
-    }
-  }
+//   for (const property in callbacks) {
+//     if (callbacks.hasOwnProperty(property)) {
+//       consoleBak[property] = console[property];
+//       console[property] = callbacks[property];
+//     }
+//   }
 
-  return true;
-}
+//   return true;
+// }
 
-export function restore() {
-  if (!consoleBak) {
-    return;
-  }
+// export function restore() {
+//   if (!consoleBak) {
+//     return;
+//   }
 
-  for (const property in consoleBak) {
-    if (consoleBak.hasOwnProperty(property)) {
-      console[property] = consoleBak[property];
-    }
-  }
-  consoleBak = null;
-}
+//   for (const property in consoleBak) {
+//     if (consoleBak.hasOwnProperty(property)) {
+//       console[property] = consoleBak[property];
+//     }
+//   }
+//   consoleBak = null;
+// }
 
-export default {
-  mock,
-  restore
-};
+// export default {
+//   mock,
+//   restore
+// };

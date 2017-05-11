@@ -9,7 +9,7 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, '/npm/build'),
-    filename: 'bundle.js',
+    filename: 'perf.js',
     publicPath: '/npm'
   },
   plugins: [
@@ -20,11 +20,6 @@ module.exports = {
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false
-      }
-    }),
     new webpack.NoErrorsPlugin(),
   ],
   module: {
@@ -33,7 +28,14 @@ module.exports = {
       loaders: ['babel'],
       exclude: /node_modules/,
       include: __dirname
-    }, {
+    }, 
+      {
+      test: /\.js$/,
+      loaders: ['babel-loader'],
+      exclude: /node_modules/,
+      include: __dirname
+    },
+    {
       test: /\.css$/,
       exclude: /node_modules/,
       loader: 'style!css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'

@@ -26,12 +26,12 @@ export default class PerfComponent {
 
       this.currentlyRenderedMetrics = [];
 
-      console.log(
-        '-------------------------\n',
-        '* New Component Created *\n',
-        '\tName:',this.name,'\n',
-        '-------------------------\n',
-        )
+      // console.log(
+      //   '-------------------------\n',
+      //   '* New Component Created *\n',
+      //   '\tName:',this.name,'\n',
+      //   '-------------------------\n',
+      //   )
     }
 
     //This method is ONLY called in the PerfComponents constructor to create the component.
@@ -72,7 +72,6 @@ export default class PerfComponent {
 
     //this sets a metric to active on a specific graph, or turns it off. 
     toggleActiveMetric(category, metric, graph, graphStyle=null, color=null) {
-      console.log('ACTIVE METRICS ASSIGNED to',this.name+":",metric,graph,graphStyle,color);
       if (graphStyle && color) {
         this[category][metric].graphDisplay = graphStyle
         this[category][metric].colorTheme = color;
@@ -124,7 +123,6 @@ export default class PerfComponent {
   }
 
   addValue(value, category, metric) {
-    console.log('METRIC:',metric);
     this[category][metric].data.push(value);
   }
 

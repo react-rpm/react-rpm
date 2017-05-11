@@ -4,7 +4,7 @@
   display:block;
   height: 450px;
   width: 600px;
-  background: transparent;
+  background: url('./tachometer.png');
   background-size: contain;
   background-repeat: no-repeat;
 }

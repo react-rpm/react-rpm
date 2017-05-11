@@ -47,11 +47,10 @@ html, body {
   display: table;
   border-spacing: 0;
   border-collapse: separate;
-  height: 36px;
   outline: none;
   overflow: hidden;
   position: relative;
-  width: 100%;
+  max-height:50%;
 }
 .Select-control:hover {
   background: #efeeee;
@@ -89,14 +88,13 @@ html, body {
   outline: none;
   bottom: 0;
   color: #aaa;
-  vertical-align:middle;
   left: 0;
   padding-left: 10px;
   padding-right: 10px;
   position: absolute;
   right: 0;
-  top: 100;
-  width: 100%;
+  top: 0;
+  width:fit-content;
   overflow: hidden;
   text-overflow: ellipsis;
   outline:none;
@@ -122,7 +120,7 @@ html, body {
 }
 .Select-input {
   outline:none;
-  height: 34px;
+  /*height: 34px;*/
   padding-left: 10px;
   padding-right: 10px;
   vertical-align: middle;

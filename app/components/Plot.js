@@ -193,7 +193,6 @@ const Plot = (props) => {
   } else {
     graphTwo = (<div></div>);
     if(graphHeight === 225) {
-      console.log('SHOULD UPDATE GRAPH SIZE');
       graphHeight = 450
     }
   }

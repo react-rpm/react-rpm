@@ -1,12 +1,13 @@
 import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
-import Root from '../../../app/containers/Root';
-import configureStore from '../../../app/store/configureStore';
+import Visualizer from '../../../app/components/Visualizer';
 
-const store = configureStore();
+// import configureStore from '../../../app/store/configureStore';
+
+// const store = configureStore();
 
 render(
-  <Root store={store} />,
+  <Visualizer/>,
   document.getElementById('root')
 );

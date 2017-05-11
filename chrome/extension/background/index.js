@@ -1,1 +1,2 @@
-import './eventPage';
+import './background';
+console.log('background')

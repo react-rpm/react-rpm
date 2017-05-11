@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import styles from './styles/toolbar.css';
 import GraphPicker from './GraphPicker';
 import DisplayedGraphs from './DisplayedGraphs'
-require('./styles/bg_toolbar_texture.png');
-require('./styles/bg_panel_texture.png');
-require('./styles/bg_dataitem_texture.png');
-
-
 
 const Toolbar = (props) => {
   const {

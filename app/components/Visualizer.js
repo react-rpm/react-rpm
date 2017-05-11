@@ -6,8 +6,6 @@ import CustomToolTip from './CustomToolTip';
 import {sample_perfs} from './sample_perfs'
 import styles from './styles/visualizer.css';
 
-const perf = window.Perf;
-
 // import Sample from './sample_perfs'
 
 // import { getUIName } from '../utils/UI_metricText';
@@ -36,16 +34,6 @@ class Visualizer extends Component {
       // this is just a boolean toggle that tracks whether or not the user wants to display one or two graphs
       // its in the state beacuse we want to trigger the page to rerender immediately when this changes
 
-      tooltipValues: {
-        timeWasted: true,
-        instanceCount: false,
-        renderCount: false,
-        renderTime: false,
-        totalRenderTime: false,
-        averageRenderTime: false,
-        totalTime: false,
-      },
-
       // Can we use this instead:
       dataItems: [
         { id: 0, selected: true, label: 'Time Wasted' },
@@ -62,11 +50,6 @@ class Visualizer extends Component {
       perfs: this.props.perfs
     };
 
-    for (let key in this.state.allComponents[0]) {
-      console.log('{');
-      console.log(key + ':' + JSON.stringify(this.state.allComponents[0][key]));
-      console.log('}');
-    }
     // this.importPerfs(Sample);
   }
 
@@ -78,7 +61,6 @@ class Visualizer extends Component {
   }
   
   componentWillReceiveProps(){
-    console.log(this.props.perfs);
     // this.importPerfs(this.props.perfs);
   }
 

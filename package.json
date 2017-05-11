@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "node scripts/dev",
     "build": "NODE_ENV=production node scripts/build",
-    "test": "jasmine"
+    "test": "jasmine",
+    "package": "node scripts/package",
+    "fbjs": "node npm/react/scripts/rollup/build.js"
   },
   "repository": {
     "type": "git",
@@ -16,6 +18,7 @@
     "url": "https://github.com/react-rpm/react-rpm/issues"
   },
   "dependencies": {
+    "babel-loader": "^6.4.1",
     "babel-polyfill": "^6.7.2",
     "file-loader": "^0.8.5",
     "isomorphic-fetch": "^2.2.1",
@@ -45,14 +48,18 @@
     "eslint-config-airbnb": "^6.1.0",
     "eslint-plugin-react": "^4.2.1",
     "express": "^4.13.4",
+    "fbjs": "^0.8.12",
     "file-loader": "^0.8.5",
+    "gulp": "^3.9.1",
     "image-webpack-loader": "^3.3.0",
     "isomorphic-fetch": "^2.2.1",
     "jade": "^1.11.0",
     "jasmine": "^2.4.1",
+    "react-haste": "^0.14.2",
     "redux-devtools": "^3.1.1",
     "redux-devtools-dock-monitor": "^1.1.0",
     "redux-devtools-log-monitor": "^1.0.5",
+    "rollup": "^0.41.6",
     "shelljs": "^0.6.0",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
