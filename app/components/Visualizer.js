@@ -15,7 +15,7 @@ import styles from './styles/visualizer.css';
 class Visualizer extends Component {
   constructor(props) {
     super(props);
-
+    console.log(this.props.perfs);
     this.compiledGraphData = [];
     // this stores all plot data for each active PerfComponent, and is passed to the Plot component as a prop in render
     // see compileGraphData() below to see how that information is compiled.
@@ -50,7 +50,23 @@ class Visualizer extends Component {
       perfs: this.props.perfs
     };
 
-    // this.importPerfs(Sample);
+
+    const backgroundPageConnection = chrome.runtime.connect({
+        name: "panel"
+    });
+
+    backgroundPageConnection.postMessage({
+        name: 'init',
+        tabId: chrome.devtools.inspectedWindow.tabId
+    });
+    backgroundPageConnection.onMessage.addListener(message => {
+        console.log('[VISUALIZER]\n perfs processing:',message);
+        this.importPerfs(message.message);
+    });
+  }
+
+  componentWillReceiveProps(props){
+    console.log(props);
   }
 
   // method for toggling the listed data items
@@ -126,37 +142,40 @@ class Visualizer extends Component {
     const existingComponents = this.state.allComponents;
 
     for (let perfType in perfs) {
-      perfs.excluded.forEach((data,i) => {
-        let componentName = data.Component //string of the component's name. Will pass to getComponent to check to see if it exists. If it does, fill that component with new perf data. If it doesn't, you need to create a new perf component
-        let temp = this.getComponent(componentName)
-        if(!temp) 
-          newPerfComponent = new PerfComponent(data['Component']);
-        else 
-          newPerfComponent = temp
+      if(Array.isArray(perfType)) {
+        perfType.forEach((data,i) => {
+          let componentName = data.Component //string of the component's name. Will pass to getComponent to check to see if it exists. If it does, fill that component with new perf data. If it doesn't, you need to create a new perf component
+          let temp = this.getComponent(componentName)
+          if(!temp) 
+            newPerfComponent = new PerfComponent(data['Component']);
+          else 
+            newPerfComponent = temp
 
-          values.push(
-            data['Average render time (ms)'],
-            data['Instance count'],
-            data['Render count'],
-            data['Total lifecycle time (ms)'],
-            data['Total render time (ms)'],
-            data['Total time (ms)']
-          )
+            values.push(
+              data['Average render time (ms)'],
+              data['Instance count'],
+              data['Render count'],
+              data['Total lifecycle time (ms)'],
+              data['Total render time (ms)'],
+              data['Total time (ms)']
+            )
 
-          
-          newPerfComponent.addValue(values[0], 'RENDER', 'averageRenderTime');
-          newPerfComponent.addValue(values[1], 'RENDER', 'instanceCount');
-          newPerfComponent.addValue(values[2], 'RENDER', 'renderCount');
-          newPerfComponent.addValue(values[3], 'RENDER', 'totalLifeCycleTime');
-          newPerfComponent.addValue(values[4], 'RENDER', 'totalRenderTime');
-          newPerfComponent.addValue(values[5], 'RENDER', 'totalTime');
+            
+            newPerfComponent.addValue(values[0], 'RENDER', 'averageRenderTime');
+            newPerfComponent.addValue(values[1], 'RENDER', 'instanceCount');
+            newPerfComponent.addValue(values[2], 'RENDER', 'renderCount');
+            newPerfComponent.addValue(values[3], 'RENDER', 'totalLifeCycleTime');
+            newPerfComponent.addValue(values[4], 'RENDER', 'totalRenderTime');
+            newPerfComponent.addValue(values[5], 'RENDER', 'totalTime');
 
-          existingComponents.push(data['Component']);
-          arr.push(newPerfComponent);          
-      })
+            existingComponents.push(data['Component']);
+            arr.push(newPerfComponent);          
+        })
+      }
     }
-    this.setState({allComponents: arr,
-                  });
+    console.log(arr);
+    //this.setState({allComponents: arr,
+                  // });
     }
 
   // This iterates through this.state.allComponents and calls each PerfComponent's exportGraphData method, which returns all the data for graphs that is ACTIVE on, ignoring all data that isn't active.

@@ -1,25 +1,27 @@
 
 console.log('BG loaded');
-function onModuleMessage(event) {
 
-  const message = event.data;
 
-  console.log('Background Script Receiving Message From react-rpm-module...', message);
+// function onModuleMessage(event) {
 
-  if (event.source !== window) {
-    return;
-  }
+//   const message = event.data;
 
-  // Only accept messages that we know are ours
-  if (typeof message !== 'object' || message === null || message.source !== 'react-rpm-module') {
-    return;
-  }
+//   console.log('Background Script Receiving Message From react-rpm-module...', message);
 
-}
+//   if (event.source !== window) {
+//     return;
+//   }
 
-// function onMessage(message, /* sender, sendResponse */) {
-//   // relay all messages to pageScript
-//   window.postMessage({ ...message, sender: 'contentScript' }, '*');
+//   // Only accept messages that we know are ours
+//   if (typeof message !== 'object' || message === null || message.source !== 'react-rpm-module') {
+//     return;
+//   }
+
 // }
 
-window.addEventListener('message', onModuleMessage);
+// // function onMessage(message, /* sender, sendResponse */) {
+// //   // relay all messages to pageScript
+// //   window.postMessage({ ...message, sender: 'contentScript' }, '*');
+// // }
+
+// window.addEventListener('message', onModuleMessage);
