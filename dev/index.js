@@ -1,11 +1,11 @@
 import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
-import Visualizer from '../../../app/components/Visualizer';
+import App from '../../../app/containers/App';
 
-
+console.log('hello');
 
 render(
-  <Visualizer/>,
+  <App/>,
   document.getElementById('root')
 );

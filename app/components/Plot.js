@@ -15,11 +15,9 @@ import TwoPaneToggle from './TwoPaneToggle';
 import DataItemList from './DataItemList';
 import CustomToolTip from './CustomToolTip';
 import styles from './styles/plot.css';
+import { colors } from './styles/colors.js';
 
-require('./styles/bg_graph_texture.png')
-require('./styles/bg_dataitem_texture.png');
 require('./styles/tachometer.png');
-require('./styles/Tachometer_hover.png');
 
 const Plot = (props) => {
 
@@ -41,33 +39,12 @@ const Plot = (props) => {
   //   componentsActiveOnGraphs
   // );
 
-  let graphHeight = 450;
+  let graphHeight = 420;
 
-  checkIfTwoGraphsActive() ? (graphHeight = 225) : (graphHeight = 450);
+  checkIfTwoGraphsActive() ? (graphHeight = 225) : (graphHeight = 420);
 
-  // this holds all the data in an arrays for the six graphs that are available. Only two are active in the current build
-  // for more info on how this works check out http://recharts.org/#/en-US/examples
-  const data = [
-    [], // graph 0 (the main graph, and the top graph in the two pane display) -- this plots change in data over time (array)
-    [], // graph 1 (the bottom graph in the two pane display) -- this plots change in data over time (array)
-    [], // graph 2 (the main graph in summary view (not yet built). Summary view will mainly be pie charts and other single number graphs.
-    [], // graph 3 //additional graph for summary view
-    [], // graph 4 //additional graph for summary view
-    [] // graph 5 //additional graph for summary view
-  ];
-
-  // these hold the individual JSX line/bar/pie chart components that are constructed. Numbers follow the same format as above.
-  // for more info on how this works check out http://recharts.org/#/en-US/examples
-  const graphRenders = {
-    '0': {},
-    '1': {},
-    '2': {},
-    '3': {},
-    '4': {},
-    '5': {}
-  };
-
-  // list of active graphs. we only want to iterate through the ones that are displayed, or the ones that have something to be displayed
+  const data = [[],[]];
+  const graphRenders = { '0': {}, '1': {} };
   let activeGraphs = [];
 
   // used in loops to track which metric we're looking at. It's an object with the following format:
@@ -126,7 +103,7 @@ const Plot = (props) => {
               <Bar
                 key={i}
                 dataKey={componentName}
-                fill={metric.colorTheme}
+                fill={colors[metric.colorTheme]}
                 isAnimationActive={metricShouldAnimate}
               />)
             break;
@@ -136,9 +113,9 @@ const Plot = (props) => {
                 key={i}
                 type='monotone'
                 dataKey={componentName}
-                stroke={metric.colorTheme}
-                fill={metric.colorTheme}
-                strokeWidth={1}
+                stroke={colors[metric.colorTheme]}
+                fill={colors[metric.colorTheme]}
+                strokeWidth={3}
                 activeDot={{ r: 8 }}
                 dot={{ r: 2 }}
                 isAnimationActive={metricShouldAnimate}
@@ -151,8 +128,8 @@ const Plot = (props) => {
                 key={i}
                 type="monotone"
                 dataKey={componentName}
-                stroke={metric.colorTheme}
-                fill={metric.colorTheme}
+                stroke={colors[metric.colorTheme]}
+                fill={colors[metric.colorTheme]}
                 strokeWidth={3}
                 activeDot={{ r: 8 }}
                 isAnimationActive={metricShouldAnimate}
@@ -162,8 +139,10 @@ const Plot = (props) => {
       }
     });
   });
+
   let graphTwo;
   let placeholder;
+
   if (checkIfTwoGraphsActive()) {
     graphTwo = (
       <div className={styles.graphContainer}>
@@ -171,12 +150,12 @@ const Plot = (props) => {
           width={600}
           height={225}
           data={data[1]}
-          fill={"transparent"}
+          fill={'transparent'}
           syncId="anyId"
         >
           <XAxis dataKey={"name"} label={"Render"} />
           <YAxis />
-          <CartesianGrid stroke={"#DCFFFD"} strokeDasharray="1 1" />
+          <CartesianGrid stroke={"#606060"} strokeDasharray="1 1" />
           <Tooltip
           />
           <Legend />
@@ -193,17 +172,12 @@ const Plot = (props) => {
   } else {
     graphTwo = (<div></div>);
     if(graphHeight === 225) {
-      graphHeight = 450
+      graphHeight = 420;
     }
   }
   if (!compiledGraphData.length) 
     placeholder = (
-      <div id={styles.graphPlaceholder}>
-        {/*<img 
-          id={styles.tachometer} 
-          src={require('./styles/tachometer.png')} 
-        />*/}
-      </div>
+      <div id={styles.graphPlaceholder}></div>
     )
             //     content={
             //   <CustomToolTip
@@ -213,7 +187,7 @@ const Plot = (props) => {
             //   />
             // }
   return (
-    <div className='graphContainer'>
+    <div className={styles.graphContainer}>
       {placeholder}
       <div>
         <ComposedChart
@@ -221,10 +195,11 @@ const Plot = (props) => {
           height={graphHeight}
           data={data[0]}
           syncId="anyId"
-        >
+          fill={'#606060'}
+          >
           <XAxis dataKey={"name"} />
           <YAxis />
-          <CartesianGrid stroke={"#DCFFFD"} strokeDasharray="1 1" />
+          <CartesianGrid stroke={"#494d4e"} strokeDasharray="1 1" />
           <Tooltip
           />
           <Legend />
@@ -246,5 +221,4 @@ const Plot = (props) => {
     </div>
   );
 };
-// margin={{top: 5, right: 30, left: 20, bottom: 5}}
 export default Plot;

@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import styles from './styles/displayed_graphs.css';
+import { colors } from './styles/colors.js';
 
 const DisplayedGraphs = (props) => {
 
@@ -19,13 +20,12 @@ const DisplayedGraphs = (props) => {
     componentsActiveOnGraphs.forEach((component,i) =>{
 
       component.activeGraphs === 0 ? whichGraph = '' : whichGraph = 'Secondary ';
-
       tabArray.push(
         <div
           key={i} 
           onClick={()=>{handleClick(component.name, component.metric, component.activeGraphs)}} 
           className={styles.tab} 
-          style={{'background':component.colorTheme}}>
+          style={{'background':colors[component.colorTheme]}}>
 
           <span> {component.name+": "+component.metric+' ('+whichGraph+''+component.graphDisplay+')'}</span>
         </div>

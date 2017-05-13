@@ -18,14 +18,14 @@ const Toolbar = (props) => {
         compileGraphData
       } = props;
 
+      console.log('\n\n\n\n\n logging from toolbar: \n',allComponents);
+
   return (
     <div>
       <div id={styles.toolbarContainer}>
-            
-            
             <div className={styles.toolbarPanel}>
-              <div className={styles.toolbarPanelTitle}>
-                <span>CREATE</span>
+              <div id={styles.create} className={styles.toolbarPanelTitle}>
+                <span>Component View</span>
                 <GraphPicker 
                   allComponents={allComponents} 
                   twoGraphsAreActive={twoGraphsAreActive}
@@ -34,9 +34,9 @@ const Toolbar = (props) => {
                   />
               </div>
             </div>
-            <div className={styles.toolbarPanel}>
+            <div id={styles.modify} className={styles.toolbarPanel}>
               <div className={styles.toolbarPanelTitle}>
-                <span>MODIFY</span>
+                <span>Profile View</span>
                 <DisplayedGraphs 
                 componentsActiveOnGraphs={componentsActiveOnGraphs}
                 updateGraph={updateGraph}

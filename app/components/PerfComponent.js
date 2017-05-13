@@ -124,6 +124,10 @@ export default class PerfComponent {
 
   addValue(value, category, metric) {
     this[category][metric].data.push(value);
+    console.log('[PERFCOMONENT]:',this.name,'\n',
+      'Adding value to:', metric,'\n',
+      'New value of data array:', this[category][metric].data
+    )
   }
 
   getValue(category, metric) {

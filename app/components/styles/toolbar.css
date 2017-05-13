@@ -6,6 +6,25 @@ $lightGrey: #dcdcdc;
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
+@keyframes fadeInFromNone {
+  0% {
+    transform: translateY(300%);
+    visibility:none;
+    opacity:0;
+  }
+  30% {
+    transform: translateY(300%);
+    visibility:visible;
+    opacity:0;
+  }
+  100% {
+    transform: translateY(0);
+    visibility:visible;
+    opacity:1
+  }
+}
+
+
 #toolbarContainer{
   position:relative;
   display:block;
@@ -13,21 +32,26 @@ $lightGrey: #dcdcdc;
   margin-right:auto;
   width:600px;
   height:235px;
-  /*background:#ffffff;*/
+  animation: fadeInFromNone 2s ease-out;
   
 }
 
 .toolbarPanel {
   position:relative;
   display:inline-block;
-  width:45%;
   height:100%;
-  margin-right:10px;
-  margin-left:10px;
   vertical-align:top;
-  border-radius:25px;
+  border-radius:5px;
   box-shadow: 0 2px 5px 0 rgba(145, 145, 145, 0.26);
   background:#ffffff;
+}
+
+#create {
+  width:300px;
+}
+
+#modify {
+  width:50%;
 }
 
 .toolbarPanelTitle {

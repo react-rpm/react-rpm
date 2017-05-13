@@ -1,13 +1,9 @@
 import 'babel-polyfill';
-import React, { Component } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
-import Visualizer from '../../../app/components/Visualizer';
-import styles from '../../../app/components/styles/app.css';
+import App from '../../../app/containers/App';
 
 render(
-  <Visualizer />,
+  <App/>,
   document.getElementById('root')
-)
-
-
-
+);

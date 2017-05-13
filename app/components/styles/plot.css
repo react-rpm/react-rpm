@@ -1,12 +1,8 @@
-
 #graphPlaceholder{
   position:relative;
   display:block;
-  height: 450px;
+  height: 420px;
   width: 600px;
-  background: url('./tachometer.png');
-  background-size: contain;
-  background-repeat: no-repeat;
 }
 
 #tachometer{
@@ -16,7 +12,6 @@
   height:350px;
   margin-right:auto;
   margin-left:auto;
-  
 }
 
 .toolbarToggleTooltips{
@@ -29,4 +24,31 @@
   background: url('./bg_dataitem_texture.png');
   background-repeat:repeat;
   font-size:11px;
+}
+
+@keyframes logoFadeIn {
+  0% {
+    /*transform: translateX(-100%);*/
+    visibility:none;
+    opacity:0;
+    /*transform: translateY(+50%);*/
+  }
+  60%{
+    opacity:0;
+    visibility:none;
+  }
+  100% {
+    visibility:visible;
+    opacity:1;
+    /*transform: translateY(0%);*/
+  }
+}
+.graphContainer{
+  width:fit-content;
+  height:fit-content;
+  background:linear-gradient(45deg, '#515151', '#585858');
+  /*background:rgba(96,96,96,.99);*/
+  border-radius:5px !important;
+  animation: logoFadeIn 2s ease-out;
+  box-shadow: 0 2px 5px 0 rgba(145, 145, 145, 0.26);
 }

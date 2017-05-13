@@ -40,6 +40,7 @@ class GraphPicker extends Component {
 
   componentWillReceiveProps(props){
       this.componentOptions = this.loadOptions(this.props.allComponents);
+      console.log('\n\n\n\n\n logging from graph picker: \n',this.props.allComponents);
       this.forceUpdate();
   }
   updateComponentValue (newValue) {
