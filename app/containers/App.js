@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import Visualizer from '../components/Visualizer';
+import ProfileView from './ProfileView';
 import styles from './styles/app.css';
 import transitions from './styles/transitions.css';
 import ReactTransition from 'react-transition-group/CSSTransitionGroup';
@@ -12,15 +13,10 @@ class App extends Component {
     this.haveReceivedPerfs = false;
 
     this.state = {
-      view: 'componentView',
+      view: 'profileView',
       appActive: false,
       perfData: {},
     };
-
-    this.animations = {
-      fadeOut: 'styles.fadeOut',
-      fadeIn: 'styles.fadeIn'
-    }
     
     this.listenForPerfs();
     this.message = [];
@@ -63,25 +59,29 @@ class App extends Component {
   toggleAppView(){
     let appView;
     this.state.view === 'componentView'
-      ? appView === 'profileView'
-      : appView === 'componentView'
+      ? appView = 'profileView'
+      : appView = 'componentView'
     this.setState({view: appView});
   }
 
   render() {
 
-    let currentView = '';
+    let currentView = [];
 
     if (this.state.appActive) {
-      if (this.haveReceivedPerfs) { this.message = [];
-        if (this.state.view === 'componentView') 
-          currentView = ( <Visualizer perfData={this.state.perfData}/> )
+      if (this.haveReceivedPerfs) { 
+        this.message = [];
+        if (this.state.view === 'componentView') {
+          currentView.push( <Visualizer perfData={this.state.perfData}/> );
+        } else if (this.state.view === 'profileView') {
+          currentView.push( <ProfileView newPerfs={this.state.perfData}/> );
+        }
       }
     }
     else this.message.push(this.buildMessage('toggleMessage'));
 
-    console.log('currentView:',currentView)
-
+    console.log('#######################\n[APP]: rendering...\nPassing perf data to view:',this.state.view,'\nperfs:',this.state.perfData,'\n#######################')
+    
     return (
       <div id={styles.main_container}>
         <div id={styles.bannerContainer}>react rpm | real-time performance metrics</div>

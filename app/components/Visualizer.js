@@ -48,7 +48,12 @@ class Visualizer extends Component {
     };
   }
 
+  componentDidMount(){
+    console.log('\n\n\ncomponentView has been created!\n\n\n')
+  }
+
   componentWillReceiveProps(props){
+    console.log('ComponentView has received props:',this.props.perfData);
     this.importPerfs(this.props.perfData);
     this.setState({perfs: this.props.perfData});
   }

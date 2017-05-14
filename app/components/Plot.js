@@ -32,35 +32,10 @@ const Plot = (props) => {
     simData
   } = props;
 
-  // console.log('dataItems in Plot.js is', dataItems);
-
-  // console.log(
-  //   'componentsActiveOnGraphs in Plot.js is',
-  //   componentsActiveOnGraphs
-  // );
-
-  let graphHeight = 420;
-
-  checkIfTwoGraphsActive() ? (graphHeight = 225) : (graphHeight = 420);
-
-  const data = [[],[]];
+  const data = [[], []];
   const graphRenders = { '0': {}, '1': {} };
   let activeGraphs = [];
 
-  // used in loops to track which metric we're looking at. It's an object with the following format:
-  // METRIC FORMAT:
-  // data: [],
-  // median: 0,
-  // min: 0,
-  // max: 0,
-  // graphDisplay: 'Line',
-  // colorTheme: 'blue',
-  // strokeWidth: 2,
-  // dotColor: 'blue',
-  // activeGraphs: {
-  //   '0': false,
-  //   '1': false
-  // }
   let metric;
   let metricName;
   let metricShouldAnimate;
@@ -140,12 +115,56 @@ const Plot = (props) => {
     });
   });
 
-  let graphTwo;
-  let placeholder;
+  const getGraphComponentForRender = (num) => {
+    return Object.keys(graphRenders[num]).reduce((total, metric) => [...total, ...graphRenders[num][metric]], []);
+  }
 
-  if (checkIfTwoGraphsActive()) {
-    graphTwo = (
-      <div className={styles.graphContainer}>
+  const getGraphParams = (num) => {
+    return {
+      id: num
+        ? 'styles.comparisonGraphContainer'
+        : 'styles.graphContainer',
+      data: data[num],
+      graphRenders: getGraphComponentForRender(num),
+      brushComponent: num ? (<Brush height={13} stroke='#413b4d' />) : [],
+      divToRenderIfEmptyGraphs: compiledGraphData.length
+        ? []
+        : (<div id={styles.graphPlaceholder}></div>),
+      graphHeight: num
+        ? 225
+        : 420
+      }
+  }
+
+  const mainGraphParams = getGraphParams(0);
+  const comparisonGraphParams = getGraphParams(1);
+
+  return (
+    <div className={styles.graphContainer}>
+      <div key={num} id={styles[mainGraphParams.id]}>
+        <ComposedChart
+          width={600}
+          height={mainGraphParams.graphHeight}
+          data={data[mainGraphParams.num]}
+          fill={'transparent'}
+          syncId="anyId"
+        >
+          <XAxis dataKey={"name"} label={"Render"} />
+          <YAxis />
+          <CartesianGrid stroke={"transparent"} strokeDasharray="1 1" />
+          <Tooltip />
+          <Legend />)
+          {mainGraphParams.graphRenders}
+          {mainGraphParams.brushComponent}
+        </ComposedChart>
+      </div>
+    </div>
+  )
+}
+
+/*if (checkIfTwoGraphsActive()) {
+    comparisonGraph = (
+      <div id={styles.comparisonGraphContainer}>
         <ComposedChart
           width={600}
           height={225}
@@ -155,9 +174,8 @@ const Plot = (props) => {
         >
           <XAxis dataKey={"name"} label={"Render"} />
           <YAxis />
-          <CartesianGrid stroke={"#606060"} strokeDasharray="1 1" />
-          <Tooltip
-          />
+          <CartesianGrid stroke={"transparent"} strokeDasharray="1 1" />
+          <Tooltip />
           <Legend />
           {graphRenders[1]['timeWasted']}
           {graphRenders[1]['renderCount']}
@@ -166,42 +184,31 @@ const Plot = (props) => {
           {graphRenders[1]['averageRenderTime']}
           {graphRenders[1]['totalTime']}
           {graphRenders[1]['totalLifeCycleTime']}
+          {brushComponent}
         </ComposedChart>
       </div>
-    );
-  } else {
-    graphTwo = (<div></div>);
-    if(graphHeight === 225) {
-      graphHeight = 420;
-    }
-  }
-  if (!compiledGraphData.length) 
-    placeholder = (
-      <div id={styles.graphPlaceholder}></div>
     )
-            //     content={
-            //   <CustomToolTip
-            //     componentsActiveOnGraphs={componentsActiveOnGraphs}
-            //     dataItems={dataItems}
-            //     getComponent={getComponent}
-            //   />
-            // }
+    brushComponent = [];
+  }
+  else comparisonGraph = [];*/
+
+/*  
+
   return (
     <div className={styles.graphContainer}>
-      {placeholder}
+      {renderIfEmptyGraphs}
       <div>
         <ComposedChart
           width={600}
           height={graphHeight}
           data={data[0]}
           syncId="anyId"
-          fill={'#606060'}
-          >
+          fill={'transparent'}
+        >
           <XAxis dataKey={"name"} />
           <YAxis />
-          <CartesianGrid stroke={"#494d4e"} strokeDasharray="1 1" />
-          <Tooltip
-          />
+          <CartesianGrid stroke={"transparent"} strokeDasharray="1 1" />
+          <Tooltip />
           <Legend />
           {graphRenders[0]['timeWasted']}
           {graphRenders[0]['renderCount']}
@@ -210,15 +217,15 @@ const Plot = (props) => {
           {graphRenders[0]['averageRenderTime']}
           {graphRenders[0]['totalTime']}
           {graphRenders[0]['totalLifeCycleTime']}
-          <Brush />
+          {brushComponent}
         </ComposedChart>
       </div>
       <br />
-      {graphTwo}
+      {comparisonGraph}
       {/*<div className={styles.toolbarToggleTooltips}>
         <DataItemList dataItems={dataItems} onDataItemClick={onDataItemClick} />
-      </div>*/}
-    </div>
-  );
-};
+      </div>*/
+  //   </div>
+  // );*/
+
 export default Plot;
