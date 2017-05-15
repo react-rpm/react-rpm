@@ -26,3 +26,8 @@ td {
   border-right: 1px solid #BDBDBD;
   padding: 2px;
 }
+
+.mainContainer{
+  position:relative;
+  display:block;
+}

@@ -22,7 +22,6 @@ class Visualizer extends Component {
 
     this.componentsActiveOnGraphs = [];
     this.loadToolbar = false;
-    console.log('loading visualizer');
     this.state = {
 
       allComponents: [],
@@ -49,7 +48,7 @@ class Visualizer extends Component {
   }
 
   componentDidMount(){
-    console.log('\n\n\ncomponentView has been created!\n\n\n')
+    console.log('\n\n\ncomponentView has been mounted!\n\n\n')
   }
 
   componentWillReceiveProps(props){
@@ -125,7 +124,6 @@ class Visualizer extends Component {
         newPerfComponent.addValue(data[metric], 'RENDER', exclusiveDataTitles[metric]);
       });
     })
-    console.log(perfs['wasted']);
     if(perfs['wasted']){
       perfs['wasted'].forEach(data =>{
 
@@ -146,7 +144,6 @@ class Visualizer extends Component {
     let arr = Object.keys(perfsInState).map(item => {
       return perfsInState[item];
     })
-    console.log('[array]:\n',arr);
     this.setState({ allComponents: arr});
   }
 
@@ -200,9 +197,8 @@ class Visualizer extends Component {
   }
 
   render() {
-    console.log('CURRENT COMPONENTS:\n');
-    if (!this.state.allComponents.length) console.log('[no components loaded]\n');
-    else console.log(this.state.allComponents);
+    console.log('CURRENT COMPONENTS:');
+    if (!this.state.allComponents.length) console.log('- - - no components loaded] - - -\n');
 
     this.compiledGraphData = this.compileGraphData();
     

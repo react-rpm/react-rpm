@@ -3,6 +3,7 @@
   display:block;
   height: 420px;
   width: 600px;
+  margin-top:33px;
 }
 
 #tachometer{
@@ -65,12 +66,11 @@
 #graphContainer{
   width:fit-content;
   height:fit-content;
-  margin-top:20px;
+  margin-top:33px;
+  margin-bottom:10px;
   padding-right:40px;
-  /*background:linear-gradient(45deg, '#515151', '#585858');*/
-  background:rgba(48,43,57,.98);
+  background:rgba(48,43,57,.97);
   border-radius:5px !important;
-  animation: logoFadeInLeft 2s ease-out;
   box-shadow: 0 2px 5px 0 rgba(23, 23, 23, 0.26);
 }
 
@@ -79,9 +79,7 @@
   height:fit-content;
   margin-top:20px;
   padding-right:40px;
-  /*background:linear-gradient(45deg, '#515151', '#585858');*/
   background:transparent;
   border-radius:5px;
-  animation: logoFadeInRight 2s ease-out;
   box-shadow: 0 2px 5px 0 rgba(23, 23, 23, 0.26);
 }

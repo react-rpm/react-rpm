@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ProfileChart from '.././components/ProfileChart';
-import ProfileBar from '.././components/ProfileBar';
+import ProfileBar from '.././components/ProfileBar';;
 import ProfileContent from '.././components/ProfileContent';
 import styles from '.././assets/profileView.css';
 // import { samplePerfs } from '.././sample_perfs';
 
 const propTypes = {
-  perfs: PropTypes.object.isRequired,
+  perfs: PropTypes.object,
 };
 
 class ProfileView extends Component {
   static propTypes = propTypes;
   constructor(props) {
     super(props);
+
+    this.perfDataHasRun = false;
 
     this.state = {
       perfItems: [
@@ -27,7 +29,7 @@ class ProfileView extends Component {
         { id: 1, selected: false, label: 'Instance count' },
         { id: 2, selected: false, label: 'Render count' },
       ],
-      incomingPerfs: (this.props.newPerfs || {})
+      incomingPerfs: (this.getPerfData(this.props.newPerfs) || {})
     };
   }
 
@@ -35,9 +37,13 @@ class ProfileView extends Component {
     console.log('profileView has been mounted');
   }
 
+  componentWillUpdate(){
+    console.log('profileView about to re-render');
+  }
+
   componentWillReceiveProps(props){
     console.log('componentWillReceiveProps fired!');
-    this.setState({incomingPerfs: this.props.newPerfs});
+    this.setState({incomingPerfs: this.getPerfData(this.props.newPerfs)});
   }
 
   onPerfItemClick = (perfItem) => {
@@ -162,38 +168,36 @@ class ProfileView extends Component {
     perfData.push(inclusive);
     perfData.push(exclusive);
     perfData.push(dom);
+    this.perfDataHasRun = true;
     return perfData;
   }
 
   render() {
-    return (
-      <div
-        className='mainContainer'
-        style={{
-          background: 'white',
-          backgroundRepeat: 'repeat',
-          fontFamily: 'Roboto, sans-serif',
-          margin: '0',
-          padding: '0',
-          marginTop: '30px'
-        }}
-      >
-        <ProfileChart
-          perfData={this.incomingPerfs}
-          perfItems={this.state.perfItems}
-          dataKeys={this.state.dataKeys}
-        />
-        <ProfileBar
-          perfItems={this.state.perfItems}
-          onPerfItemClick={this.onPerfItemClick}
-          showDataKeys={this.showDataKeys}
-        />
-        <ProfileContent
-          dataKeys={this.state.dataKeys}
-          onDataKeyClick={this.onDataKeyClick}
-        />
-      </div>
-    );
+
+    if(this.perfDataHasRun) {
+      return (
+        <div
+          className={styles.mainContainer}
+        >
+          <ProfileChart
+            perfData={this.state.incomingPerfs}
+            perfItems={this.state.perfItems}
+            dataKeys={this.state.dataKeys}
+          />
+          <ProfileBar
+            perfItems={this.state.perfItems}
+            onPerfItemClick={this.onPerfItemClick}
+            showDataKeys={this.showDataKeys}
+          />
+          <ProfileContent
+            dataKeys={this.state.dataKeys}
+            onDataKeyClick={this.onDataKeyClick}
+          />
+        </div>
+      );
+    } else {
+      return (<span>Profile View No Rendered</span>);
+    }
   }
 }
 

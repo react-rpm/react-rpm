@@ -16,6 +16,8 @@ import DataItemList from './DataItemList';
 import CustomToolTip from './CustomToolTip';
 import styles from './styles/plot.css';
 import { colors } from './styles/colors.js';
+import graph_transitions from './styles/profile_graph_transitions.css';
+import ReactTransition from 'react-transition-group/CSSTransitionGroup';
 
 require('./styles/tachometer.png');
 
@@ -113,51 +115,75 @@ const Plot = (props) => {
         }
       }
     });
+    console.log(graphRenders);
   });
 
   const getGraphComponentForRender = (num) => {
-    return Object.keys(graphRenders[num]).reduce((total, metric) => [...total, ...graphRenders[num][metric]], []);
+    let arr = [];
+    console.log('graphRenders:\n',graphRenders)
+    Object.keys(graphRenders[num]).forEach(el => {
+      arr.push(graphRenders[num][el]);
+    })
+    return arr;
   }
 
   const getGraphParams = (num) => {
     return {
+      code: num,
       id: num
-        ? 'styles.comparisonGraphContainer'
-        : 'styles.graphContainer',
+        ? 'comparisonGraphContainer'
+        : 'graphContainer',
       data: data[num],
       graphRenders: getGraphComponentForRender(num),
-      brushComponent: num ? (<Brush height={13} stroke='#413b4d' />) : [],
-      divToRenderIfEmptyGraphs: compiledGraphData.length
-        ? []
-        : (<div id={styles.graphPlaceholder}></div>),
+      brushComponent: num ? [] : (<Brush height={13} stroke='#413b4d' />),
       graphHeight: num
         ? 225
         : 420
       }
   }
 
-  const mainGraphParams = getGraphParams(0);
-  const comparisonGraphParams = getGraphParams(1);
+  let mainGraphParams;
+  let graphOutput = (<div id={styles.graphPlaceholder}></div>)
+
+  console.log('compiledGraphData:',compiledGraphData,'\n');
+  console.log('graphRenders length',graphRenders.length)
+
+  if (compiledGraphData.length) {
+    console.log('****\ngenerating graph\n****')
+    mainGraphParams = getGraphParams(0);
+    console.log('mainGraphParams:',mainGraphParams);
+    console.log('data:',mainGraphParams.data);
+    graphOutput = (
+        <ComposedChart
+            width={600}
+            height={mainGraphParams.graphHeight}
+            data={data[mainGraphParams.code]}
+            fill={'transparent'}
+            syncId="anyId"
+          >
+            <XAxis dataKey={"name"} label={"Render"} />
+            <YAxis />
+            <CartesianGrid stroke={"transparent"} strokeDasharray="1 1" />
+            <Tooltip />
+            <Legend />)
+            {mainGraphParams.graphRenders}
+            {mainGraphParams.brushComponent_main}
+          </ComposedChart>
+      );
+  }
+
+  console.log('graphoutput:',graphOutput);
 
   return (
-    <div className={styles.graphContainer}>
-      <div key={num} id={styles[mainGraphParams.id]}>
-        <ComposedChart
-          width={600}
-          height={mainGraphParams.graphHeight}
-          data={data[mainGraphParams.num]}
-          fill={'transparent'}
-          syncId="anyId"
-        >
-          <XAxis dataKey={"name"} label={"Render"} />
-          <YAxis />
-          <CartesianGrid stroke={"transparent"} strokeDasharray="1 1" />
-          <Tooltip />
-          <Legend />)
-          {mainGraphParams.graphRenders}
-          {mainGraphParams.brushComponent}
-        </ComposedChart>
-      </div>
+    <div>
+      <ReactTransition
+        transitionName={graph_transitions}
+        transitionAppear={true}
+        transitionAppearTimeout={1000} transitionEnterTimeout={800} transitionLeaveTimeout={800}>
+        <div id={styles.graphContainer}>
+        {graphOutput}
+        </div>
+      </ReactTransition>
     </div>
   )
 }

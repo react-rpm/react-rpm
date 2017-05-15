@@ -13,11 +13,16 @@
   height:30px;
   background: #fff;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.26);
-  background-repeat:repeat;
-  text-align:center;
   font-family: 'Open Sans', sans-serif;
-  font-size: 13px;
+  text-align:center;
+  font-size: 10px;
   color:#919191;
+  letter-spacing:6px;
+  text-justify: distribute-all-lines;
+}
+ 
+ #bannerText {
+  margin-top:7px;
 }
 
 @keyframes logoFadeIn {
@@ -63,12 +68,18 @@
   font-size:14px;
   width:fit-content;
   height:fit-content;
-  background: rgba(255,127,93, .5);
+  background: rgba(213,213,213, .3);
   font-weight:bold;
-  box-shadow: 0 2px 5px 0 rgba(145, 145, 145, 0.76);
+  box-shadow: 0 2px 5px 0 rgba(145, 145, 145, 0.96);
   border-radius:5px;
   padding:10px;
   z-index:3;
+  transition: background 200ms ease-in-out;
+}
+
+#toggleMessage:hover{
+  background: rgba(189,212,175, .5);
+  transition: background 200ms ease-in-out;
 }
 
 #listening{
@@ -109,10 +120,9 @@
 }
 
 #rpm_logo{
-  position:absolute;
+  position:fixed;
   width:80%;
   left:9%;
-  top:50%;
+  top:10%;
   animation: logoFadeIn 3s ease-out;
-  margin-top:5%;
 }

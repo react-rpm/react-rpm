@@ -1,6 +1,10 @@
 {
   "presets": ["es2015", "stage-2", "react"],
-  "plugins": ["transform-class-properties"],
+  "plugins": [
+    "transform-class-properties",
+    "transform-class-properties",
+    "transform-object-rest-spread"
+    ],
   "env": {
     "development": {
       "presets": ["react-hmre"]

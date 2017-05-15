@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './styles/profilechart.css';
+import graph_transitions from './styles/graph_transitions.css';
+import ReactTransition from 'react-transition-group/CSSTransitionGroup';
 import {
   BarChart,
   Bar,
@@ -22,12 +25,13 @@ const ProfileChart = (props) => {
   const { perfData, perfItems, dataKeys } = props;
 
   let data;
-  perfItems.forEach((perfItem) => {
+
+  perfItems.forEach((perfItem, i) => {
     if (perfItem.selected) {
+      console.log('\n\n\nperfData:',JSON.stringify(perfData,null,2,'\n\n\n'));
       data = perfData[perfItem.id];
     }
   });
-  console.log('[PROFILE CHART] Data:',data);
   let xDataKey;
   const keys = Object.keys(data[0]);
   keys.forEach((key) => {
@@ -56,16 +60,7 @@ const ProfileChart = (props) => {
   let chart;
   if (perfItems[3].selected) {
     chart = (
-      <div
-        className='opsTableContainer'
-        style={{
-          height: '400px',
-          margin: '0 auto',
-          overflowX: 'auto',
-          overflowY: 'auto',
-          width: '640px',
-        }}
-      >
+      <div className={styles.opsTableContainer}>
         <table>
           <thead>
             <tr>
@@ -96,16 +91,10 @@ const ProfileChart = (props) => {
     );
   } else {
     chart = (
-      <div
-        className='barChartContainer'
-        style={{
-          margin: '0 auto',
-          width: '600px',
-        }}
-      >
+      <div className={styles.barChartContainer}>
         <BarChart
           width={600} height={420} data={data}
-          margin={{ top: 8, right: 56, left: 0, bottom: 16 }} syncId='anyId'
+          margin={{ right: 56, left: 0, bottom: 16 }} syncId='anyId'
         >
           <XAxis dataKey={xDataKey} />
           <YAxis />
@@ -120,9 +109,17 @@ const ProfileChart = (props) => {
   }
 
   return (
-    <div className='chartContainer'>
-      {chart}
+    <div>
+      <ReactTransition
+        transitionName={graph_transitions}
+        transitionAppear={true}
+        transitionAppearTimeout={1000} transitionEnterTimeout={800} transitionLeaveTimeout={800}>
+        <div className={styles.chartContainer}>
+          {chart}
+        </div>
+      </ReactTransition>
     </div>
+    
   );
 };
 

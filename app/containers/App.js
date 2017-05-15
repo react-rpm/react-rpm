@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import Visualizer from '../components/Visualizer';
+import Visualizer from './../components/Visualizer';
+import ViewController from './../components/ViewController';
 import ProfileView from './ProfileView';
 import styles from './styles/app.css';
 import transitions from './styles/transitions.css';
@@ -13,16 +14,17 @@ class App extends Component {
     this.haveReceivedPerfs = false;
 
     this.state = {
-      view: 'profileView',
+      view: 'componentView',
       appActive: false,
       perfData: {},
     };
-    
+
     this.listenForPerfs();
     this.message = [];
+    this.logo = (<img src={require('./../components/styles/tachometer.png')} id={styles.rpm_logo} />);
   }
 
-  listenForPerfs(){
+  listenForPerfs() {
     const backgroundPageConnection = chrome.runtime.connect({
       name: "panel"
     });
@@ -32,72 +34,86 @@ class App extends Component {
       tabId: chrome.devtools.inspectedWindow.tabId
     });
     backgroundPageConnection.onMessage.addListener(message => {
-      console.log('[APP]\n Received Perfs...\n', message);
-      if (!this.haveReceivedPerfs) this.haveReceivedPerfs = true;
-      this.setState({perfData: message.message});
+      if (!this.haveReceivedPerfs) {
+        console.log('\nAPP has received perfs from DevTools...\n')
+        this.haveReceivedPerfs = true;
+      }
+      this.setState({ perfData: message.message });
     });
   }
 
-  handleClick(){
+  handleClick = () => {
     let appActive;
     if (!this.state.appActive) {
       this.message = [];
       this.message.push(this.buildMessage('listening'));
       appActive = !this.state.appActive;
     }
-    this.setState({appActive});
+    this.setState({ appActive });
   }
 
-  buildMessage(message) {
-    if (message === 'toggleMessage') 
-      return (<div key={1} id={styles.toggleMessage} onClick={this.handleClick.bind(this)}>Click here to begin listening for renders</div>)
-    if (message === 'listening'){
+  buildMessage = (message) => {
+    if (message === 'toggleMessage')
+      return (<div key={1} id={styles.toggleMessage} onClick={this.handleClick}>Click here to begin listening for renders</div>)
+    if (message === 'listening') {
       return (<div key={10000} id={styles.listening}>React RPM is listening for renders...</div>)
     }
   }
 
-  toggleAppView(){
-    let appView;
+  toggleViewHandler = () => {
+    let appView
     this.state.view === 'componentView'
       ? appView = 'profileView'
       : appView = 'componentView'
-    this.setState({view: appView});
+    this.setState({ view: appView });
   }
 
   render() {
 
-    let currentView = [];
+    let message = [];
+    let componentView = [];
+    let profileView = [];
+    let viewController = [];
 
     if (this.state.appActive) {
-      if (this.haveReceivedPerfs) { 
+      if (this.haveReceivedPerfs) {
         this.message = [];
+        viewController = (<ViewController selectedView={this.state.view} toggleViewHandler={this.toggleViewHandler}/>);
         if (this.state.view === 'componentView') {
-          currentView.push( <Visualizer perfData={this.state.perfData}/> );
+          componentView = (<Visualizer key={1} perfData={this.state.perfData} />);
         } else if (this.state.view === 'profileView') {
-          currentView.push( <ProfileView newPerfs={this.state.perfData}/> );
+          profileView = (<ProfileView key={2} newPerfs={this.state.perfData} />);
         }
       }
     }
     else this.message.push(this.buildMessage('toggleMessage'));
 
-    console.log('#######################\n[APP]: rendering...\nPassing perf data to view:',this.state.view,'\nperfs:',this.state.perfData,'\n#######################')
-    
+    console.log(`\n\n##[APP]##\nrendering ${this.state.view}\n---------------\n`);
+
+
     return (
       <div id={styles.main_container}>
-        <div id={styles.bannerContainer}>react rpm | real-time performance metrics</div>
-        <img src={require('./../components/styles/tachometer.png')} id={styles.rpm_logo}/>
+        {viewController}
+        <div 
+          id={styles.bannerContainer}>
+          <span id={styles.bannerText} 
+          >react rpm | real-time performance metrics</span>
+        </div>
+        {this.logo}
         <div id={styles.message_container}>
-          <ReactTransition 
+          <ReactTransition
             transitionName={transitions}
             transitionAppear={true}
             transitionAppearTimeout={3000} transitionEnterTimeout={2000} transitionLeaveTimeout={300}>
             {this.message}
           </ReactTransition>
         </div>
-        {currentView}
+        {profileView}
+        {componentView}
       </div>
     )
   }
 }
 
 export default App;
+
