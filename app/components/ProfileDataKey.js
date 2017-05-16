@@ -23,3 +23,4 @@ const ProfileDataKey = ({ onClick, selected, label }) => (
 ProfileDataKey.propTypes = propTypes;
 
 export default ProfileDataKey;
+

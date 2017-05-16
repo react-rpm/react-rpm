@@ -16,11 +16,6 @@ app.get( '/', function(req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
-// app.get( 'index.js', function(req, res) {
-//   console.log('End point: index.js')
-//   res.sendFile(__dirname, '/chrome/extension/devpanel/index.js')
-// })
-
 app.listen(port, function success(error) {
   if (error) {
     console.error(error);

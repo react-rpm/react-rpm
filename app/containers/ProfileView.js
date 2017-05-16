@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ProfileChart from '.././components/ProfileChart';
-import ProfileBar from '.././components/ProfileBar';
+import ProfileBar from '.././components/ProfileBar';;
 import ProfileContent from '.././components/ProfileContent';
 import styles from '.././assets/profileView.css';
+import viewVisibility from './../assets/viewvisibility.css';
 // import { samplePerfs } from '.././sample_perfs';
 
 const propTypes = {
-  perfs: PropTypes.object.isRequired,
+  perfs: PropTypes.object,
 };
 
 class ProfileView extends Component {
   static propTypes = propTypes;
   constructor(props) {
     super(props);
+
+    this.perfDataHasRun = false;
+    this.profileVisibility = this.props.profileVisibility;
 
     this.state = {
       perfItems: [
@@ -27,7 +31,12 @@ class ProfileView extends Component {
         { id: 1, selected: false, label: 'Instance count' },
         { id: 2, selected: false, label: 'Render count' },
       ],
+      incomingPerfs: (this.getPerfData(this.props.newPerfs) || {})
     };
+  }
+
+  componentWillReceiveProps(props){
+    this.setState({incomingPerfs: this.getPerfData(this.props.newPerfs)});
   }
 
   onPerfItemClick = (perfItem) => {
@@ -97,14 +106,15 @@ class ProfileView extends Component {
     }
   }
 
-  getPerfData = () => {
-    const perfs = this.props.perfs;
+  getPerfData = (newPerfs = this.state.perfs) => {
+    const perfs = newPerfs;
     const perfData = [];
     const wastedTime = [];
     const inclusive = [];
     const exclusive = [];
     const dom = [];
-    if (perfs.wasted[0]) perfs.wasted[0].forEach((set) => { wastedTime.push(set); });
+
+    if (perfs.wasted) perfs.wasted.forEach((set) => { wastedTime.push(set); });
     else {
       wastedTime.push({
         'Owner > Component': 'N/A',
@@ -113,7 +123,7 @@ class ProfileView extends Component {
         'Render count': 0,
       });
     }
-    if (perfs.inclusive[0]) perfs.inclusive[0].forEach((set) => { inclusive.push(set); });
+    if (perfs.inclusive) perfs.inclusive.forEach((set) => { inclusive.push(set); });
     else {
       inclusive.push({
         'Owner > Component': 'N/A',
@@ -122,7 +132,7 @@ class ProfileView extends Component {
         'Render count': 0,
       });
     }
-    if (perfs.exclusive[0]) perfs.exclusive[0].forEach((set) => { exclusive.push(set); });
+    if (perfs.exclusive) perfs.exclusive.forEach((set) => { exclusive.push(set); });
     else {
       exclusive.push({
         'Component': 'N/A',
@@ -134,7 +144,7 @@ class ProfileView extends Component {
         'Total lifecycle time (ms)': 0,
       });
     }
-    if (perfs.dom[0]) perfs.dom[0].forEach((set) => { dom.push(set); });
+    if (perfs.dom) perfs.dom.forEach((set) => { dom.push(set); });
     else {
       dom.push({
         'Owner > Node': 'N/A',
@@ -149,37 +159,39 @@ class ProfileView extends Component {
     perfData.push(inclusive);
     perfData.push(exclusive);
     perfData.push(dom);
+    this.perfDataHasRun = true;
     return perfData;
   }
 
   render() {
-    return (
-      <div
-        className='mainContainer'
-        style={{
-          background: 'white',
-          backgroundRepeat: 'repeat',
-          fontFamily: 'Roboto, sans-serif',
-          margin: '0',
-          padding: '0',
-        }}
-      >
-        <ProfileChart
-          perfData={this.getPerfData()}
-          perfItems={this.state.perfItems}
-          dataKeys={this.state.dataKeys}
-        />
-        <ProfileBar
-          perfItems={this.state.perfItems}
-          onPerfItemClick={this.onPerfItemClick}
-          showDataKeys={this.showDataKeys}
-        />
-        <ProfileContent
-          dataKeys={this.state.dataKeys}
-          onDataKeyClick={this.onDataKeyClick}
-        />
-      </div>
-    );
+
+    let visibilityClass;
+    this.profileVisibility = this.props.profileVisibility;
+    this.profileVisibility ? visibilityClass = styles.profileOnScreen : visibilityClass = styles.profileOffScreen
+
+    if(this.perfDataHasRun) {
+      return (
+        <div className={visibilityClass}
+            id={styles.mainContainer}>
+          <ProfileChart
+            perfData={this.state.incomingPerfs}
+            perfItems={this.state.perfItems}
+            dataKeys={this.state.dataKeys}
+          />
+          <ProfileBar
+            perfItems={this.state.perfItems}
+            onPerfItemClick={this.onPerfItemClick}
+            showDataKeys={this.showDataKeys}
+          />
+          <ProfileContent
+            dataKeys={this.state.dataKeys}
+            onDataKeyClick={this.onDataKeyClick}
+          />
+        </div>
+      );
+    } else {
+      return (<span>Profile View No Rendered</span>);
+    }
   }
 }
 
