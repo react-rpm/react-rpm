@@ -1,17 +1,3 @@
-// function sendToDevTools(msg){
-//   let port = chrome.runtime.connect({name: 'background'});
-//   port.postMessage({perfs:msg});
-// }
-
-// chrome.runtime.onConnect.addListener(function(port) {
-//   console.log('bg listening to port...');
-//   ports.push(port);
-//   port.onMessage.addListener(function(msg) {
-//     console.log('bg incoming message:',msg);
-//     sendToDevTools(msg);
-//   });
-// });
-
 var connections = {};
 
 chrome.runtime.onConnect.addListener(function (port) {

@@ -1,0 +1,11 @@
+.data_item{
+  position:relative;
+  display:inline-block;
+  width: fit-content;
+  padding-left:5px;
+  padding-right:5px;
+  font-size:12px;
+  height:100%;
+  margin-top:5px;
+  margin-right:5px;
+}

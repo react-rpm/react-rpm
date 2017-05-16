@@ -1,18 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './styles/viewcontroller.css';
+import styles from './../assets/viewcontroller.css';
 
 const ViewController = (props) => {
 
   const {selectedView, toggleViewHandler} = props;
 
-  console.log('ViewController created.');
-
   let selectedClass, selectedText, profileClickHandler, componentClickHandler
   let [profileText, componentText] = ['<<< go to profile view', 'go to component view >>>']
 
   selectedView === 'profileView'
-    ? [selectedClass, selectedText, profileClickHandler, componentClickHandler] = [styles.profile, 'profile view', '', toggleViewHandler]
+    ? [selectedClass, selectedText, profileClickHandler, componentClickHandler] = [styles.profile, 'profile view', '', toggleViewHandler ]
     : [selectedClass, selectedText, profileClickHandler, componentClickHandler]  = [styles.component, 'component view', toggleViewHandler, '']
 
   return (

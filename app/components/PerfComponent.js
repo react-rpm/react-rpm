@@ -26,12 +26,13 @@ export default class PerfComponent {
 
       this.currentlyRenderedMetrics = [];
 
-      // console.log(
-      //   '-------------------------\n',
-      //   '* New Component Created *\n',
-      //   '\tName:',this.name,'\n',
-      //   '-------------------------\n',
-      //   )
+      console.log(
+        '-------------------------\n',
+        '-----[Component View]----\n',
+        '* New Perf Component Created *\n',
+        '\tName:',this.name,'\n',
+        '-------------------------\n',
+        )
     }
 
     //This method is ONLY called in the PerfComponents constructor to create the component.
@@ -70,7 +71,6 @@ export default class PerfComponent {
       return [emptyRenderTemplate, emptySummaryTemplate];
     }
 
-    //this sets a metric to active on a specific graph, or turns it off. 
     toggleActiveMetric(category, metric, graph, graphStyle=null, color=null) {
       if (graphStyle && color) {
         this[category][metric].graphDisplay = graphStyle
@@ -103,18 +103,6 @@ export default class PerfComponent {
           activeMetrics.push(this.RENDER[metric].cache);
         })
       })
-        // }else {
-        //   Object.keys(this.SUMMARY).forEach(metric => {
-        //     if (this.SUMMARY[metric].activeGraphs[i]) {
-        //       activeMetrics.push( [
-        //         this[category][metric],
-        //         this.name, 
-        //         metric, 
-        //         i, 
-        //         this.getValue('SUMMARY', metric) 
-        //       ]);
-        //     }
-        //   })
     return activeMetrics;
   }
   
@@ -124,10 +112,10 @@ export default class PerfComponent {
 
   addValue(value, category, metric) {
     this[category][metric].data.push(value);
-    console.log('[PERFCOMONENT]:',this.name,'\n',
-      'Adding value to:', metric,'\n',
-      'New value of data array:', this[category][metric].data
-    )
+    // console.log('[PERFCOMONENT]:',this.name,'\n',
+    //   'Adding value to:', metric,'\n',
+    //   'New value of data array:', this[category][metric].data,'\n'
+    // )
   }
 
   getValue(category, metric) {

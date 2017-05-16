@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import Visualizer from './../components/Visualizer';
+import ComponentView from './ComponentView';
 import ViewController from './../components/ViewController';
 import ProfileView from './ProfileView';
-import styles from './styles/app.css';
-import transitions from './styles/transitions.css';
 import ReactTransition from 'react-transition-group/CSSTransitionGroup';
+import transitions from './../assets/transitions.css';
+import styles from './../assets/app.css';
 
 class App extends Component {
   constructor(props) {
@@ -13,15 +13,18 @@ class App extends Component {
 
     this.haveReceivedPerfs = false;
 
+    this.profileVisibility;
+    this.componentVisibility;
+
     this.state = {
       view: 'componentView',
-      appActive: false,
+      appActive: true,
       perfData: {},
     };
 
     this.listenForPerfs();
     this.message = [];
-    this.logo = (<img src={require('./../components/styles/tachometer.png')} id={styles.rpm_logo} />);
+    this.logo = (<img src={require('./../assets/images/tachometer.png')} id={styles.rpm_logo} />);
   }
 
   listenForPerfs() {
@@ -35,7 +38,6 @@ class App extends Component {
     });
     backgroundPageConnection.onMessage.addListener(message => {
       if (!this.haveReceivedPerfs) {
-        console.log('\nAPP has received perfs from DevTools...\n')
         this.haveReceivedPerfs = true;
       }
       this.setState({ perfData: message.message });
@@ -78,18 +80,15 @@ class App extends Component {
     if (this.state.appActive) {
       if (this.haveReceivedPerfs) {
         this.message = [];
+        this.state.view === 'profileView' 
+        ? [this.profileVisibility, this.componentVisibility] = [true, false]
+        : [this.profileVisibility, this.componentVisibility] = [false, true]
         viewController = (<ViewController selectedView={this.state.view} toggleViewHandler={this.toggleViewHandler}/>);
-        if (this.state.view === 'componentView') {
-          componentView = (<Visualizer key={1} perfData={this.state.perfData} />);
-        } else if (this.state.view === 'profileView') {
-          profileView = (<ProfileView key={2} newPerfs={this.state.perfData} />);
-        }
+        componentView = (<ComponentView key={1} componentVisibility={this.componentVisibility} perfData={this.state.perfData} />);
+        profileView = (<ProfileView key={2} profileVisibility={this.profileVisibility} newPerfs={this.state.perfData} />);
       }
     }
     else this.message.push(this.buildMessage('toggleMessage'));
-
-    console.log(`\n\n##[APP]##\nrendering ${this.state.view}\n---------------\n`);
-
 
     return (
       <div id={styles.main_container}>

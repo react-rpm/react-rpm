@@ -11,15 +11,12 @@ import {
   Legend,
   Brush
 } from 'Recharts';
-import TwoPaneToggle from './TwoPaneToggle';
 import DataItemList from './DataItemList';
 import CustomToolTip from './CustomToolTip';
-import styles from './styles/plot.css';
-import { colors } from './styles/colors.js';
-import graph_transitions from './styles/profile_graph_transitions.css';
+import styles from './../assets/plot.css';
+import { colors } from './../assets/colors.js';
+import viewEnterTransitions from './../assets/viewEnterTransitions.css';
 import ReactTransition from 'react-transition-group/CSSTransitionGroup';
-
-require('./styles/tachometer.png');
 
 const Plot = (props) => {
 
@@ -115,12 +112,10 @@ const Plot = (props) => {
         }
       }
     });
-    console.log(graphRenders);
   });
 
   const getGraphComponentForRender = (num) => {
     let arr = [];
-    console.log('graphRenders:\n',graphRenders)
     Object.keys(graphRenders[num]).forEach(el => {
       arr.push(graphRenders[num][el]);
     })
@@ -145,14 +140,8 @@ const Plot = (props) => {
   let mainGraphParams;
   let graphOutput = (<div id={styles.graphPlaceholder}></div>)
 
-  console.log('compiledGraphData:',compiledGraphData,'\n');
-  console.log('graphRenders length',graphRenders.length)
-
   if (compiledGraphData.length) {
-    console.log('****\ngenerating graph\n****')
     mainGraphParams = getGraphParams(0);
-    console.log('mainGraphParams:',mainGraphParams);
-    console.log('data:',mainGraphParams.data);
     graphOutput = (
         <ComposedChart
             width={600}
@@ -172,14 +161,12 @@ const Plot = (props) => {
       );
   }
 
-  console.log('graphoutput:',graphOutput);
-
   return (
     <div>
       <ReactTransition
-        transitionName={graph_transitions}
+        transitionName={viewEnterTransitions}
         transitionAppear={true}
-        transitionAppearTimeout={1000} transitionEnterTimeout={800} transitionLeaveTimeout={800}>
+        transitionAppearTimeout={1000} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
         <div id={styles.graphContainer}>
         {graphOutput}
         </div>

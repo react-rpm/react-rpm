@@ -27,7 +27,26 @@ td {
   padding: 2px;
 }
 
-.mainContainer{
-  position:relative;
+
+#mainContainer{
+  position:absolute;
   display:block;
+  margin-right:auto;
+  margin-left:auto;
+  width:fit-content;
+  height:100%;
+  margin-top:10px;
+  background:red;
+}
+
+#mainContainer.profileOnScreen{
+  opacity: 1;
+  left:10%;
+  transition: left 500ms, opacity 500ms ease-in-out;
+}
+
+#mainContainer.profileOffScreen{
+  opacity:0;
+  left:200%;
+  transition: left 500ms, opacity 500ms ease-in-out;
 }

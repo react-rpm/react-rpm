@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './styles/profilechart.css';
-import graph_transitions from './styles/graph_transitions.css';
+import styles from './../assets/profilechart.css';
+import viewEnterTransitions from './../assets/viewEnterTransitions.css';
 import ReactTransition from 'react-transition-group/CSSTransitionGroup';
 import {
   BarChart,
@@ -28,7 +28,6 @@ const ProfileChart = (props) => {
 
   perfItems.forEach((perfItem, i) => {
     if (perfItem.selected) {
-      console.log('\n\n\nperfData:',JSON.stringify(perfData,null,2,'\n\n\n'));
       data = perfData[perfItem.id];
     }
   });
@@ -111,7 +110,7 @@ const ProfileChart = (props) => {
   return (
     <div>
       <ReactTransition
-        transitionName={graph_transitions}
+        transitionName={viewEnterTransitions}
         transitionAppear={true}
         transitionAppearTimeout={1000} transitionEnterTimeout={800} transitionLeaveTimeout={800}>
         <div className={styles.chartContainer}>

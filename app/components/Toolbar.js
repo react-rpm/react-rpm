@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from './styles/toolbar.css';
+import styles from './../assets/toolbar.css';
 import GraphPicker from './GraphPicker';
 import DisplayedGraphs from './DisplayedGraphs'
 
@@ -17,8 +17,6 @@ const Toolbar = (props) => {
 
         compileGraphData
       } = props;
-
-      console.log('\n\n\n\n\n logging from toolbar: \n',allComponents);
 
   return (
     <div>
@@ -50,13 +48,5 @@ const Toolbar = (props) => {
     </div>
   )
 }
-
-//Component:
-//Metric:
-//Line Style:
-//Line Color:
-//[OPTIONAL] Graph Display:
-//RENDER ON GRAPH!
-
 
 export default Toolbar;

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import styles from './styles/displayed_graphs.css';
-import { colors } from './styles/colors.js';
+import styles from './../assets/displayed_graphs.css';
+import { colors } from './../assets/colors.js';
 
 const DisplayedGraphs = (props) => {
 

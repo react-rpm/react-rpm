@@ -4,6 +4,7 @@ import ProfileChart from '.././components/ProfileChart';
 import ProfileBar from '.././components/ProfileBar';;
 import ProfileContent from '.././components/ProfileContent';
 import styles from '.././assets/profileView.css';
+import viewVisibility from './../assets/viewvisibility.css';
 // import { samplePerfs } from '.././sample_perfs';
 
 const propTypes = {
@@ -16,6 +17,7 @@ class ProfileView extends Component {
     super(props);
 
     this.perfDataHasRun = false;
+    this.profileVisibility = this.props.profileVisibility;
 
     this.state = {
       perfItems: [
@@ -33,16 +35,7 @@ class ProfileView extends Component {
     };
   }
 
-  componentDidMount(){
-    console.log('profileView has been mounted');
-  }
-
-  componentWillUpdate(){
-    console.log('profileView about to re-render');
-  }
-
   componentWillReceiveProps(props){
-    console.log('componentWillReceiveProps fired!');
     this.setState({incomingPerfs: this.getPerfData(this.props.newPerfs)});
   }
 
@@ -174,11 +167,14 @@ class ProfileView extends Component {
 
   render() {
 
+    let visibilityClass;
+    this.profileVisibility = this.props.profileVisibility;
+    this.profileVisibility ? visibilityClass = styles.profileOnScreen : visibilityClass = styles.profileOffScreen
+
     if(this.perfDataHasRun) {
       return (
-        <div
-          className={styles.mainContainer}
-        >
+        <div className={visibilityClass}
+            id={styles.mainContainer}>
           <ProfileChart
             perfData={this.state.incomingPerfs}
             perfItems={this.state.perfItems}
