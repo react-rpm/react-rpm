@@ -1,0 +1,28 @@
+button {
+  border: none;
+  border-radius: 2px;
+  font-size: 11pt;
+  outline: none;
+  padding: 8px 16px;
+}
+
+table {
+    border-collapse: collapse;
+    border: 1px solid #BDBDBD;
+    color: #212121;
+    margin-top: 8px;
+    width: 100%;
+    text-align: left;
+}
+
+th {
+    border: 1px solid #BDBDBD;
+    padding: 2px;
+    font-weight: normal;
+}
+
+td {
+  border-left: 1px solid #BDBDBD;
+  border-right: 1px solid #BDBDBD;
+  padding: 2px;
+}

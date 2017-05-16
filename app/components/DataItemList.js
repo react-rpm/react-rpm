@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import DataItem from './DataItem';
 
 const DataItemList = ({ dataItems, onDataItemClick }) => (
-  <ul>
+  <div>
     {dataItems.map(dataItem =>
       <DataItem
         key={dataItem.id}
@@ -10,7 +10,7 @@ const DataItemList = ({ dataItems, onDataItemClick }) => (
         onClick={() => onDataItemClick(dataItem)}
       />
     )}
-  </ul>
+  </div>
 );
 
 DataItem.propTypes = {

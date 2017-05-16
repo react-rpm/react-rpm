@@ -7,6 +7,7 @@ $reactBlue: #00d8ff;
 
 #main_container{
   margin:0;
+  background: white;
   background-repeat: repeat;
   background: #f4f4f4;
   width:100%;

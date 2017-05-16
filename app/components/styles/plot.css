@@ -2,11 +2,12 @@
 #graphPlaceholder{
   position:relative;
   display:block;
-  height: 450px;
-  width: 600px;
-  background: transparent;
-  background-size: contain;
-  background-repeat: no-repeat;
+  width:600px;
+  height:20px;
+  background: white;
+  outline-style:solid;
+  outline-width:thin;
+  margin-left:30px;
 }
 
 #tachometer{
@@ -16,7 +17,9 @@
   height:350px;
   margin-right:auto;
   margin-left:auto;
-  
+  width:650px;
+  height:500px;
+  background: white;
 }
 
 .toolbarToggleTooltips{

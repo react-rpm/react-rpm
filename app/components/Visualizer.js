@@ -3,7 +3,7 @@ import Plot from './Plot';
 import PerfComponent from './PerfComponent';
 import Toolbar from './Toolbar';
 import CustomToolTip from './CustomToolTip';
-import {sample_perfs} from './sample_perfs'
+import {sample_perfs} from '.././sample_perfs';
 import styles from './styles/visualizer.css';
 
 const perf = window.Perf;
