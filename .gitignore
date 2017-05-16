@@ -4,5 +4,6 @@
 node_modules
 tmp.js
 npm
-*.png
 colors.scssnpm
+*.png
+!tachometer.png
