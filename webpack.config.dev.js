@@ -27,35 +27,51 @@ module.exports = {
         NODE_ENV: JSON.stringify('development')
       }
     }),
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
   ],
   module: {
-    loaders: [{
+    rules: [{
       test: /\.js$/,
-      loaders: ['babel'],
+      use: [
+        'babel-loader'
+      ],
       exclude: /node_modules/,
-      include: __dirname
     }, {
       test: /\.css$/,
+      use: [
+        'style-loader',
+        { 
+          loader: 'css-loader',
+          options: {
+            modules: true,
+            importLoaders: 1,
+            localIdentName: '[name]__[local]___[hash:base64:5]',
+          }
+        }
+      ],
       exclude: /node_modules/,
-      loader: 'style!css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
-    }, {
-      test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-      loader: "file"
-    }, {
-      test: /\.(woff|woff2)$/,
-      loader: "url?prefix=font/&limit=5000"
-    }, {
-      test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-      loader: "url?limit=10000&mimetype=application/octet-stream"
     }, {
       test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-      loader: "url?limit=10000&mimetype=image/svg+xml"
+      use: [
+        {
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+          }
+        }
+      ]
     }, {
       test: /\.(jpg|jpeg|png)$/,
-      loader: "url?limit=10000&minetype=image/png"
+      use: [
+        {
+          loader: 'file-loader',
+          options: {
+            limit: 8192,
+          }
+        }
+      ]
     }]
   }
-}
+};

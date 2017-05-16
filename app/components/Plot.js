@@ -130,36 +130,49 @@ const Plot = (props) => {
         : 'graphContainer',
       data: data[num],
       graphRenders: getGraphComponentForRender(num),
-      brushComponent: num ? [] : (<Brush height={13} stroke='#413b4d' />),
-      graphHeight: num
+      brushComponent: num 
+        ? (<Brush height={13} stroke='#413b4d' />) 
+        : [],
+      graphHeight: checkIfTwoGraphsActive()
         ? 225
         : 420
-      }
+    }
   }
 
-  let mainGraphParams;
-  let graphOutput = (<div id={styles.graphPlaceholder}></div>)
+  let mainGraphParams, comparisonGraphParams;
+  let graphOutput = [];
 
   if (compiledGraphData.length) {
-    mainGraphParams = getGraphParams(0);
-    graphOutput = (
+
+    let iterator = [];
+
+    iterator = [getGraphParams(0)];
+
+    if (checkIfTwoGraphsActive())
+      iterator.push(getGraphParams(1));
+
+    iterator.forEach(graph => {
+      graphOutput.push((
         <ComposedChart
-            width={600}
-            height={mainGraphParams.graphHeight}
-            data={data[mainGraphParams.code]}
-            fill={'transparent'}
-            syncId="anyId"
-          >
-            <XAxis dataKey={"name"} label={"Render"} />
-            <YAxis />
-            <CartesianGrid stroke={"transparent"} strokeDasharray="1 1" />
-            <Tooltip />
-            <Legend />)
-            {mainGraphParams.graphRenders}
-            {mainGraphParams.brushComponent_main}
-          </ComposedChart>
-      );
-  }
+          key={graph.code}
+          width={600}
+          height={graph.graphHeight}
+          data={data[graph.code]}
+          fill={'transparent'}
+          syncId="anyId"
+        >
+          <XAxis dataKey={"name"} label={"Render"} />
+          <YAxis />
+          <CartesianGrid stroke={"transparent"} strokeDasharray="1 1" />
+          <Tooltip />
+          <Legend />
+          {graph.graphRenders}
+          {graph.brushComponent}
+        </ComposedChart>
+        ),
+      )
+    });
+  } else graphOutput.push(<div id={styles.graphPlaceholder}></div>);
 
   return (
     <div>
@@ -168,7 +181,7 @@ const Plot = (props) => {
         transitionAppear={true}
         transitionAppearTimeout={1000} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
         <div id={styles.graphContainer}>
-        {graphOutput}
+          {graphOutput}
         </div>
       </ReactTransition>
     </div>
@@ -238,7 +251,7 @@ const Plot = (props) => {
       {/*<div className={styles.toolbarToggleTooltips}>
         <DataItemList dataItems={dataItems} onDataItemClick={onDataItemClick} />
       </div>*/
-  //   </div>
-  // );*/
+//   </div>
+// );*/
 
 export default Plot;

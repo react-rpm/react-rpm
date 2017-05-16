@@ -70,6 +70,7 @@
     "redux-devtools": "^3.1.1",
     "redux-devtools-dock-monitor": "^1.1.0",
     "redux-devtools-log-monitor": "^1.0.5",
+    "resolve-url-loader": "^2.0.2",
     "rollup": "^0.41.6",
     "sass-loader": "^6.0.5",
     "shelljs": "^0.6.0",

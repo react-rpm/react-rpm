@@ -83,9 +83,15 @@ class App extends Component {
         this.state.view === 'profileView' 
         ? [this.profileVisibility, this.componentVisibility] = [true, false]
         : [this.profileVisibility, this.componentVisibility] = [false, true]
-        viewController = (<ViewController selectedView={this.state.view} toggleViewHandler={this.toggleViewHandler}/>);
+
+        viewController = (<ViewController selectedView={this.state.view} 
+        
+        toggleViewHandler={this.toggleViewHandler}/>);
+
         componentView = (<ComponentView key={1} componentVisibility={this.componentVisibility} perfData={this.state.perfData} />);
+
         profileView = (<ProfileView key={2} profileVisibility={this.profileVisibility} newPerfs={this.state.perfData} />);
+        
       }
     }
     else this.message.push(this.buildMessage('toggleMessage'));
