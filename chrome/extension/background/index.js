@@ -1,1 +1,1 @@
-import './eventPage';
+import './background';

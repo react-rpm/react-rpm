@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-import styles from './styles/toolbar.css';
+import styles from './../assets/toolbar.css';
 import GraphPicker from './GraphPicker';
 import DisplayedGraphs from './DisplayedGraphs'
-require('./styles/bg_toolbar_texture.png');
-require('./styles/bg_panel_texture.png');
-require('./styles/bg_dataitem_texture.png');
-
-
 
 const Toolbar = (props) => {
   const {
@@ -26,11 +21,9 @@ const Toolbar = (props) => {
   return (
     <div>
       <div id={styles.toolbarContainer}>
-            
-            
             <div className={styles.toolbarPanel}>
-              <div className={styles.toolbarPanelTitle}>
-                <span>CREATE</span>
+              <div id={styles.create} className={styles.toolbarPanelTitle}>
+                <span>Component View</span>
                 <GraphPicker 
                   allComponents={allComponents} 
                   twoGraphsAreActive={twoGraphsAreActive}
@@ -39,9 +32,9 @@ const Toolbar = (props) => {
                   />
               </div>
             </div>
-            <div className={styles.toolbarPanel}>
+            <div id={styles.modify} className={styles.toolbarPanel}>
               <div className={styles.toolbarPanelTitle}>
-                <span>MODIFY</span>
+                <span>Profile View</span>
                 <DisplayedGraphs 
                 componentsActiveOnGraphs={componentsActiveOnGraphs}
                 updateGraph={updateGraph}
@@ -55,13 +48,5 @@ const Toolbar = (props) => {
     </div>
   )
 }
-
-//Component:
-//Metric:
-//Line Style:
-//Line Color:
-//[OPTIONAL] Graph Display:
-//RENDER ON GRAPH!
-
 
 export default Toolbar;

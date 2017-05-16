@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import styles from './DataItemList.css';
+import styles from './../assets/DataItemList.css';
 
 
 

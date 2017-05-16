@@ -1,0 +1,39 @@
+@keyframes enter {
+  0% {
+    opacity:0;
+    transform:translateX(-200%);
+  }
+  100%{
+    transform:translateX(0%);
+    opacity:1;
+  }
+}
+
+@keyframes leave {
+  0%{
+    opacity:1;
+    transform:translateX(0%);
+  }
+  100%{
+    transform:translateX(-150%);
+    opacity:0;
+  }
+}
+
+.appear.appearActive{
+  animation-name:appear;
+  animation-duration:3s;
+  animation-timing-function: ease-in-out;
+  /*transition: opacity 1500ms ease-in;*/
+}
+.enter.enterActive {
+  animation-name:enter;
+  animation-duration:1500ms;
+  animation-timing-function: ease-out;
+}
+.leave.leaveActive {
+  animation-name:leave;
+  animation-duration:1350ms;
+  animation-timing-function: ease-out; 
+}
+

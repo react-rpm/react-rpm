@@ -28,7 +28,8 @@ export default class PerfComponent {
 
       console.log(
         '-------------------------\n',
-        '* New Component Created *\n',
+        '-----[Component View]----\n',
+        '* New Perf Component Created *\n',
         '\tName:',this.name,'\n',
         '-------------------------\n',
         )
@@ -70,9 +71,7 @@ export default class PerfComponent {
       return [emptyRenderTemplate, emptySummaryTemplate];
     }
 
-    //this sets a metric to active on a specific graph, or turns it off. 
     toggleActiveMetric(category, metric, graph, graphStyle=null, color=null) {
-      console.log('ACTIVE METRICS ASSIGNED to',this.name+":",metric,graph,graphStyle,color);
       if (graphStyle && color) {
         this[category][metric].graphDisplay = graphStyle
         this[category][metric].colorTheme = color;
@@ -104,18 +103,6 @@ export default class PerfComponent {
           activeMetrics.push(this.RENDER[metric].cache);
         })
       })
-        // }else {
-        //   Object.keys(this.SUMMARY).forEach(metric => {
-        //     if (this.SUMMARY[metric].activeGraphs[i]) {
-        //       activeMetrics.push( [
-        //         this[category][metric],
-        //         this.name, 
-        //         metric, 
-        //         i, 
-        //         this.getValue('SUMMARY', metric) 
-        //       ]);
-        //     }
-        //   })
     return activeMetrics;
   }
   
@@ -124,8 +111,11 @@ export default class PerfComponent {
   }
 
   addValue(value, category, metric) {
-    console.log('METRIC:',metric);
     this[category][metric].data.push(value);
+    // console.log('[PERFCOMONENT]:',this.name,'\n',
+    //   'Adding value to:', metric,'\n',
+    //   'New value of data array:', this[category][metric].data,'\n'
+    // )
   }
 
   getValue(category, metric) {

@@ -6,14 +6,14 @@ const port = 3000;
 const extpath = path.join(__dirname, './chrome/extension/');
 
 module.exports = {
-  devtool: 'cheap-module-eval-source-map',
-  devServer: { hot: true, host, port },
+  // devtool: 'cheap-module-eval-source-map',
+  devServer: { host, port, headers: { "Access-Control-Allow-Origin": "http://localhost:3000", "Access-Control-Allow-Credentials": "true" } },
   entry: {
-    background: [ `${extpath}background` ],
-    devpanel: [ `${extpath}devpanel`, `webpack-hot-middleware/client?path=http://${host}:${port}/__webpack_hmr` ],
-    devtools: [ `${extpath}devtools` ],
-    content: [ `${extpath}content` ],
-    page: [ `${extpath}page` ],
+    // background: [`${extpath}background`],
+    devpanel: [`${extpath}devpanel`, `webpack-hot-middleware/client?path=http://${host}:${port}/__webpack_hmr`],
+    //devtools: [`${extpath}devtools`],
+    // content: [ `${extpath}content` ],
+    // page: [ `${extpath}page` ],
   },
   output: {
     path: path.join(__dirname, 'dev'),

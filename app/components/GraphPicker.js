@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import styles from './styles/graph_picker.css'
+import styles from './../assets/graph_picker.css'
 import Select from 'react-select';
-require('./styles/button_texture.png');
 
 class GraphPicker extends Component { 
 
@@ -40,6 +39,7 @@ class GraphPicker extends Component {
 
   componentWillReceiveProps(props){
       this.componentOptions = this.loadOptions(this.props.allComponents);
+      this.props.allComponents;
       this.forceUpdate();
   }
   updateComponentValue (newValue) {

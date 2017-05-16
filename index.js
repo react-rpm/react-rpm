@@ -1,12 +1,11 @@
 import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
-import Root from '../../../app/containers/Root';
-import configureStore from '../../../app/store/configureStore';
+import App from '../../../app/containers/App';
 
-const store = configureStore();
+console.log('In index!');
 
 render(
-  <Root store={store} />,
+  <App/>,
   document.getElementById('root')
 );

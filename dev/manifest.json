@@ -7,22 +7,18 @@
     {
       "matches": ["<all_urls>"],
       "exclude_globs": [ "https://www.google*" ],
-      "js": ["contentLoader.js"],
-      "run_at": "document_start",
-      "all_frames": true
+      "js": ["contentScript.js"]
     }
   ],
 
   "content_security_policy": "default-src 'self'; script-src 'self' http://localhost:3000 'unsafe-eval'; connect-src http://localhost:3000 ws://localhost:3000; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' http://localhost:3000; font-src 'self' *" ,
 
   "background": {
-    "page": "background.html",
-    "persistent": false
+    "scripts": ["background.js"]
   },
   "manifest_version": 2,
   "devtools_page": "devtools.html",
   "permissions": ["<all_urls>", "tabs"],
-  "web_accessible_resources": ["*"],
   "externally_connectable": {
     "ids": ["*"]
   }
