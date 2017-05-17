@@ -39,7 +39,7 @@ class ProfileView extends Component {
     this.setState({incomingPerfs: this.getPerfData(this.props.newPerfs)});
   }
 
-  componentDidUpdate(props) {
+  componentDidUpdate() {
     this.shouldAnimate = false;
   }
 
@@ -65,7 +65,7 @@ class ProfileView extends Component {
         k.selected = !k.selected;
       }
     });
-    this.shouldAnimate = true; // NOT WORKING **********************
+    this.shouldAnimate = true;
     this.setState({ dataKeys });
   }
 
