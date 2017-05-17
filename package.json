@@ -16,7 +16,6 @@
     "url": "https://github.com/react-rpm/react-rpm/issues"
   },
   "dependencies": {
-    "babel-loader": "^6.4.1",
     "babel-polyfill": "^6.7.2",
     "css-loader": "^0.23.1",
     "file-loader": "^0.8.5",
