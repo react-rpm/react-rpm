@@ -17,7 +17,7 @@ class App extends Component {
     this.componentVisibility;
 
     this.state = {
-      view: 'componentView',
+      view: 'profileView',
       appActive: true,
       perfData: {},
     };

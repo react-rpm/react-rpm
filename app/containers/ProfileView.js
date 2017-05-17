@@ -5,7 +5,6 @@ import ProfileBar from '.././components/ProfileBar';;
 import ProfileContent from '.././components/ProfileContent';
 import styles from '.././assets/profileView.css';
 import viewVisibility from './../assets/viewvisibility.css';
-// import { samplePerfs } from '.././sample_perfs';
 
 const propTypes = {
   perfs: PropTypes.object,
@@ -17,6 +16,7 @@ class ProfileView extends Component {
     super(props);
 
     this.perfDataHasRun = false;
+    this.shouldAnimate = true;
     this.profileVisibility = this.props.profileVisibility;
 
     this.state = {
@@ -31,12 +31,16 @@ class ProfileView extends Component {
         { id: 1, selected: false, label: 'Instance count' },
         { id: 2, selected: false, label: 'Render count' },
       ],
-      incomingPerfs: (this.getPerfData(this.props.newPerfs) || {})
+      incomingPerfs: (this.getPerfData(this.props.newPerfs) || {}),
     };
   }
 
-  componentWillReceiveProps(props){
+  componentWillReceiveProps(props) {
     this.setState({incomingPerfs: this.getPerfData(this.props.newPerfs)});
+  }
+
+  componentDidUpdate(props) {
+    this.shouldAnimate = false;
   }
 
   onPerfItemClick = (perfItem) => {
@@ -48,6 +52,7 @@ class ProfileView extends Component {
         p.selected = !p.selected;
       }
     });
+    this.shouldAnimate = true;
     this.setState({ perfItems });
   }
 
@@ -60,6 +65,7 @@ class ProfileView extends Component {
         k.selected = !k.selected;
       }
     });
+    this.shouldAnimate = true; // NOT WORKING **********************
     this.setState({ dataKeys });
   }
 
@@ -159,6 +165,7 @@ class ProfileView extends Component {
     perfData.push(inclusive);
     perfData.push(exclusive);
     perfData.push(dom);
+
     this.perfDataHasRun = true;
     return perfData;
   }
@@ -169,7 +176,7 @@ class ProfileView extends Component {
     this.profileVisibility = this.props.profileVisibility;
     this.profileVisibility ? visibilityClass = styles.profileOnScreen : visibilityClass = styles.profileOffScreen
 
-    if(this.perfDataHasRun) {
+    if (this.perfDataHasRun) {
       return (
         <div className={visibilityClass}
             id={styles.mainContainer}>
@@ -177,6 +184,7 @@ class ProfileView extends Component {
             perfData={this.state.incomingPerfs}
             perfItems={this.state.perfItems}
             dataKeys={this.state.dataKeys}
+            shouldAnimate={this.shouldAnimate}
           />
           <ProfileBar
             perfItems={this.state.perfItems}

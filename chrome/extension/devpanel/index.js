@@ -6,8 +6,8 @@ import { createStore } from 'redux';
 import App from '../../../app/containers/App';
 
 render(
-  <Provider store={store}>
+  //<Provider store={store}>
     <App/>,
-  </Provider>,
+  //</Provider>,
   document.getElementById('root')
 );

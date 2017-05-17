@@ -18,19 +18,18 @@ const propTypes = {
   perfData: PropTypes.array,
   perfItems: PropTypes.array.isRequired,
   dataKeys: PropTypes.array.isRequired,
+  shouldAnimate: PropTypes.bool.isRequired,
 };
 
 const ProfileChart = (props) => {
 
-  const { perfData, perfItems, dataKeys } = props;
-
+  const { perfData, perfItems, dataKeys, shouldAnimate } = props;
+  
   let data;
-
-  perfItems.forEach((perfItem, i) => {
-    if (perfItem.selected) {
-      data = perfData[perfItem.id];
-    }
+  perfItems.forEach(perfItem => {
+    if (perfItem.selected) data = perfData[perfItem.id];
   });
+  
   let xDataKey;
   const keys = Object.keys(data[0]);
   keys.forEach((key) => {
@@ -100,7 +99,12 @@ const ProfileChart = (props) => {
           <CartesianGrid stroke={'#757575'} strokeDasharray="1 1" />
           <Tooltip />
           <Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px' }} />
-          <Bar dataKey={yDataKey} fill='#7C4DFF' barSize={64} />
+          <Bar 
+            dataKey={yDataKey}
+            fill='#7C4DFF'
+            barSize={64}
+            isAnimationActive={shouldAnimate}
+          />
           <Brush height={16} stroke='#757575' />
         </BarChart>
       </div>
