@@ -23,7 +23,7 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
-    new NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin()
   ],
   module: {
     rules: [{

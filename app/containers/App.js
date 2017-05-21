@@ -103,7 +103,7 @@ class App extends Component {
         <div 
           id={styles.bannerContainer}>
           <span id={styles.bannerText} 
-          >React rpm | real-time performance metrics</span>
+          >react rpm | real-time performance metrics</span>
         </div>
         {this.logo}
         <div id={styles.message_container}>
