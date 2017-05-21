@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "A Performance Visualization Tool for Optimization and Debugging",
   "scripts": {
-    "dev": "node scripts/dev",
+    "dev": "NODE_ENV=development && node server.js",
     "build": "NODE_ENV=production node scripts/build",
     "test": "mocha --compilers js:babel-core/register app/**/*.test.js"
   },
@@ -59,6 +59,7 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.9.0",
     "express": "^4.13.4",
+    "extract-text-webpack-plugin": "^2.1.0",
     "fbjs": "^0.8.12",
     "file-loader": "^0.8.5",
     "gulp": "^3.9.1",

@@ -1,24 +1,19 @@
 var path = require('path');
 var webpack = require('webpack');
 
-const host = 'localhost';
-const port = 3000;
-const extpath = path.join(__dirname, './chrome/extension/');
-
 module.exports = {
-  devtool: 'cheap-module-eval-source-map',
-  devServer: { host, port, headers: { "Access-Control-Allow-Origin": "http://localhost:3000", "Access-Control-Allow-Credentials": "true" } },
-  entry: {
-    // background: [`${extpath}background`],
-    devpanel: [`${extpath}devpanel`, `webpack-hot-middleware/client?path=http://${host}:${port}/__webpack_hmr`],
-    //devtools: [`${extpath}devtools`],
-    // content: [ `${extpath}content` ],
-    // page: [ `${extpath}page` ],
-  },
+  devtool: 'inline-source-map',
+  entry: [
+    'webpack-dev-server/client?http://localhost:3000', 
+    // WebpackDevServer host and port
+    'webpack/hot/only-dev-server', 
+    // "only" prevents reload on syntax errors
+    './app/devpanel/index.js',
+  ],
   output: {
     path: path.join(__dirname, 'dev'),
-    filename: '[name].bundle.js',
-    publicPath: `http://${host}:${port}/`
+    filename: 'devpanel.bundle.js',
+    publicPath: `http://localhost:3000/`
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -28,7 +23,7 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
+    new NoEmitOnErrorsPlugin()
   ],
   module: {
     rules: [{
@@ -39,17 +34,12 @@ module.exports = {
       exclude: /node_modules/,
     }, {
       test: /\.css$/,
-      use: [
-        'style-loader',
-        { 
-          loader: 'css-loader',
-          options: {
-            modules: true,
-            importLoaders: 1,
-            localIdentName: '[name]__[local]___[hash:base64:5]',
-          }
-        }
-      ],
+      use: ['style-loader', 'css-loader?modules'],
+          // options: {
+          //   modules: true,
+          //   importLoaders: 1,
+          //   localIdentName: '[name]__[local]___[hash:base64:5]',
+          // }
       exclude: /node_modules/,
     }, {
       test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
