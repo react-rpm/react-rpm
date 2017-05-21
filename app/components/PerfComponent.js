@@ -158,40 +158,4 @@ export default class PerfComponent {
   disableMetricOnGraph(metric,graph){
     this.RENDER[metric].activeGraphs[graph] = false;
   }
-
-  //used only for testing to build out random values so I can see if it's displaying properly on a graph
-  addRandomValues(count, range) {
-    
-    const renderMetrics =[
-          'timeWasted',
-          'averageRenderTime',
-          'instanceCount',
-          'renderCount',
-          'totalLifeCycleTime',
-          'totalRenderTime',
-          'totalTime',
-        ]
-    const graphs =[0,1];
-    let negative;
-    let wildCard;
-
-    renderMetrics.forEach(metric => { 
-      graphs.forEach(graph => {
-        for (let i = 0; i < count; i += 1) {
-          if (range > 2) {
-            Math.random() < .5 ? negative = -1 : negative = 1;
-          } else {
-            negative = 1;
-          }
-
-          Math.random() < .2  
-            ? wildCard = Math.floor(Math.random(range))
-            : wildCard = 0;
-
-          range += Math.floor(Math.random() * 10 +wildCard) * negative;
-          this.addValue(range, 'RENDER', metric);
-        }
-      })
-    })
-  }
 }

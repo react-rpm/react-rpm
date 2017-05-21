@@ -13,13 +13,13 @@ const DataItemList = ({ dataItems, onDataItemClick }) => (
   </div>
 );
 
-DataItem.propTypes = {
-  dataItems: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    selected: PropTypes.bool.isRequired,
-    label: PropTypes.string.isRequired,
-  }).isRequired).isRequired,
-  onDataItemClick: PropTypes.func.isRequired,
-};
+// DataItem.propTypes = {
+//   dataItems: PropTypes.arrayOf(PropTypes.shape({
+//     id: PropTypes.number.isRequired,
+//     selected: PropTypes.bool.isRequired,
+//     label: PropTypes.string.isRequired,
+//   }).isRequired).isRequired,
+//   onDataItemClick: PropTypes.func.isRequired,
+// };
 
 export default DataItemList;

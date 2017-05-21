@@ -18,7 +18,7 @@ class App extends Component {
 
     this.state = {
       view: 'componentView',
-      appActive: true,
+      appActive: false,
       perfData: {},
     };
 

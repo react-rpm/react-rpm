@@ -1,3 +1,5 @@
+xx420xx
+
 import React, { PropTypes } from 'react';
 import {
   ComposedChart,
@@ -130,8 +132,8 @@ const Plot = (props) => {
         : 'graphContainer',
       data: data[num],
       graphRenders: getGraphComponentForRender(num),
-      brushComponent: num 
-        ? (<Brush height={13} stroke='#413b4d' />) 
+      brushComponent: num
+        ? (<Brush height={13} stroke='#413b4d' />)
         : [],
       graphHeight: checkIfTwoGraphsActive()
         ? 225
@@ -169,7 +171,7 @@ const Plot = (props) => {
           {graph.graphRenders}
           {graph.brushComponent}
         </ComposedChart>
-        ),
+      ),
       )
     });
   } else graphOutput.push(<div id={styles.graphPlaceholder}></div>);

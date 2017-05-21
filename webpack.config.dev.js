@@ -6,7 +6,7 @@ const port = 3000;
 const extpath = path.join(__dirname, './chrome/extension/');
 
 module.exports = {
-  // devtool: 'cheap-module-eval-source-map',
+  devtool: 'cheap-module-eval-source-map',
   devServer: { host, port, headers: { "Access-Control-Allow-Origin": "http://localhost:3000", "Access-Control-Allow-Credentials": "true" } },
   entry: {
     // background: [`${extpath}background`],
