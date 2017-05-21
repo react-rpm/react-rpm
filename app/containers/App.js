@@ -1,3 +1,5 @@
+/*es-lint enable*/
+
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import ComponentView from './ComponentView';

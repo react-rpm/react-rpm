@@ -1,5 +1,3 @@
-xx420xx
-
 import React, { PropTypes } from 'react';
 import {
   ComposedChart,
