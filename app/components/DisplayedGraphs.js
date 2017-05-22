@@ -28,7 +28,7 @@ const DisplayedGraphs = (props) => {
           key={i}  
           className={styles.tab}>
           <div className={styles.colorCircle} style={{'background':colors[component.colorTheme]}}/>
-          <span> {component.name+": "+component.metric+' ('+whichGraph+''+component.graphDisplay+')'}</span>
+          <span> {component.name+": "+component.metric}</span>
           <div 
             className={styles.deleteButton}
             onClick={()=>{handleClick(component.name, component.metric, component.activeGraphs)}}

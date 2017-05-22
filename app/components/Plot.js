@@ -165,7 +165,12 @@ const Plot = (props) => {
           <YAxis />
           <CartesianGrid stroke={"transparent"} strokeDasharray="1 1" />
           <Tooltip />
-          <Legend />
+          <Legend 
+            verticalAlign="top" 
+            height="36"
+            iconType="circle"
+            payload={{value:'Render #: '}}
+            />
           {graph.graphRenders}
           {graph.brushComponent}
         </ComposedChart>

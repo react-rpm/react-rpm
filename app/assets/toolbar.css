@@ -26,52 +26,60 @@ $lightGrey: #dcdcdc;
 
 
 #toolbarContainer{
-  position:relative;
-  display:block;
+  position:absolute;
+  display:flex;
+  flex-wrap:wrap;
+  left:0;
+  right:0;
+  top:445px;
   margin-left:auto;
   margin-right:auto;
   width:600px;
   height:235px;
   animation: fadeInFromNone 2s ease-out;
->>>>>>> chrome:app/assets/toolbar.css
+  box-shadow: 3px 7px 2px 3px rgba(65, 65, 65, .3);
+
+}
+
+.displayedGraphsContainer{
+  position:relative;
+  display:block;
+  background:rgba(225,245,245,.5);
+  width:100%;
+  height:fit-content;
+  background:purple;
 }
 
 .toolbarPanel {
   position:relative;
-  display:inline-block;
-  height:100%;
-  vertical-align:top;
-  border-radius:5px;
+  display:block;
+  overflow:hidden;
+  width:100%;
   box-shadow: 0 2px 5px 0 rgba(145, 145, 145, 0.26);
   background:#ffffff;
-  overflow:hidden;
+  background:yellow;
+  height:65%;
 }
 
-#create {
-  width:300px;
-}
-
-#modify {
-  width:50%;
+#toolbarSwitchContainer{
+  position:relative;
+  display:flex;
+  flex-wrap:wrap;
+  width:100%;
 }
 
 .toolbarPanelTitle {
-  width: 100%;
-  height: 35px;
-  float:top;
-  text-align:center;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 13px;
-  margin-bottom:5px;
-  box-shadow: 0 2px 5px 0 rgba(145, 145, 145, 0.26);
-  background:#ffffff;
-  border-top-left-radius:20px;
-  border-top-right-radius:20px;
-  color:#919191;
-}
-
-.toolbarPanelTitle span {
   position:relative;
   display:inline-block;
   vertical-align:middle;
+  min-width:30%;
+  background:green;
+  flex-grow:1;
+  text-align:center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  box-shadow: 0 2px 5px 0 rgba(145, 145, 145, 0.26);
+  background:green;
+  color:#919191;
 }
+
