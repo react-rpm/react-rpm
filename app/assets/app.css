@@ -26,20 +26,21 @@
   display:block;
   width:100%;
   height:30px;
-  background: rgba(237,237,237, .1);
+  background: rgba(245,245,245, 1);
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.26);
   color:#707070;
   font-size:11px;
   top:25%;
   animation:bannerContainerEnterAnimation 2.5s ease-out;
+  text-align:center;
   /*text-justify: distribute-all-lines;*/
 }
  
  #bannerTitle {
    letter-spacing:6px;
    position:relative;
-   display:block;
    margin-left:2%;
+   font-size:13px;
 }
 
 #bannerByLine {
@@ -47,7 +48,7 @@
   padding:0;
   color:#919191;
   margin-left:2%;
-  font-size:9px;
+  font-size:11px;
 }
 
 .message_container{
@@ -195,7 +196,7 @@
     transform: translateY(0%);
     opacity:1;
   }
-  50% {
+  80% {
     /*transform: translateX(-100%);*/
     visibility:visible;
     transform: translateY(0%);
@@ -226,5 +227,5 @@
   z-index:999999;
   opacity:0;
   /*opacity:0;*/
-  animation: removeMask 5.3s;
+  animation: removeMask 3.6s;
 }
