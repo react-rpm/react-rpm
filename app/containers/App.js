@@ -26,7 +26,9 @@ class App extends Component {
 
     this.listenForPerfs();
     this.message = [];
+
     this.logo = (<img src={require('./../assets/images/tachometer.png')} id={styles.rpm_logo} />);
+    this.logoMask_JSX = ( <div id={styles.logoMask}></div>);
   }
 
   listenForPerfs() {
@@ -57,9 +59,13 @@ class App extends Component {
 
   buildMessage = (message) => {
     if (message === 'toggleMessage')
-      return (<div key={1} id={styles.toggleMessage} onClick={this.handleClick}>Click here to begin listening for renders</div>)
+      return (<div key={1} id={styles.toggleMessage} onClick={this.handleClick}>start</div>)
     if (message === 'listening') {
-      return (<div key={10000} id={styles.listening}>React RPM is listening for renders...</div>)
+      return (<div key={10000} id={styles.listening}>
+        <div id={styles.listen_idle_container}>
+          rpm is listening for DOM events...
+        </div>
+      </div>)
     }
   }
 
@@ -99,21 +105,35 @@ class App extends Component {
 
     return (
       <div id={styles.main_container}>
+        <div id={styles.divider}></div>
+
+        {
+          !this.appActive && this.logoMask_JSX
+        }
+
         {viewController}
         <div 
           id={styles.bannerContainer}>
-          <span id={styles.bannerText} 
-          >react rpm | real-time performance metrics</span>
+
+          <span id={styles.bannerTitle} >
+            {'react rpm  '}
+          </span>
+
+          <span id={styles.bannerByLine}>
+            real-time performance metrics
+          </span>
+
         </div>
         {this.logo}
         <div id={styles.message_container}>
           <ReactTransition
             transitionName={transitions}
             transitionAppear={true}
-            transitionAppearTimeout={3000} transitionEnterTimeout={2000} transitionLeaveTimeout={300}>
+            transitionAppearTimeout={4500} transitionEnterTimeout={3000} transitionLeaveTimeout={300}>
             {this.message}
           </ReactTransition>
         </div>
+        
         {profileView}
         {componentView}
       </div>

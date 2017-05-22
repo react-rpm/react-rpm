@@ -35,11 +35,6 @@ module.exports = {
     }, {
       test: /\.css$/,
       use: ['style-loader', 'css-loader?modules'],
-          // options: {
-          //   modules: true,
-          //   importLoaders: 1,
-          //   localIdentName: '[name]__[local]___[hash:base64:5]',
-          // }
       exclude: /node_modules/,
     }, {
       test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
@@ -51,6 +46,19 @@ module.exports = {
           }
         }
       ]
+    }, { 
+      test: /\.scss$/,
+        use: [{
+            loader: "style-loader"
+        }, {
+            loader: "css-loader", options: {
+                sourceMap: true
+            }
+        }, {
+            loader: "sass-loader", options: {
+                sourceMap: true
+            }
+        }]
     }, {
       test: /\.(jpg|jpeg|png)$/,
       use: [
@@ -60,7 +68,7 @@ module.exports = {
             limit: 8192,
           }
         }
-      ]
+      ],
     }]
   }
 };

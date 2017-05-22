@@ -11,7 +11,7 @@
     }
   ],
 
-  "content_security_policy": "default-src 'self'; script-src 'self' http://localhost:3000 'unsafe-eval'; connect-src http://localhost:3000 ws://localhost:3000; style-src * 'unsafe-inline' 'self' blob:; img-src 'self' http://localhost:3000; font-src 'self' *" ,
+  "content_security_policy": "'default-src': 'self'; script-src 'self' http://localhost:3000 'unsafe-eval'; connect-src http://localhost:3000 ws://localhost:3000; style-src * 'unsafe-inline' http://localhost:3000 data: blob:; img-src 'self' http://localhost:3000; font-src 'self' data:",
 
   "background": {
     "scripts": ["background.js"]

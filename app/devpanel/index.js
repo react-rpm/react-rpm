@@ -11,6 +11,5 @@ render(
 );
 
 if (module.hot && module.hot.accept('./../containers/App', () => {
-  console.log('\n\n\n\n\nRELOAD!!!!\n\n\n\n');
   render(App)
 }));
