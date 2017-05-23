@@ -13,7 +13,8 @@ $reactBlue: #00d8ff;
   padding-top:20px;
   /*box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);*/
   width:fit-content;
-  height:fit-content;
+  height:320px;
+  z-index:0;
 }
 
 #mainContainer{

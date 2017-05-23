@@ -6,6 +6,7 @@
   overflow-X: 'auto';
   overflow-Y: 'auto';
   width: '600px';
+  
 }
 
 .chartContainer{
@@ -23,8 +24,9 @@
   margin-left:auto;
   position:relative;
   margin-bottom:10px;
-  padding-right:40px;
+  padding-right:50px;
   background:rgba(48,43,57,.95);
   border-radius:5px !important;
   box-shadow: 0 2px 5px 0 rgba(23, 23, 23, 0.26);
+  background:transparent;
 }

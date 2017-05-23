@@ -2,10 +2,11 @@
   0% {
     opacity:0;
     visibility:none;
+    transform: translateX(-100%);
   }
   20%{
     opacity:0;
-    transform:translateX(+100%);
+    transform:translateX(-100%);
   }
   100%{
     transform:translateX(0%);
@@ -36,7 +37,7 @@
   }
   100%{
     transform:translateX(-100%);
-    opacity:1;
+    opacity:0;
     visibility:none;
   }
 }
@@ -45,9 +46,9 @@
   animation-name:componentAppear;
   animation-duration:1s;
   animation-timing-function: ease-out;
-  /*transition: opacity 1500ms ease-in;*/
+  transition: opacity 1500ms ease-in;
 }
-/*.enter.enterActive {
+.enter.enterActive {
   animation-name:componentEnter;
   animation-duration:800ms;
   animation-timing-function: ease-out;
@@ -56,5 +57,5 @@
   animation-name: exit;
   animation-duration:1000ms;
   animation-timing-function: ease-out; 
-}*/
+}
 
