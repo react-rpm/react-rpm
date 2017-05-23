@@ -33,7 +33,7 @@ const Toolbar = (props) => {
           </DisplayedGraphs>
         </div>
 
-        <div id={styles.toolbarSwitchContainer}>
+        {/*<div id={styles.toolbarSwitchContainer}>
           <div className={styles.toolbarPanelTitle}>
             <span>Sorted</span>
           </div>
@@ -41,7 +41,7 @@ const Toolbar = (props) => {
           <div className={styles.toolbarPanelTitle}>
            <span>Custom</span>
           </div>
-        </div>
+        </div>*/}
 
         <div className={styles.toolbarPanel}>
           <GraphPicker 

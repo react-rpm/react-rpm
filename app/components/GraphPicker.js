@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styles from './../assets/graph_picker.css'
 import Select from 'react-select';
+import ComponentSelectorPane from './ComponentSelectorPane';
+import GraphStyleSelectorPane from './GraphStyleSelectorPane';
 
 class GraphPicker extends Component { 
 
@@ -30,9 +32,9 @@ class GraphPicker extends Component {
 
     this.state = {
       selectComponentValue: null,
-      selectMetricValue: null,
-      selectGraphValue: null,
-      selectColorValue: null,
+      selectMetricValue: 'timeWasted',
+      selectGraphValue: '0',
+      selectColorValue: 'Blue',
     }
 
   }
@@ -43,9 +45,10 @@ class GraphPicker extends Component {
       this.forceUpdate();
   }
   updateComponentValue (newValue) {
-    this.setState({
-      selectComponentValue: newValue
-    });
+    this.handleClick(newValue);
+    // this.setState({
+    //   selectComponentValue: newValue
+    // });
   }
 
   updateMetricValue (newValue) {
@@ -73,17 +76,14 @@ class GraphPicker extends Component {
         if(option.name) {
           option = option.name;
         }
-
-        arr.push(
-          { value: option, label: option }
-        )
+        arr.push(option)
     })
     return arr;
   }
 
-  handleClick(){
+  handleClick(component){
     let graph = 0;
-    let graphStyle = this.state.selectGraphValue
+    let graphStyle = 'Line'//this.state.selectGraphValue
     if (graphStyle.includes('Secondary')) {
       graph = 1;
       this.props.twoGraphToggler(true);
@@ -100,27 +100,31 @@ class GraphPicker extends Component {
         this.props.updateGraph();
       }
     })
+
+    console.log('selectComponentValue:',component);
+
+    console.log('selectMetricValue:',this.state.selectMetricValue);
+
+    console.log('selectColorValue:',this.state.selectColorValue)
     
+    this.setState({selectComponentValue: component});
   }
 
   render () {
-    return (
-      <div id={styles.graph_picker}>
-        <div className="section">
-          <Select placeholder='Component' autofocus={false} options={this.componentOptions} simpleValue clearable={true} name="selected-state" disabled={false} value={this.state.selectComponentValue} onChange={this.updateComponentValue.bind(this)} searchable={true} />
+
+    return(
+     <div id={styles.graphPickerContainer}>
+       <div>
+        <ComponentSelectorPane 
+          componentOptions={this.componentOptions}
+          handleComponentClick={this.updateComponentValue.bind(this)}
+        />
         </div>
-        <div className="section">
-          <Select placeholder='Performance Metric' autofocus={false} options={this.metricOptions} simpleValue clearable={true} name="selected-state" disabled={false} value={this.state.selectMetricValue} onChange={this.updateMetricValue.bind(this)} searchable={true} />
+        <div>
+        <GraphStyleSelectorPane/>
         </div>
-        <div className="section">
-          <Select placeholder='Style' autofocus={false} options={this.graphOptions} simpleValue clearable={true} name="selected-state" disabled={false} value={this.state.selectGraphValue} onChange={this.updateGraphValue.bind(this)} searchable={true} />
-        </div>
-        <div className="section">
-          <Select placeholder='Select Color' autofocus={false} options={this.colorOptions} simpleValue clearable={true} name="selected-state" disabled={false} value={this.state.selectColorValue} onChange={this.updateColorValue.bind(this)} searchable={true} />
-        </div>
-        <button id={styles.button} onClick={this.handleClick.bind(this)}>+</button>
-      </div>
-    );
+     </div>
+    )
   }
 }
 

@@ -7,6 +7,7 @@ import ViewController from './../components/ViewController';
 import ProfileView from './ProfileView';
 import ReactTransition from 'react-transition-group/CSSTransitionGroup';
 import transitions from './../assets/transitions.css';
+import logoExitTransition from './../assets/logoExitTransition.css';
 import styles from './../assets/app.css';
 
 class App extends Component {
@@ -20,7 +21,7 @@ class App extends Component {
 
     this.state = {
       view: 'componentView',
-      appActive: false,
+      appActive: true,
       perfData: {},
     };
 
@@ -28,7 +29,11 @@ class App extends Component {
     this.message = [];
 
     this.logo = (<img src={require('./../assets/images/tachometer.png')} id={styles.rpm_logo} />);
+    this.logoOutAnim = ''
     this.logoMask_JSX = ( <div id={styles.logoMask}></div>);
+
+    //NOTE: temporary fix to circumvent 'start' message. will refactor later!!
+    this.handleClick();
   }
 
   listenForPerfs() {
@@ -48,13 +53,13 @@ class App extends Component {
   }
 
   handleClick = () => {
-    let appActive;
-    if (!this.state.appActive) {
+    // let appActive;
+    // if (!this.state.appActive) {
       this.message = [];
       this.message.push(this.buildMessage('listening'));
-      appActive = !this.state.appActive;
-    }
-    this.setState({ appActive });
+      // appActive = !this.state.appActive;
+    // }
+    // this.setState({ appActive });
   }
 
   buildMessage = (message) => {
@@ -63,7 +68,7 @@ class App extends Component {
     if (message === 'listening') {
       return (<div key={10000} id={styles.listening}>
         <div id={styles.listen_idle_container}>
-          rpm is listening for DOM events...
+          react-rpm is listening for DOM changes...
         </div>
       </div>)
     }
@@ -87,6 +92,9 @@ class App extends Component {
     if (this.state.appActive) {
       if (this.haveReceivedPerfs) {
         this.message = [];
+
+        this.logoAnimOut = styles.logoAnimOut;
+
         this.state.view === 'profileView' 
         ? [this.profileVisibility, this.componentVisibility] = [true, false]
         : [this.profileVisibility, this.componentVisibility] = [false, true]
@@ -101,14 +109,15 @@ class App extends Component {
         
       }
     }
-    else this.message.push(this.buildMessage('toggleMessage'));
+
+    console.log('appActive:',this.state.appActive);
 
     return (
       <div id={styles.main_container}>
         <div id={styles.divider}></div>
 
         {
-          !this.appActive && this.logoMask_JSX
+          (!this.state.appActive) && this.logoMask_JSX
         }
 
         {viewController}
@@ -124,7 +133,9 @@ class App extends Component {
           </span>
 
         </div>
-        {this.logo}
+        <div>
+          <img src={require('./../assets/images/tachometer.png')} id={styles.rpm_logo} className={this.logoAnimOut} />;
+        </div>
         <div id={styles.message_container}>
           <ReactTransition
             transitionName={transitions}

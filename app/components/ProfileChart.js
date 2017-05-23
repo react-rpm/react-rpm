@@ -22,7 +22,11 @@ const propTypes = {
 
 const ProfileChart = (props) => {
 
+  
+
   const { perfData, perfItems, dataKeys } = props;
+
+  // if (!perfData.length) perfData = [];
 
   let data;
 
@@ -92,8 +96,8 @@ const ProfileChart = (props) => {
     chart = (
       <div className={styles.barChartContainer}>
         <BarChart
-          width={600} height={420} data={data}
-          margin={{ right: 56, left: 0, bottom: 16 }} syncId='anyId'
+          width={500} height={420} data={data}
+          margin={{ left: 0, bottom: 16 }} syncId='anyId'
         >
           <XAxis dataKey={xDataKey} />
           <YAxis />

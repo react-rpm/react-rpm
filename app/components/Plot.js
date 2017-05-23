@@ -46,6 +46,7 @@ const Plot = (props) => {
   let currData;
 
   // loop through each element passed in compiledGraphData (sent as prop from App)
+  console.log(compiledGraphData);
   compiledGraphData.forEach((item, i) => {
     metric = item[0];
     metricName = item[2];
@@ -135,7 +136,7 @@ const Plot = (props) => {
         : [],
       graphHeight: checkIfTwoGraphsActive()
         ? 225
-        : 420
+        : 335
     }
   }
 
@@ -155,22 +156,16 @@ const Plot = (props) => {
       graphOutput.push((
         <ComposedChart
           key={graph.code}
-          width={600}
+          width={500}
           height={graph.graphHeight}
           data={data[graph.code]}
           fill={'transparent'}
           syncId="anyId"
         >
           <XAxis dataKey={"name"} label={"Render"} />
-          <YAxis />
+          <YAxis label={"ms"}/>
           <CartesianGrid stroke={"transparent"} strokeDasharray="1 1" />
           <Tooltip />
-          <Legend 
-            verticalAlign="top" 
-            height="36"
-            iconType="circle"
-            payload={{value:'Render #: '}}
-            />
           {graph.graphRenders}
           {graph.brushComponent}
         </ComposedChart>
@@ -184,10 +179,12 @@ const Plot = (props) => {
       <ReactTransition
         transitionName={viewEnterTransitions}
         transitionAppear={true}
-        transitionAppearTimeout={1000} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
+        transitionAppearTimeout={2000} transitionEnterTimeout={800} transitionLeaveTimeout={500}>
         <div id={styles.graphContainer}>
           {graphOutput}
+          
         </div>
+        <div id={styles.graph_reflection}></div>
       </ReactTransition>
     </div>
   )

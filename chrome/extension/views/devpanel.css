@@ -7,6 +7,10 @@ html, body {
   background: #ededed;
   font-family: 'Lato', 'sans-serif';
   font-weight: thin;
+  overflow-x:hidden;
+  width:700px;
+  height: 1000px;
+
 }
 
 #root {

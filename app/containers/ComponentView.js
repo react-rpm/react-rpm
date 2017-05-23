@@ -15,6 +15,7 @@ class ComponentView extends Component {
 
     this.componentsActiveOnGraphs = [];
     this.loadToolbar = false;
+    
     this.state = {
 
       allComponents: [],
@@ -60,8 +61,8 @@ class ComponentView extends Component {
   }
 
   updateGraph() {
-    this.forceUpdate();
-    // this.setState({simData: !this.state.simData});
+    console.log('update graph called');
+    this.setState({simData: !this.state.simData});
   }
 
   //if only name specified as parameter, will return reference to PerfComponent
@@ -176,6 +177,16 @@ class ComponentView extends Component {
   checkIfTwoGraphsActive() {
     let returnVal = this.state.twoGraphsAreActive;
     return returnVal
+  }
+
+  sortByWasteful() {
+    let sortedComponents = this.state.allComponents;
+    sortedComponents.sort((a, b) =>
+      a.getMetricTotal('timeWasted') - b.getMetricTotal('timeWasted')
+    )
+    console.log('-----');
+    sortedComponents.forEach(e => console.log(e.name));
+    console.log('-----');
   }
 
   render() {

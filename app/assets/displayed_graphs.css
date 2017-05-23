@@ -17,34 +17,40 @@
 .tabContainer{
   position:relative;
   display:block;
-  height:fit-content;
+  height:23px;
   padding-top:3px;
   padding-bottom:3px;
   transition: height 1s ease-in-out;
 }
 
 .colorCircle {
-  height:12px;
-  width:12px;
+  height:14px;
+  width:14px;
   border-radius:12px;
   float:left;
-  margin-top:7px;
+  margin-top:3px;
   margin-left:10px;
   margin-right:10px;
 }
 
 .tab span {
   display:inline-block;
-  padding-top:3%;
+  padding-top:2%;
   width:fit-content;
 }
 
 .deleteButton{
     float:right;
-    color: red;
-    margin-top: 4px;
+    color: rgba(30,30,30,.5);
+    padding-left:5px;
+    padding-right:5px;
     margin-left:5px;
     height: 100%;
-    background: rgba(1,2,2, .7);
-    font-size: 100%;
+    background: rgba(115,115,115,.3);
+    font-size: 15px;
+}
+
+.deleteButton:hover{
+  color:white;
+  cursor:pointer;
 }

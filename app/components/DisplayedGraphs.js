@@ -14,6 +14,7 @@ const DisplayedGraphs = (props) => {
   let whichGraph;
 
   const handleClick = (name, metric, activeGraphs) => {
+    console.log('hello');
     let thisComponent = getComponent(name)
     thisComponent.toggleActiveMetric('RENDER', metric, activeGraphs);
     updateGraph();
@@ -21,6 +22,8 @@ const DisplayedGraphs = (props) => {
 
   if(componentsActiveOnGraphs) {
     componentsActiveOnGraphs.forEach((component,i) =>{
+
+      console.log(component.colorTheme);
 
       component.activeGraphs === 0 ? whichGraph = '' : whichGraph = 'Secondary ';
       tabArray.push(
