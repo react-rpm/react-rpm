@@ -7,3 +7,4 @@ npm
 colors.scssnpm
 *.png
 !tachometer.png
+*.psd

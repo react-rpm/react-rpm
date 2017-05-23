@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ProfileChart from '.././components/ProfileChart';
-import ProfileBar from '.././components/ProfileBar';;
+import ProfileBar from '.././components/ProfileBar';
 import ProfileContent from '.././components/ProfileContent';
 import styles from '.././assets/profileView.css';
 import viewVisibility from './../assets/viewvisibility.css';
-// import { samplePerfs } from '.././sample_perfs';
 
 const propTypes = {
-  perfs: PropTypes.object,
+  perfData: PropTypes.object,
+  profileVisibility: PropTypes.bool,
 };
 
 class ProfileView extends Component {
@@ -16,7 +16,8 @@ class ProfileView extends Component {
   constructor(props) {
     super(props);
 
-    this.perfDataHasRun = false;
+    this.receivedChartData = false;
+    this.shouldAnimate = true;
     this.profileVisibility = this.props.profileVisibility;
 
     this.state = {
@@ -31,12 +32,16 @@ class ProfileView extends Component {
         { id: 1, selected: false, label: 'Instance count' },
         { id: 2, selected: false, label: 'Render count' },
       ],
-      incomingPerfs: (this.getPerfData(this.props.newPerfs) || {})
+      chartData: (this.getChartData(this.props.perfData) || {}),
     };
   }
 
-  componentWillReceiveProps(props){
-    this.setState({incomingPerfs: this.getPerfData(this.props.newPerfs)});
+  componentWillReceiveProps(props) {
+    this.setState({ chartData: this.getChartData(this.props.perfData) });
+  }
+
+  componentDidUpdate() {
+    this.shouldAnimate = false;
   }
 
   onPerfItemClick = (perfItem) => {
@@ -48,6 +53,7 @@ class ProfileView extends Component {
         p.selected = !p.selected;
       }
     });
+    this.shouldAnimate = true;
     this.setState({ perfItems });
   }
 
@@ -60,6 +66,7 @@ class ProfileView extends Component {
         k.selected = !k.selected;
       }
     });
+    this.shouldAnimate = true;
     this.setState({ dataKeys });
   }
 
@@ -106,9 +113,8 @@ class ProfileView extends Component {
     }
   }
 
-  getPerfData = (newPerfs = this.state.perfs) => {
-    const perfs = newPerfs;
-    const perfData = [];
+  getChartData = (perfs) => {
+    const result = [];
     const wastedTime = [];
     const inclusive = [];
     const exclusive = [];
@@ -155,28 +161,33 @@ class ProfileView extends Component {
         'DOM Component ID': 0,
       });
     }
-    perfData.push(wastedTime);
-    perfData.push(inclusive);
-    perfData.push(exclusive);
-    perfData.push(dom);
-    this.perfDataHasRun = true;
-    return perfData;
+    result.push(wastedTime);
+    result.push(inclusive);
+    result.push(exclusive);
+    result.push(dom);
+
+    this.receivedChartData = true;
+    return result;
   }
 
   render() {
-
     let visibilityClass;
-    this.profileVisibility = this.props.profileVisibility;
-    this.profileVisibility ? visibilityClass = styles.profileOnScreen : visibilityClass = styles.profileOffScreen
+    this.profileVisibility = this.props.profileVisibility; /******************************************** */
+    if (this.profileVisibility) visibilityClass = styles.profileOnScreen;
+    else visibilityClass = styles.profileOffScreen;
 
-    if(this.perfDataHasRun) {
-      return (
-        <div className={visibilityClass}
-            id={styles.mainContainer}>
+    let output;
+    if (this.receivedChartData) {
+      output = (
+        <div
+          className={visibilityClass}
+          id={styles.mainContainer}
+        >
           <ProfileChart
-            perfData={this.state.incomingPerfs}
+            chartData={this.state.chartData}
             perfItems={this.state.perfItems}
             dataKeys={this.state.dataKeys}
+            shouldAnimate={this.shouldAnimate}
           />
           <ProfileBar
             perfItems={this.state.perfItems}
@@ -190,8 +201,14 @@ class ProfileView extends Component {
         </div>
       );
     } else {
-      return (<span>Profile View No Rendered</span>);
+      output = (<span>There was a problem receiving data</span>);
     }
+
+    return (
+      <div>
+        { output }
+      </div>
+    );
   }
 }
 
