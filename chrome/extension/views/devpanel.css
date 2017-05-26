@@ -183,7 +183,7 @@ html, body {
   -webkit-animation: Select-animation-fadeIn 200ms;
   -o-animation: Select-animation-fadeIn 200ms;
   animation: Select-animation-fadeIn 200ms;
-  color: #999;
+  /*color: #999;*/
   cursor: pointer;
   display: table-cell;
   position: relative;

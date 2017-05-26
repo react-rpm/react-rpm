@@ -19,6 +19,7 @@ const ProfileBar = ({ perfItems, onPerfItemClick, showDataKeys }) => (
       paddingTop: '8px',
       textAlign: 'center',
       width: '100%',
+      boxShadow: '0 2px 5px 0 rgba(145, 145, 145, 0.46)'
     }}
   >
     <PerfItemList

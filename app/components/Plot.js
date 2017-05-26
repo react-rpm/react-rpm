@@ -86,7 +86,7 @@ const Plot = (props) => {
             graphRenders[graph_code][metricName].push(
               <Line
                 key={i}
-                type='monotone'
+                type='linear'
                 dataKey={componentName}
                 stroke={colors[metric.colorTheme]}
                 fill={colors[metric.colorTheme]}
@@ -135,7 +135,7 @@ const Plot = (props) => {
         ? (<Brush height={13} stroke='#413b4d' />)
         : [],
       graphHeight: checkIfTwoGraphsActive()
-        ? 225
+        ? 170
         : 335
     }
   }
@@ -162,12 +162,14 @@ const Plot = (props) => {
           fill={'transparent'}
           syncId="anyId"
         >
-          <XAxis dataKey={"name"} label={"Render"} />
+          <XAxis dataKey={"name"} label={(<p>"Render"</p>)} 
+          />
           <YAxis label={"ms"}/>
-          <CartesianGrid stroke={"transparent"} strokeDasharray="1 1" />
-          <Tooltip
-            fill={'#423c4d'}
-           />
+          <CartesianGrid stroke={"gray"} strokeDasharray="1 1" />
+          <Tooltip 
+            content={CustomToolTip}
+            cursor={{fill: 'white', fillOpacity: 0.1}}
+          />
           {graph.graphRenders}
           {graph.brushComponent}
         </ComposedChart>

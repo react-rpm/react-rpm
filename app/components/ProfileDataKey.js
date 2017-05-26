@@ -12,8 +12,9 @@ const ProfileDataKey = ({ onClick, selected, label }) => (
     onClick={onClick}
     style={{
       display: 'block',
-      backgroundColor: selected ? '#FFCCBC' : 'white',
+      backgroundColor: selected ? 'rgba(242,116,116,.7)' : 'rgba(250,250,250,.6)',
       color: selected ? 'black' : '#757575',
+      borderRadius:'2px'
     }}
   >
     {label}

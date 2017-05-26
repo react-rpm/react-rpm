@@ -1,40 +1,48 @@
 import React, { PropTypes } from 'react';
+import styles from './../assets/custom_tooltip.css'
+
+// const splitDataKey = (dataKey) => {
+//   return dataKey.split(': ');
+// }
+
+// const buildDisplay = (payload) => {
+
+//   const components = {};
+
+//   payload.forEach(load => {
+//     let [component, metric] = splitDataKey(load.dataKey);
+//     if (!components.hasOwnProperty(component))
+//       components[component] = [metric, load.value]
+//     else 
+//       components[component].push([metric,value]);
+    
+
+
+//   })
+//   const [component, metric] = splitDataKey(dataKeys);
+
+// }
 
 const CustomToolTip = props => {
-  const { componentsActiveOnGraphs, dataItems, getComponent } = props;
+  const {active} = props
 
-  var toolTipDisplay = []; 
 
-  // container to hold elements to be rendered
-  // if tool tip is 'selected', push to this array
-  // time wasted = data[name]
+  if (active) {
+    const {label, payload, type} = props
 
-  // call getComponent, get the whole perf component back 
-  // get whatever is at index of 'label' which is a built in attribute by Recharts. plug this into the return of running getComponent
-
-  console.log("we are in CustomToolTip.js, componentsActiveOnGraphs[0]['name'] looks like", componentsActiveOnGraphs[0]['name']);
-  console.log("we are in CustomToolTip.js, componentsActiveOnGraphs[0]['metric'] looks like", componentsActiveOnGraphs[0]['metric']);
-  
-  var result = getComponent(componentsActiveOnGraphs[0]['name'],componentsActiveOnGraphs[0]['metric']);
-  console.log("we are in CustomToolTip.js, result looks like", result);
-  console.log("we are in CustomToolTip.js, result['label'] looks like", result['label']);
-
-  for (var i = 0; i < dataItems.length; i++) {
-    if (dataItems[i]['selected'] === true) {
-      toolTipDisplay.push(<p className="tool-tip-item">{dataItems[i]['label']}</p>);
-      // console.log('componentsActiveOnGraphs', componentsActiveOnGraphs[i]['metric']);
-    }
+    console.log('this:',props);
+    return (
+      <div className={styles.customTooltip}>
+        <p>{`Render: ${label}`}</p>
+        {payload.map(load => 
+          <div>
+            <p>{`${load.dataKey}`}</p>
+            <p>{`${load.value}`}</p>
+          </div>
+        )}
+      </div>
+    );
   }
-
-  for (var j = 0; j < componentsActiveOnGraphs.length; j++){
-    // console.log("we are looping through componentsActiveOnGraphs", componentsActiveOnGraphs[j]);
-  }
-
-  return (
-    <div className="custom-tooltip">
-      {toolTipDisplay}
-    </div>
-  );
 };
 
 export default CustomToolTip;

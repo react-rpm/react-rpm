@@ -4,27 +4,13 @@ import template from './PerfComponentTemplate';
 export default class PerfComponent {
 
 
-  constructor(name, color = 'blue') {
-
+  constructor(name) {
 
     this.name = name;
 
-    //I haven't implemented this yet, but App will use it to check to see if there's any new information that needs to be reflect on the graph. We don't want to run the PerfComponent compileComponent method if we don't have to
-    this.pushData = false;
-
-    //this stores all the graph data for ACTIVE metrics (i.e. ones that should be displaying on a graph)
     this.graphData = [];
 
-    //component holds the return value of compileComponent, that uses PerfComponentTemplate to build out the structure of our PerfComponent. I chose to do it with a template because it was more efficient than hard coding out the structure of the entire PerfComponent. Also, it makes making big changes easier -- we just modify one value in the template, and every PerfComponent will reflect those changes.
-    //compiledComponent returns an array of two values, an object specific to this.RENDER and one to this.SUMMARY because they both have different structrues -- hence [0] and [1]
-    let component = this.compileComponent(true);
-
-    //use JSON.parse and JSON.stringify to deep clone, because otherwise they're all pointing to the same object. Changing the value of one PerfComponent would change the value of every PerfComponent otherwise.
-    this.RENDER = JSON.parse(JSON.stringify(component[0]));
-    this.SUMMARY = JSON.parse(JSON.stringify(component[1]));
-    //
-
-    this.currentlyRenderedMetrics = [];
+    this.RENDER = JSON.parse(JSON.stringify(this.compileComponent()));
 
     console.log(
       '-------------------------\n',
@@ -35,40 +21,16 @@ export default class PerfComponent {
     )
   }
 
-  //This method is ONLY called in the PerfComponents constructor to create the component.
-  compileComponent(isParent = false) {
+  compileComponent() {
 
-    //I start out with two empty objects to build PerfComponents RENDER and SUMMARY portions.
-    //these are returned at the end in an array.
     let emptyRenderTemplate = {};
-    let emptySummaryTemplate = {};
 
-    //this just helps me keep track of if we're on RENDER or SUMMARY (categories)
-    let categoryTracker;
+    template.renderMetrics.forEach(metric => {
+      if (!emptyRenderTemplate[metric]) emptyRenderTemplate[metric] = {};
+      emptyRenderTemplate[metric] = template.data.RENDER
+    })
 
-    //this for loop tracks whether or not we're focusing on RENDER or SUMMARY
-    for (let i = 0; i < 4; i += 1) {
-      i < 2 ? categoryTracker = 'RENDER' : categoryTracker = 'SUMMARY'
-      if (categoryTracker === 'RENDER') {
-        template.renderMetrics.forEach(metric => {
-          if (!emptyRenderTemplate[metric]) emptyRenderTemplate[metric] = {};
-          emptyRenderTemplate[metric] = template.data.RENDER
-
-          //this assigns a random hex color to the PerfComponent. We'll eventually switch to a user selected version, but this works for now.
-          if (emptyRenderTemplate[metric].colorTheme = 'Random') {
-            emptyRenderTemplate[metric].colorTheme = '#' + Math.floor(Math.random() * 16777215).toString(16);
-          }
-        })
-      }
-      else if (categoryTracker === 'SUMMARY') {
-        template.summaryMetrics.forEach(metric => {
-          emptySummaryTemplate[metric] = {}
-          emptySummaryTemplate[metric]['activeGraphs'] = template.data.SUMMARY.graphTemplate.activeGraphs;
-          emptySummaryTemplate[metric] = template.data.SUMMARY.INSTANCE_GLOBAL[metric];
-        });
-      }
-    }
-    return [emptyRenderTemplate, emptySummaryTemplate];
+    return emptyRenderTemplate
   }
 
   toggleActiveMetric(category, metric, graph, graphStyle = null, color = null) {
@@ -112,10 +74,6 @@ export default class PerfComponent {
 
   addValue(value, category, metric) {
     this[category][metric].data.push(value);
-    // console.log('[PERFCOMONENT]:',this.name,'\n',
-    //   'Adding value to:', metric,'\n',
-    //   'New value of data array:', this[category][metric].data,'\n'
-    // )
   }
 
   getValue(category, metric) {
@@ -127,9 +85,12 @@ export default class PerfComponent {
   }
 
   getMetricTotal(metric) {
-    return this.RENDER[metric].data.reduce((acc, val) =>
-      acc + val
-      , 0).toFixed(2);
+    if (this.RENDER[metric].data.length)
+      return this.RENDER[metric].data.reduce((acc, val) =>
+        acc + val
+        , 0).toFixed(2);
+    else 
+      return 0;
   }
 
   exportGraphData() {

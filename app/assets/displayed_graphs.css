@@ -1,7 +1,8 @@
 .tab{
     position: relative;
-    display: inline-block;
+    display:block;
     height: 20px;
+    top:20px;
     width:fit-content;
     font-size: 11px;
     border-radius: 4px;
@@ -12,6 +13,7 @@
     overflow: auto;
     transition: top 1s ease-in-out;
     transition: margin 1s ease-in-out;
+    margin-top:10px;
 }
 
 .tabContainer{

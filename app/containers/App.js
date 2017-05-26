@@ -132,10 +132,6 @@ class App extends Component {
       <div id={styles.main_container}>
         <div id={styles.divider}></div>
 
-        {
-          (!this.state.appActive) && this.logoMask_JSX
-        }
-
         {viewController}
         <div 
           id={styles.bannerContainer}>
