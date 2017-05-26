@@ -46,6 +46,7 @@ const Plot = (props) => {
   let currData;
 
   // loop through each element passed in compiledGraphData (sent as prop from App)
+  console.log(compiledGraphData);
   compiledGraphData.forEach((item, i) => {
     metric = item[0];
     metricName = item[2];
@@ -85,7 +86,7 @@ const Plot = (props) => {
             graphRenders[graph_code][metricName].push(
               <Line
                 key={i}
-                type='monotone'
+                type='linear'
                 dataKey={componentName}
                 stroke={colors[metric.colorTheme]}
                 fill={colors[metric.colorTheme]}
@@ -130,12 +131,12 @@ const Plot = (props) => {
         : 'graphContainer',
       data: data[num],
       graphRenders: getGraphComponentForRender(num),
-      brushComponent: num 
-        ? (<Brush height={13} stroke='#413b4d' />) 
+      brushComponent: num
+        ? (<Brush height={13} stroke='#413b4d' />)
         : [],
       graphHeight: checkIfTwoGraphsActive()
-        ? 225
-        : 420
+        ? 170
+        : 335
     }
   }
 
@@ -155,21 +156,24 @@ const Plot = (props) => {
       graphOutput.push((
         <ComposedChart
           key={graph.code}
-          width={600}
+          width={500}
           height={graph.graphHeight}
           data={data[graph.code]}
           fill={'transparent'}
           syncId="anyId"
         >
-          <XAxis dataKey={"name"} label={"Render"} />
-          <YAxis />
-          <CartesianGrid stroke={"transparent"} strokeDasharray="1 1" />
-          <Tooltip />
-          <Legend />
+          <XAxis dataKey={"name"} label={(<p>"Render"</p>)} 
+          />
+          <YAxis label={"ms"}/>
+          <CartesianGrid stroke={"gray"} strokeDasharray="1 1" />
+          <Tooltip 
+            content={CustomToolTip}
+            cursor={{fill: 'white', fillOpacity: 0.1}}
+          />
           {graph.graphRenders}
           {graph.brushComponent}
         </ComposedChart>
-        ),
+      ),
       )
     });
   } else graphOutput.push(<div id={styles.graphPlaceholder}></div>);
@@ -179,79 +183,15 @@ const Plot = (props) => {
       <ReactTransition
         transitionName={viewEnterTransitions}
         transitionAppear={true}
-        transitionAppearTimeout={1000} transitionEnterTimeout={0} transitionLeaveTimeout={0}>
+        transitionAppearTimeout={2000} transitionEnterTimeout={800} transitionLeaveTimeout={500}>
         <div id={styles.graphContainer}>
           {graphOutput}
+          
         </div>
+        <div id={styles.graph_reflection}></div>
       </ReactTransition>
     </div>
   )
 }
-
-/*if (checkIfTwoGraphsActive()) {
-    comparisonGraph = (
-      <div id={styles.comparisonGraphContainer}>
-        <ComposedChart
-          width={600}
-          height={225}
-          data={data[1]}
-          fill={'transparent'}
-          syncId="anyId"
-        >
-          <XAxis dataKey={"name"} label={"Render"} />
-          <YAxis />
-          <CartesianGrid stroke={"transparent"} strokeDasharray="1 1" />
-          <Tooltip />
-          <Legend />
-          {graphRenders[1]['timeWasted']}
-          {graphRenders[1]['renderCount']}
-          {graphRenders[1]['instanceCount']}
-          {graphRenders[1]['totalRenderTime']}
-          {graphRenders[1]['averageRenderTime']}
-          {graphRenders[1]['totalTime']}
-          {graphRenders[1]['totalLifeCycleTime']}
-          {brushComponent}
-        </ComposedChart>
-      </div>
-    )
-    brushComponent = [];
-  }
-  else comparisonGraph = [];*/
-
-/*  
-
-  return (
-    <div className={styles.graphContainer}>
-      {renderIfEmptyGraphs}
-      <div>
-        <ComposedChart
-          width={600}
-          height={graphHeight}
-          data={data[0]}
-          syncId="anyId"
-          fill={'transparent'}
-        >
-          <XAxis dataKey={"name"} />
-          <YAxis />
-          <CartesianGrid stroke={"transparent"} strokeDasharray="1 1" />
-          <Tooltip />
-          <Legend />
-          {graphRenders[0]['timeWasted']}
-          {graphRenders[0]['renderCount']}
-          {graphRenders[0]['instanceCount']}
-          {graphRenders[0]['totalRenderTime']}
-          {graphRenders[0]['averageRenderTime']}
-          {graphRenders[0]['totalTime']}
-          {graphRenders[0]['totalLifeCycleTime']}
-          {brushComponent}
-        </ComposedChart>
-      </div>
-      <br />
-      {comparisonGraph}
-      {/*<div className={styles.toolbarToggleTooltips}>
-        <DataItemList dataItems={dataItems} onDataItemClick={onDataItemClick} />
-      </div>*/
-//   </div>
-// );*/
 
 export default Plot;

@@ -1,0 +1,16 @@
+@keyframes logoExit {
+  0%{
+    opacity:1;
+    transform:translateY(0%);
+  }
+  100%{
+    transform:translateY(-150%);
+    opacity:0;
+  }
+}
+.leave.leaveActive {
+  animation-name: logoExit;
+  animation-duration:1000ms;
+  transition-timing-function: ease-in;
+}
+

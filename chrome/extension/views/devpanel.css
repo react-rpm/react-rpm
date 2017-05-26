@@ -1,9 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Lato');
 
 html, body {
   margin: 0;
   padding: 0;
   background: #ededed;
+  font-family: 'Lato', 'sans-serif';
+  font-weight: thin;
+  overflow-x:hidden;
+  width:700px;
+  height: 1000px;
+
 }
 
 #root {
@@ -176,7 +183,7 @@ html, body {
   -webkit-animation: Select-animation-fadeIn 200ms;
   -o-animation: Select-animation-fadeIn 200ms;
   animation: Select-animation-fadeIn 200ms;
-  color: #999;
+  /*color: #999;*/
   cursor: pointer;
   display: table-cell;
   position: relative;

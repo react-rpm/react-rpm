@@ -23,7 +23,7 @@ const Toolbar = (props) => {
       <div id={styles.toolbarContainer}>
             <div className={styles.toolbarPanel}>
               <div id={styles.create} className={styles.toolbarPanelTitle}>
-                <span>Component View</span>
+                <span>Graph Selector</span>
                 <GraphPicker 
                   allComponents={allComponents} 
                   twoGraphsAreActive={twoGraphsAreActive}
@@ -34,7 +34,7 @@ const Toolbar = (props) => {
             </div>
             <div id={styles.modify} className={styles.toolbarPanel}>
               <div className={styles.toolbarPanelTitle}>
-                <span>Profile View</span>
+                <span>Editor</span>
                 <DisplayedGraphs 
                 componentsActiveOnGraphs={componentsActiveOnGraphs}
                 updateGraph={updateGraph}

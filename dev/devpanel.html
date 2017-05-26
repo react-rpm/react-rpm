@@ -1,4 +1,5 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><style>@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+
 
 html, body {
   margin: 0;
@@ -13,6 +14,9 @@ html, body {
 .Select {
   position: relative;
   font-family: 'Open Sans', sans-serif;
+  box-shadow:  0 2px 5px 0 rgba(23, 23, 23, 0.46);
+  margin-top:2px;
+  margin-bottom:2px;
   
 }
 .Select,
@@ -85,11 +89,9 @@ html, body {
     line-height: 28px;
     padding-left: 10px;
     padding-right: 10px;
+    padding-bottom:4px;
     position: absolute;
     white-space: nowrap;
-    right: 0;
-    left:0;
-    top:0px;
 }
 .has-value.Select--single > .Select-control .Select-value .Select-value-label,
 .has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label {
@@ -114,6 +116,7 @@ html, body {
   height: 15px;
   padding-left: 10px;
   padding-right: 10px;
+  line-height:28px;
   width:fit-content;
   vertical-align: middle;
 }
@@ -131,7 +134,7 @@ html, body {
   margin: 0;
   vertical-align:middle;
   outline: none;
-  line-height: 20px;
+  line-height: 28px;
   /* For IE 8 compatibility */
   padding: 1px 0 12px; 
   /*changed this*/
@@ -176,7 +179,7 @@ html, body {
   -webkit-animation: Select-animation-fadeIn 200ms;
   -o-animation: Select-animation-fadeIn 200ms;
   animation: Select-animation-fadeIn 200ms;
-  color: #999;
+  color:transparent;
   cursor: pointer;
   display: table-cell;
   position: relative;
@@ -191,6 +194,7 @@ html, body {
   display: inline-block;
   font-size: 18px;
   line-height: 1;
+  left:30px;
   outline:none;
 }
 .Select--multi .Select-clear-zone {
@@ -559,7 +563,8 @@ h6,
   margin-left: 10px;
 }
 .section {
-  margin-bottom: 2px;
+  margin-bottom: 8px;
+  margin-top:8px;
 }
 .hint {
   font-size: .85em;
@@ -568,4 +573,7 @@ h6,
 }
 .virtual-scroll {
   z-index: 1;
-}</style></head><body><div id="root"></div><script src="http://localhost:3000/devpanel.bundle.js"></script></body></html>
+}
+
+</style></head><body><div id="root"></div><script src="http://localhost:3000/devpanel.bundle.js"></script></body></html>
+

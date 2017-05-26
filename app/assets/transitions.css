@@ -2,7 +2,7 @@
   0% {
     opacity:0;
   }
-  80%{
+  90%{
     opacity:0;
     transform:translateY(-100%);
   }
@@ -25,36 +25,28 @@
 @keyframes slideUp {
   0%{
     opacity:0;
-    transform:translateX(300%);
-  }
-  40%{
-    opacity:0;
-    transform:translateX(300%);
-  }
-  98% {
-    opacity:1;
-    transform:translateX(-1%);
+    transform:scaleY(-100%);
   }
   100%{
-    transform:translateX(0);
+    transform:scaleY(100%);
     opacity:1;
   }
 }
 
 .appear.appearActive{
   animation-name:fadeIn;
-  animation-duration:3s;
-  animation-timing-function: ease-out;
-  /*transition: opacity 1500ms ease-in;*/
+  animation-duration:4.5s;
+  transition-timing-function: ease-out;
+  /*transition: opacity 0500ms ease-in;*/
 }
 .enter.enterActive {
   animation-name:slideUp;
-  animation-duration:2s;
-  animation-timing-function: ease-out;
+  animation-duration:3s;
+  transition-timing-function: ease-out;
 }
 .leave.leaveActive {
   animation-name:fadeOut;
   animation-duration:300ms;
-  animation-timing-function: ease-in; 
+  transition-timing-function: ease-in;
 }
 

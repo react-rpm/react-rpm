@@ -30,10 +30,10 @@ $lightGrey: #dcdcdc;
   display:block;
   margin-left:auto;
   margin-right:auto;
+  top:120px;
   width:600px;
-  height:235px;
+  height:255px;
   animation: fadeInFromNone 2s ease-out;
->>>>>>> chrome:app/assets/toolbar.css
 }
 
 .toolbarPanel {
@@ -42,9 +42,9 @@ $lightGrey: #dcdcdc;
   height:100%;
   vertical-align:top;
   border-radius:5px;
-  box-shadow: 0 2px 5px 0 rgba(145, 145, 145, 0.26);
-  background:#ffffff;
-  overflow:hidden;
+  width:fit-content;
+  box-shadow: 0 2px 5px 0 rgba(23, 23, 23, 0.46);
+  background:rgba(155,155,155,.1);
 }
 
 #create {
@@ -63,11 +63,10 @@ $lightGrey: #dcdcdc;
   font-family: 'Open Sans', sans-serif;
   font-size: 13px;
   margin-bottom:5px;
-  box-shadow: 0 2px 5px 0 rgba(145, 145, 145, 0.26);
-  background:#ffffff;
-  border-top-left-radius:20px;
-  border-top-right-radius:20px;
-  color:#919191;
+  background:#f5f5f5;
+  box-sizing:border-box;
+  color:#606060;
+  box-shadow: inset 0px 0px 1px 1px rgba(63,63,63,.3);
 }
 
 .toolbarPanelTitle span {

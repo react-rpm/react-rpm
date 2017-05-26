@@ -1,35 +1,68 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 #graph_picker{
-  position:relative;
+  position:absolute;
   display:block;
   margin-right:auto;
   margin-left:auto;
-  width:80%;
-  height:80%;
+  width:100%;
+  height:fit-content;
   margin-top:25px;
+  border-radius:5px;
   font-family: 'Open Sans', sans-serif;
 }
 
+.graphSelectorBin{
+  position:absolute;
+  display:inline-block;
+  width:100%;
+  height:fit-content;
+  left:0;
+  margin-top:5px;
+  box-shadow: 0 2px 5px 0 rgba(23, 23, 23, 0.46);
+  background:rgba(155,155,155,.1);
+}
+
+.graphButton{
+  vertical-align:middle;
+  display:inline-block;
+  height:40px;
+  width:50px;
+  background:transparent;
+  padding:5px;
+  /*box-shadow:  0 2px 5px 0 rgba(23, 23, 23, 0.46);*/
+  margin-left:15px;
+  margin-right:15px;
+  transition: background .1s ease-in-out;
+}
+
+.graphButton:hover{
+  background:#bff5ff;
+}
+
+.graphButtonImage {
+  position:relative;
+  width:40px;
+  height:30px;
+}
+
 #button {
-  width:30px;
+  position:absolute;
+  display:block;
+  margin-left:130px;
+  top:150px;
+  width:40px;
   height:30px;
   color: #919191;
-  font-size: 14px;
-  font-family: sans-serif;
-  text-decoration: none;
+  font-size: 15px;
   border-style:none;
   border-radius:100px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   transition-duration: .2s;
-  -webkit-transition-duration: .2s;
-  -moz-transition-duration: .2s;
   background-color: #ffffff;
-  text-align:center;
   font-family: 'Open Sans', sans-serif;
   outline:none;
-  overflow:hidden;
-  line-height:30px;
+  margin-top:20px;
 }
 
 #button:hover {
@@ -38,22 +71,20 @@
   background-color: #bff5ff;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.26);
   transition-duration: .2s;
-  -webkit-transition-duration: .2s;
-  -moz-transition-duration: .2s;
-  overflow:hidden;
 }
 
 #button:after {
     content: "";
-    background: #fff;
+    background: white;
     display: block;
     /*position: absolute;*/
     padding-top: 500%;
-    padding-left: 550%;
-    margin-left: -20px!important;
-    margin-top: -120%;
+    padding-left: -550%;
+    margin-top: -500%;
+    padding-right:500%;
     opacity: 0;
     transition: all 0.8s;
+    overflow:auto;
 }
 
 #button:active:after {
