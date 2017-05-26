@@ -12,6 +12,11 @@ $lightGrey: #dcdcdc;
     visibility:none;
     opacity:0;
   }
+  30% {
+    transform: translateY(300%);
+    visibility:visible;
+    opacity:0;
+  }
   100% {
     transform: translateY(0);
     visibility:visible;
@@ -21,60 +26,51 @@ $lightGrey: #dcdcdc;
 
 
 #toolbarContainer{
-  position:absolute;
-  display:flex;
-  flex-wrap:wrap;
-  left:0;
-  right:0;
-  top:430px;
-  margin-left:auto;
-  margin-right:auto;
-  width:570px;
-  height:235px;
-  animation: fadeInFromNone 2s ease-out;
-  box-shadow: 3px 7px 4px 3px rgba(65, 65, 65, .4);
-  background: #ededed;
-  z-index:99999;
-
-}
-
-.displayedGraphsContainer{
   position:relative;
   display:block;
-  background:rgba(210,210,210,.4);
-  width:100%;
-  height:fit-content;
+  margin-left:auto;
+  margin-right:auto;
+  top:120px;
+  width:600px;
+  height:255px;
+  animation: fadeInFromNone 2s ease-out;
 }
 
 .toolbarPanel {
   position:relative;
-  display:block;
-  overflow:hidden;
-  width:100%;
-  box-shadow: 0 2px 5px 0 rgba(145, 145, 145, 0.26);
-  background:#ededed;
-  height:65%;
+  display:inline-block;
+  height:100%;
+  vertical-align:top;
+  border-radius:5px;
+  width:fit-content;
+  box-shadow: 0 2px 5px 0 rgba(23, 23, 23, 0.46);
+  background:rgba(155,155,155,.1);
 }
 
-#toolbarSwitchContainer{
-  position:relative;
-  display:flex;
-  flex-wrap:wrap;
-  background:#eaeaea;
-  box-shadow: 0 2px 5px 0 rgba(145, 145, 145, 0.26);
-  width:100%;
+#create {
+  width:300px;
+}
+
+#modify {
+  width:50%;
 }
 
 .toolbarPanelTitle {
-  position:relative;
-  display:inline-block;
-  vertical-align:middle;
-  min-width:30%;
-  flex-grow:1;
+  width: 100%;
+  height: 35px;
+  float:top;
   text-align:center;
   font-family: 'Open Sans', sans-serif;
   font-size: 13px;
-  box-shadow: 0 2px 5px 0 rgba(145, 145, 145, 0.26);
-  color:#919191;
+  margin-bottom:5px;
+  background:#f5f5f5;
+  box-sizing:border-box;
+  color:#606060;
+  box-shadow: inset 0px 0px 1px 1px rgba(63,63,63,.3);
 }
 
+.toolbarPanelTitle span {
+  position:relative;
+  display:inline-block;
+  vertical-align:middle;
+}

@@ -2,7 +2,7 @@
   position:relative;
   display:block;
   height: 335px;
-  width: 570px;
+  width: 500px;
   margin-top:33px;
 }
 
@@ -13,6 +13,11 @@
   height:300px;
   margin-right:auto;
   margin-left:auto;
+}
+
+.tooltip{
+  background: rgba(200,200,200, .3);
+  text-align:center;
 }
 
 .toolbarToggleTooltips{
@@ -63,10 +68,11 @@
   }
 }
 #graphContainer{
-  margin-top:33px;
+  margin-top:60px;
   margin-bottom:10px;
-  padding-right:70px;
-  width:540px;
+  padding-right:30px;
+  width:500px;
+  overflow:hidden;
   background:rgba(48,43,57,.97);
   border-radius:5px !important;
   box-shadow: 0 2px 5px 0 rgba(23, 23, 23, 0.26);
@@ -78,7 +84,7 @@
   margin-right:auto;
   margin-left:auto;
   height:50px;
-  width:610px;
+  width:530px;
   margin-top:-20px;
   background:linear-gradient(#302a39, transparent);
   opacity:.5;

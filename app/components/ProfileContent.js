@@ -18,6 +18,9 @@ const ProfileContent = ({ dataKeys, onDataKeyClick }) => (
     style={{
       margin: '0 auto',
       width: '420px',
+      boxShadow: '0 2px 5px 0 rgba(145, 145, 145, 0.26)',
+      paddingRight:'60px',
+      paddingLeft:'60px',
     }}
   >
     <ProfileDataKeyList

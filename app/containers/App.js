@@ -116,10 +116,6 @@ class App extends Component {
       <div id={styles.main_container}>
         <div id={styles.divider}></div>
 
-        {
-          (!this.state.appActive) && this.logoMask_JSX
-        }
-
         {viewController}
         <div 
           id={styles.bannerContainer}>
@@ -134,7 +130,7 @@ class App extends Component {
 
         </div>
         <div>
-          <img src={require('./../assets/images/tachometer.png')} id={styles.rpm_logo} className={this.logoAnimOut} />;
+          {/*<img src={require('./../assets/images/tachometer.png')} id={styles.rpm_logo} className={this.logoAnimOut} />;*/}
         </div>
         <div id={styles.message_container}>
           <ReactTransition

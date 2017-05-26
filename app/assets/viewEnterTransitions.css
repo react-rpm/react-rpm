@@ -1,31 +1,23 @@
 @keyframes componentAppear {
   0% {
-    opacity:0;
-    visibility:none;
     transform: translateX(-100%);
   }
   20%{
-    opacity:0;
     transform:translateX(-100%);
   }
   100%{
     transform:translateX(0%);
-    opacity:1;
     visibility:visible;
   }
 }
 @keyframes componentEnter {
   0% {
-    opacity:0;
-    visibility:none;
   }
   20%{
-    opacity:0;
     transform:translateX(+100%);
   }
   100%{
     transform:translateX(0%);
-    opacity:1;
   }
 }
 
