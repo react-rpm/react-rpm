@@ -14,7 +14,6 @@ import {
 import DataItemList from './DataItemList';
 import CustomToolTip from './CustomToolTip';
 import styles from './../assets/plot.css';
-import { colors } from './../assets/colors.js';
 import viewEnterTransitions from './../assets/viewEnterTransitions.css';
 import ReactTransition from 'react-transition-group/CSSTransitionGroup';
 
@@ -73,23 +72,24 @@ const Plot = (props) => {
 
         switch (metric.graphDisplay) {
 
-          case 'Bar':
+          case 'bar':
             graphRenders[graph_code][metricName].push(
               <Bar
                 key={i}
                 dataKey={componentName}
-                fill={colors[metric.colorTheme]}
+                fill={metric.colorTheme}
                 isAnimationActive={metricShouldAnimate}
               />)
+            console.log('\n\n\n\nthisshouldlog!!!\n\n\n\n')
             break;
-          case 'Line':
+          case 'line':
             graphRenders[graph_code][metricName].push(
               <Line
                 key={i}
                 type='linear'
                 dataKey={componentName}
-                stroke={colors[metric.colorTheme]}
-                fill={colors[metric.colorTheme]}
+                stroke={metric.colorTheme}
+                fill={metric.colorTheme}
                 strokeWidth={3}
                 activeDot={{ r: 8 }}
                 dot={{ r: 2 }}
@@ -97,14 +97,14 @@ const Plot = (props) => {
               />)
             break;
 
-          case 'Area':
+          case 'area':
             graphRenders[graph_code][metricName].push(
               <Area
                 key={i}
-                type="monotone"
+                type="linear"
                 dataKey={componentName}
-                stroke={colors[metric.colorTheme]}
-                fill={colors[metric.colorTheme]}
+                stroke={"'"+metric.colorTheme+"'"}
+                fill={metric.colorTheme}
                 strokeWidth={3}
                 activeDot={{ r: 8 }}
                 isAnimationActive={metricShouldAnimate}
@@ -149,8 +149,12 @@ const Plot = (props) => {
 
     iterator = [getGraphParams(0)];
 
-    if (checkIfTwoGraphsActive())
+    if (checkIfTwoGraphsActive()) {
+      console.log('second graph is active');
       iterator.push(getGraphParams(1));
+    }
+
+    console.log('iterator',iterator);
 
     iterator.forEach(graph => {
       graphOutput.push((
@@ -167,7 +171,6 @@ const Plot = (props) => {
           <YAxis label={"ms"}/>
           <CartesianGrid stroke={"gray"} strokeDasharray="1 1" />
           <Tooltip 
-            content={CustomToolTip}
             cursor={{fill: 'white', fillOpacity: 0.1}}
           />
           {graph.graphRenders}

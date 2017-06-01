@@ -117,6 +117,8 @@ html, body {
   margin-right:auto;
   margin-left:auto;
   height:50px;
+  color: white;
+  font-size:30px;
   box-shadow: 0px 2px 10px 0px rgba(145, 145, 145, 0.66);
   width:100%;
   text-overflow: hidden;

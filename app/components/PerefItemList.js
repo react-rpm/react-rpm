@@ -26,7 +26,7 @@ const PerfItemList = ({ perfItems, onPerfItemClick, showDataKeys }) => (
       />,
     )}
   </div>
-);
+); 
 
 // PerfItemList.propTypes = propTypes;
 

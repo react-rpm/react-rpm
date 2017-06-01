@@ -8,3 +8,14 @@ export const colors = {
   Green: '#8aff7a'
 }
 
+export const graphColors = [
+  '#ff7f5d', //Orange
+  '#47e2ff', //Blue
+  '#8aff7a', //Green
+  '#36B4CC', //MuteBlue
+  '#FF5DA3', //Pink
+  '#FFF176', //Yellow
+  '#B22F68', //Maroon
+  '#8276FF', //PurpleBlue
+  '#CC7036', //Brown
+];

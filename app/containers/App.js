@@ -28,7 +28,7 @@ class App extends Component {
 
     // this.logo = (<img src={require('./../assets/images/tachometer.png')} id={styles.rpm_logo} />);
     this.logoOutAnim = ''
-    // this.logoMask_JSX = ( <div id={styles.logoMask}></div>);
+    this.logoMask_JSX = ( <div id={styles.logoMask}></div>);
 
     //NOTE: temporary fix to circumvent 'start' message. will refactor later!!
     this.handleClick();
@@ -78,7 +78,7 @@ class App extends Component {
           key={10000}
           id={styles.listening}
         >
-          React RPM is listening for renders...
+          react-rpm is listening for renders...
         </div>
       );
     }
@@ -104,7 +104,6 @@ class App extends Component {
         else [this.profileVisibility, this.componentVisibility] = [false, true];
 
 
-        console.log('hello');
         viewController = (
           <ViewController
             selectedView={this.state.view}

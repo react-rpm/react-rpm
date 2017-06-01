@@ -23,14 +23,12 @@ const DisplayedGraphs = (props) => {
   if(componentsActiveOnGraphs) {
     componentsActiveOnGraphs.forEach((component,i) =>{
 
-      console.log(component.colorTheme);
-
       component.activeGraphs === 0 ? whichGraph = '' : whichGraph = 'Secondary ';
       tabArray.push(
         <div
           key={i}  
           className={styles.tab}>
-          <div className={styles.colorCircle} style={{'background':colors[component.colorTheme]}}/>
+          <div className={styles.colorCircle} style={{'background':component.colorTheme}}/>
           <span> {component.name+": "+component.metric}</span>
           <div 
             className={styles.deleteButton}
