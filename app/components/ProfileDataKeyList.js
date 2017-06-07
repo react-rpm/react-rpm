@@ -13,7 +13,8 @@ const propTypes = {
 };
 
 const ProfileDataKeyList = ({ dataKeys, onDataKeyClick }) => (
-  <div className='dataKeyContainer'>
+  <div className='dataKeyContainer'
+  >
     {dataKeys.map(dataKey =>
       <ProfileDataKey
         key={dataKey.id}

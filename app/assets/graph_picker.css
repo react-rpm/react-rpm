@@ -3,8 +3,8 @@
 #graph_picker{
   position:absolute;
   display:block;
-  margin-right:auto;
-  margin-left:auto;
+  /*margin-right:auto;
+  margin-left:auto;*/
   width:100%;
   height:fit-content;
   margin-top:25px;
@@ -16,47 +16,57 @@
   position:absolute;
   display:inline-block;
   width:100%;
-  height:fit-content;
   left:0;
+  height:fit-content;
   margin-top:5px;
-  box-shadow: 0 2px 5px 0 rgba(23, 23, 23, 0.46);
-  background:rgba(155,155,155,.1);
+  overflow:hidden;
 }
 
 .graphButton{
-  vertical-align:middle;
-  display:inline-block;
   height:40px;
   width:50px;
-  background:transparent;
-  padding:5px;
+  position:relative;
+  left:25px;
+  margin-left:10px;
   /*box-shadow:  0 2px 5px 0 rgba(23, 23, 23, 0.46);*/
-  margin-left:15px;
-  margin-right:15px;
-  opacity:.4;
-  transition: all .1s ease-in-out;
+  opacity:.7;
+  transition: all .2s ease-in-out;
+  background:transparent;
+  box-shadow: inset 5px 5px 10px 0px rgba(15,15,15,.76);
+  backface-visibility: hidden;
+}
+
+.graphButton img{
+  width:40px;
+  left:-10px;
+  filter:invert(.5);
 }
 
 .graphButtonSelected {
-  vertical-align:middle;
-  display:inline-block;
   height:40px;
   width:50px;
-  padding:0 5px 0 5px;
-  padding:5px;
-  /*box-shadow:  0 2px 5px 0 rgba(23, 23, 23, 0.46);*/
-  margin-left:15px;
-  margin-right:15px;
-  opacity:.9;
-  box-shadow: 1px 2px 2px 1px rgba(23, 23, 23, 0.26);
-  transition: background .1s ease-in-out;
-  transform:scale(1.3);
+  transform: scale(1);
+  margin-left:10px;
+  position:relative;
+  background:transparent;
+  left:25px;
+  box-shadow: 5px 5px 10px 0px rgba(15,15,15,.76);
+  transition: background .3s ease-in-out;
+  opacity:1;
+  backface-visibility: hidden;
 }
 
-.graphButton:hover{
+.graphButtonSelected img{
+  left:-10px;
+  filter:brightness(0);
+  filter:invert(1);
+  transition: all .2s ease-in-out;
+  /*box-shadow: -5px 2px 2px 1px rgba(23, 23, 23, 0.26);*/
+}
+
+.graphButton img:hover{
   opacity:1;
-  transform:scale(1.1);
-  background:red;
+  filter:invert(1);
 }
 
 .graphButton:active{
@@ -85,7 +95,8 @@
   padding:0 15px 0 15px;
   margin: 7px 15px 0 15px;
   width:fit-content;
-  color: white;
+  color:#bcc1c2;
+  background:linear-gradient(90deg, #24282d, #1c1c1c);
   border-style:none;
   border-radius:2px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
@@ -113,30 +124,80 @@
   transform:scale(.9);
 }
 
+.colorOptionButton{
+  left:22px;
+  top:10px;
+  height:20px;
+  width:20px;
+  opacity:.8;
+  border-radius:15px;
+  position:absolute;
+  box-shadow: 5px 5px 10px 0px rgba(15,15,15,.76);
+}
+
+#colorDropDownIcon{
+  position:relative;
+  height:15px;
+  width:15px;
+  margin-left:-8px;
+  top:-4px;
+  filter:invert(1);
+}
+
+.colorOptionButton:hover{
+  transform:scale(1.1);
+}
+
+.colorOptionButton:hover:active{
+  transform:scale(.9);
+  width:10px;
+  border-radius:25px;
+}
+
+.hideColors {
+  transform: translateX(-100%);
+  z-index:0;
+  opacity:0;
+  transition: all .4s ease-in-out;
+  backface-visibility:hidden;
+}
+
+.showColors{
+  opacity:1;
+  transform:translateX(0%);
+  transition: all.4s ease-in-out;
+  backface-visibility: hidden;
+}
+
 .colorButton{
   position:relative;
   display:inline-block;
   height:100%;
   width:10px;
   box-shadow: 0 0 0 0;
-  transition: all .15s ease-out;
+  /*transition: all .35s ease-out;*/
   border-radius:0px;
   opacity:.5;
-  z-index:9998;
+  box-shadow: inset 5px 5px 10px 0px rgba(15,15,15,.76);
 }
 
 .colorButton:hover{
   opacity:1.2;
   transform: rotate(45deg) scale(1.3);
-  box-shadow: 1px 2px 2px 1px rgba(23, 23, 23, 0.26);
-  transition: all .05s ease-out;
+  transition: all .15s ease-out;
   border-radius:15px;
-  z-index:9999;
-  
+  box-shadow: 5px 5px 10px 0px rgba(15,15,15,.76);
+  z-index:2; 
 }
 
-.colorButton:active{
+/*.colorButton:focus{
+  opacity: 1;
+  border-radius:15px;
+}*/
+
+.colorButton:focus:active{
   transform: scale(.7);
+  transition: all .2s ease;
 }
 
 #colorSelectorBin{
@@ -149,9 +210,7 @@
   height:30px;
   margin-top:15px;
   text-align:center;
-  box-shadow: 0 2px 5px 0 rgba(23, 23, 23, 0.46);
   background:rgba(155,155,155,.1);
-  overflow:visible;
+  overflow:hidden;
   white-space:nowrap;
 }
-

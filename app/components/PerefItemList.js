@@ -14,7 +14,11 @@ import PerfItem from './PerfItem';
 // };
 
 const PerfItemList = ({ perfItems, onPerfItemClick, showDataKeys }) => (
-  <div className='PerfItemContainer'>
+  <div className='PerfItemContainer'
+    style={{
+      background:'rgba(28,28,28,1)'
+    }}
+  >
     {perfItems.map(perfItem =>
       <PerfItem
         key={perfItem.id}

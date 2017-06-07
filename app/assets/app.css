@@ -4,7 +4,8 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: #ededed;
+  /*background:#9ea2a8;*/
+  background:#2f373e;
   font-family: 'Lato', 'sans-serif';
   font-weight: thin;
   overflow-x:hidden;
@@ -40,25 +41,29 @@ html, body {
   display:block;
   width:100%;
   height:30px;
-  background: rgba(245,245,245, 1);
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.26);
-  color:#707070;
+  /*background: rgba(245,245,245, 1);*/
+  background:linear-gradient(90deg, #24282d, #1c1c1c);
+  color:#bcc1c2;
   font-size:11px;
   top:25%;
+  box-shadow: 0px 5px 5px 0 rgba(15,15,15,.56);
   animation:bannerContainerEnterAnimation 2.5s ease-out;
   text-align:center;
+  z-index:10000;
 }
  
  #bannerTitle {
    letter-spacing:6px;
    position:relative;
    margin-left:2%;
+   top:5px;
    font-size:13px;
 }
 
 #bannerByLine {
   letter-spacing:2px;
-  padding:0;
+  position:relative;
+  top:5px;
   color:#919191;
   margin-left:2%;
   font-size:11px;
@@ -68,33 +73,6 @@ html, body {
   position:absolute;
   height:100%;
   width:100%;
-}
-
-#toggleMessage{
-  position:absolute;
-  text-align:center;
-  left: 0;
-  right:0;
-  top:40px;
-  margin-right:auto;
-  margin-left:auto;
-  font-size:45px;
-  font-weight:bolder;
-  font-family: 'Karla', sans-serif;
-  height:fit-content;
-  color:rgba(66,66,66,.7);
-  background: rgba(213,213,213, .3);
-  box-shadow: 0px 2px 10px 0px rgba(145, 145, 145, 0.66);
-  padding:5px;
-  z-index:20;
-  letter-spacing:30px;
-  transition: letter-spacing .2s ease-in-out;
-  background: rgba(139, 237, 255, .25);
-}
-
-#toggleMessage:hover{
-  background: rgba(139, 237, 255, .46);
-  letter-spacing:32px;
 }
 
 @keyframes idleListeningAnimation {
@@ -203,8 +181,11 @@ html, body {
 #divider{
   position:absolute;
   width:100%;
-  height:400px;
-  background:linear-gradient(#ededed, #e1e1e1);
+  height:417px;
+  /*background:#9ea2a8;*/
+  background:#2f373e;
+  /*box-shadow: 0 5px 15px 1px rgba(15,15,15,.4);*/
+  box-shadow: 0px 5px 10px 0px rgba(15,15,15,.76);
   animation:slideDown 1s ease-out;
 }
 

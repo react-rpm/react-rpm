@@ -14,7 +14,6 @@ const DisplayedGraphs = (props) => {
   let whichGraph;
 
   const handleClick = (name, metric, activeGraphs) => {
-    console.log('hello');
     let thisComponent = getComponent(name)
     thisComponent.toggleActiveMetric('RENDER', metric, activeGraphs);
     updateGraph();
@@ -23,19 +22,23 @@ const DisplayedGraphs = (props) => {
   if(componentsActiveOnGraphs) {
     componentsActiveOnGraphs.forEach((component,i) =>{
 
-      component.activeGraphs === 0 ? whichGraph = '' : whichGraph = 'Secondary ';
+      whichGraph = component.activeGraphs === 0 ? 'I' : 'II'
       tabArray.push(
-        <div
-          key={i}  
-          className={styles.tab}>
-          <div className={styles.colorCircle} style={{'background':component.colorTheme}}/>
-          <span> {component.name+": "+component.metric}</span>
-          <div 
-            className={styles.deleteButton}
-            onClick={()=>{handleClick(component.name, component.metric, component.activeGraphs)}}
-            >
-            X
-            </div>
+        <div>
+          <div
+            key={i}  
+            className={styles.tab}>
+            <div className={styles.colorCircle} style={{'background':component.colorTheme}}/>
+            <span> {'Name: '+component.name}</span>
+            <span> {'Metric: '+component.metric}</span>
+            <span> {'Graph: '+whichGraph}</span>
+            <button
+              className={styles.deleteButton}
+              onClick={()=>{handleClick(component.name, component.metric, component.activeGraphs)}}
+              >
+              X
+            </button>
+          </div>
         </div>
       )
     })

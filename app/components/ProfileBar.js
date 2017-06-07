@@ -12,14 +12,15 @@ const ProfileBar = ({ perfItems, onPerfItemClick, showDataKeys }) => (
   <div
     className='perfItemBar'
     style={{
-      borderBottom: '1px solid #EEEEEE',
-      borderTop: '1px solid #EEEEEE',
-      margin: '8px auto 16px auto',
+      marginTop: '40px',
+      marginLeft: '-20px',
       paddingBottom: '8px',
+      fontFamily:'Open Sans',
+      fontSize:'12px',
       paddingTop: '8px',
       textAlign: 'center',
-      width: '100%',
-      boxShadow: '0 2px 5px 0 rgba(145, 145, 145, 0.46)'
+      width: '500px',
+      zIndex:2
     }}
   >
     <PerfItemList
@@ -33,3 +34,5 @@ const ProfileBar = ({ perfItems, onPerfItemClick, showDataKeys }) => (
 ProfileBar.propTypes = propTypes;
 
 export default ProfileBar;
+
+//background:'rgba(28,28,28,.9)',

@@ -3,6 +3,7 @@ import styles from './../assets/graph_picker.css'
 import Select from 'react-select';
 import {graphColors} from './../assets/colors.js'
 import './../assets/react-select.css';
+import tinycolor from 'tinycolor2';
 
 class GraphPicker extends Component {
 
@@ -41,6 +42,7 @@ class GraphPicker extends Component {
       selectMetricValue: 'timeWasted',
       selectGraphValue: 'null',
       selectColorValue: 'null',
+      showColorOptions: true
     }
     console.log(graphColors);
     this.colorButtons = graphColors.map(color =>
@@ -48,7 +50,7 @@ class GraphPicker extends Component {
         className={styles.colorButton}
         style=
           {{background: color}}
-        onClick={
+        onMouseOver={
           () => {this.updateColorValue(color)}
         }
       />
@@ -85,6 +87,13 @@ class GraphPicker extends Component {
     this.setState(
       {selectColorValue: newValue}
     );
+  }
+
+  toggleColorPanel = () => {
+    console.log('fired');
+    this.setState(
+      {showColorOptions: !this.state.showColorOptions}
+    )
   }
 
   loadOptions(options) {
@@ -127,28 +136,50 @@ class GraphPicker extends Component {
     })
   }
 
+getBackgroundColor = (hex) => {
+  let thisColor = new tinycolor(hex);
+  if (thisColor.getBrightness() < 160) return 'black';
+  else return 'white';
+}
+
   render() {
     return (
 
       <div id={styles.graph_picker}>
 
-        <div className="section">
+        <div className="section"
+          style={{
+              zIndex:'99998'
+            }}
+        >
           <Select 
             placeholder='Performance Metric' 
             autofocus={false} 
             options={this.metricOptions} 
-            simpleValue clearable={true} 
+            simpleValue 
+            clearable={true} 
             name="selected-state" 
             disabled={false} 
             value={this.state.selectMetricValue} 
             onChange={this.updateMetricValue.bind(this)} 
             searchable={true} 
+            style={{
+              zIndex:'999999'
+            }}
           />
         </div>
 
-        <div className="section">
+        <div className="section"
+            style={{
+              zIndex:'99998'
+            }}
+        >
           <Select 
-            placeholder='Component' 
+            placeholder={
+              this.state.selectMetricValue 
+              ? `Component (sorted by ${this.state.selectMetricValue})`
+              : `Component`
+            } 
             autofocus={false} 
             options={this.componentOptions} 
             simpleValue 
@@ -158,22 +189,15 @@ class GraphPicker extends Component {
             value={this.state.selectComponentValue} 
             onChange={this.updateComponentValue.bind(this)} 
             searchable={true} 
+            
           />
         </div>
-
-        {/*<div className="section">
-          <Select placeholder='Style' autofocus={false} options={this.graphOptions} simpleValue clearable={true} name="selected-state" disabled={false} value={this.state.selectGraphValue} onChange={this.updateGraphValue.bind(this)} searchable={true} />
-        </div>*/}
-
         <div className={styles.graphSelectorBin}>
 
           <button 
             className={
               this.state.selectGraphValue === 'line' ? styles.graphButtonSelected : styles.graphButton
               }
-            style={{
-              background: this.state.selectGraphValue === 'line' ? this.state.selectColorValue : 'transparent'
-            }}
             >
             <img 
               className={styles.graphButtonImage} 
@@ -182,13 +206,19 @@ class GraphPicker extends Component {
             />
           </button>
 
+          <button
+            className={styles.colorOptionButton}
+            onClick={this.toggleColorPanel}
+            style={{background: this.state.selectColorValue}}
+          >
+            <img src={require('./../assets/images/drop_down_icon.png')}
+                 id={styles.colorDropDownIcon}
+            />
+          </button>
           <button 
             className={
               this.state.selectGraphValue === 'area' ? styles.graphButtonSelected : styles.graphButton
               }
-            style={{
-              background: this.state.selectGraphValue === 'area' ? this.state.selectColorValue : 'transparent'
-            }}
             >
             <img 
               className={styles.graphButtonImage} 
@@ -202,9 +232,6 @@ class GraphPicker extends Component {
             className={
               this.state.selectGraphValue === 'bar' ? styles.graphButtonSelected : styles.graphButton
               }
-              style={{
-              background: this.state.selectGraphValue === 'bar' ? this.state.selectColorValue : 'transparent'
-            }}
             >
             <img
               className={styles.graphButtonImage}
@@ -213,36 +240,28 @@ class GraphPicker extends Component {
             />
           </button>
         </div> 
-        
-        {/*<div className="section">
-          <Select placeholder='Select Color' autofocus={false} options={this.colorOptions} simpleValue clearable={true} name="selected-state" disabled={false} value={this.state.selectColorValue} onChange={this.updateColorValue.bind(this)} searchable={true} />
-        </div>*/}
 
-        <div id={styles.colorSelectorBin}>
+        <div id={styles.colorSelectorBin} 
+          className={this.state.showColorOptions ? styles.showColors : styles.hideColors }
+          >
           {this.colorButtons}
         </div>
 
         <div id={styles.renderButtonContainer}>
           <button 
             className={styles.button} 
-            onClick={
+            onClick= {
               () => this.handleClick(0)
             }
-            style={
-              {background: this.state.selectColorValue}
-            }
           >
-            Main [+]
+            Graph I
           </button>
           <button 
             className={styles.button} 
             onClick={
               () => this.handleClick(1)}
-            style={
-              {background: this.state.selectColorValue}
-            }
           >
-            Comparison [+]
+            Graph II
           </button>
         </div>
       </div>

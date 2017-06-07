@@ -1,0 +1,18 @@
+
+.selected{
+  background: rgba(28,28,28,.7);
+  color: white;
+  box-shadow: 5px 5px 10px 0 rgba(15, 15, 15, 0.76);
+  transition: all .2s ease-in-out;
+  font-size:13px;
+}
+
+.unselected{
+  background: rgba(28,28,28,.9);
+  color: #757575;
+  font-size:13px;
+}
+
+.unselected:hover{
+  color: white;
+}

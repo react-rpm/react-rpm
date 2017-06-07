@@ -9,13 +9,6 @@ export const colors = {
 }
 
 export const graphColors = [
-  '#ff7f5d', //Orange
-  '#47e2ff', //Blue
-  '#8aff7a', //Green
-  '#36B4CC', //MuteBlue
-  '#FF5DA3', //Pink
-  '#FFF176', //Yellow
-  '#B22F68', //Maroon
-  '#8276FF', //PurpleBlue
-  '#CC7036', //Brown
+  '#ffdc00','#E8780C', '#FF0000', '#9768d1', '#0D53FF', '#abc8e2','#45bf55', '#fffefc', 'brown'
 ];
+

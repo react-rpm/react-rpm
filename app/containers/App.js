@@ -144,9 +144,6 @@ class App extends Component {
           </span>
 
         </div>
-        <div>
-          {/*<img src={require('./../assets/images/tachometer.png')} id={styles.rpm_logo} className={this.logoAnimOut} />;*/}
-        </div>
         <div id={styles.message_container}>
           <ReactTransition
             transitionName={transitions}

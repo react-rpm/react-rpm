@@ -90,9 +90,9 @@ const Plot = (props) => {
                 dataKey={componentName}
                 stroke={metric.colorTheme}
                 fill={metric.colorTheme}
-                strokeWidth={3}
-                activeDot={{ r: 8 }}
-                dot={{ r: 2 }}
+                strokeWidth={1}
+                activeDot={{ r: 4 }}
+                dot={{ r: 1 }}
                 isAnimationActive={metricShouldAnimate}
               />)
             break;
@@ -132,7 +132,7 @@ const Plot = (props) => {
       data: data[num],
       graphRenders: getGraphComponentForRender(num),
       brushComponent: num
-        ? (<Brush height={13} stroke='#413b4d' />)
+        ? (<Brush height={13} stroke='#24282d' />)
         : [],
       graphHeight: checkIfTwoGraphsActive()
         ? 170
@@ -142,36 +142,41 @@ const Plot = (props) => {
 
   let mainGraphParams, comparisonGraphParams;
   let graphOutput = [];
+  let graphPlaceholder = [];
 
   if (compiledGraphData.length) {
 
     let iterator = [];
+    let graphHeight = 335;
 
     iterator = [getGraphParams(0)];
+
 
     if (checkIfTwoGraphsActive()) {
       console.log('second graph is active');
       iterator.push(getGraphParams(1));
+      graphHeight=170;
     }
-
-    console.log('iterator',iterator);
 
     iterator.forEach(graph => {
       graphOutput.push((
         <ComposedChart
+          margin={{right:60}}
           key={graph.code}
           width={500}
-          height={graph.graphHeight}
+          height={graphHeight}
           data={data[graph.code]}
           fill={'transparent'}
           syncId="anyId"
         >
-          <XAxis dataKey={"name"} label={(<p>"Render"</p>)} 
+          <XAxis dataKey={"name"} label={'Renders'} 
           />
           <YAxis label={"ms"}/>
-          <CartesianGrid stroke={"gray"} strokeDasharray="1 1" />
+          {/*<Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px', color: '#d0cdcd' }} />*/}
+          {/*<CartesianGrid/>*/}
           <Tooltip 
-            cursor={{fill: 'white', fillOpacity: 0.1}}
+            cursor={{fill: 'rgba(255,255,255,.1)'}}
+            fill={'rgba(255,255,255.5)'}
           />
           {graph.graphRenders}
           {graph.brushComponent}
@@ -179,8 +184,11 @@ const Plot = (props) => {
       ),
       )
     });
-  } else graphOutput.push(<div id={styles.graphPlaceholder}></div>);
-
+  }else{
+    graphPlaceholder=(
+      <div id={styles.graphPlaceholder}/>
+    )
+  }
   return (
     <div>
       <ReactTransition
@@ -189,7 +197,7 @@ const Plot = (props) => {
         transitionAppearTimeout={2000} transitionEnterTimeout={800} transitionLeaveTimeout={500}>
         <div id={styles.graphContainer}>
           {graphOutput}
-          
+          {graphPlaceholder}
         </div>
         <div id={styles.graph_reflection}></div>
       </ReactTransition>

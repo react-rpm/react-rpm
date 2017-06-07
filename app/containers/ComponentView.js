@@ -158,6 +158,7 @@ class ComponentView extends Component {
   }
 
   twoGraphToggler(bool) {
+    console.log('TOGGGGLLLLEEEDDD');
     this.resetComponentGraphAnimation();
     this.setState({ twoGraphsAreActive: bool });
   }
