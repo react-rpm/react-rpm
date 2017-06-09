@@ -67,7 +67,7 @@
 #goToComponent:hover{
   padding-top:7px;
   padding-right:10px;
-  color: black;
+  color: white;
   transition: color 300ms, padding-right, 300ms ease-in-out;
 }
 
@@ -81,7 +81,7 @@
 #goToProfile:hover{
   padding-top:7px;
   padding-left:10px;
-  color: black;
+  color: white;
   transition: color 300ms, padding-left 300ms ease-in-out;
 }
 

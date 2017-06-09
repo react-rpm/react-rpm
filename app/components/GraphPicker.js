@@ -13,8 +13,6 @@ class GraphPicker extends Component {
     const metrics = [
       'timeWasted',
       'averageRenderTime',
-      'instanceCount',
-      'renderCount',
       'totalLifeCycleTime',
       'totalRenderTime',
       'totalTime',
@@ -50,7 +48,7 @@ class GraphPicker extends Component {
         className={styles.colorButton}
         style=
           {{background: color}}
-        onMouseOver={
+        onClick={
           () => {this.updateColorValue(color)}
         }
       />
@@ -115,7 +113,7 @@ class GraphPicker extends Component {
   loadComponentOptions(options) {
     const arr = [];
     const sorted = options.sort( (a,b) => {
-      return a.getMetricTotal(this.state.selectMetricValue) < b.getMetricTotal(this.state.selectMetricValue)
+      return a.getMetricTotal(this.state.selectMetricValue)< b.getMetricTotal(this.state.selectMetricValue)
     })
 
     console.log('sorted:',sorted);
@@ -127,10 +125,14 @@ class GraphPicker extends Component {
   }
 
   handleClick = (whichGraph) => {
-    if (whichGraph) this.props.twoGraphToggler(true);
+    console.log('whichGraph',whichGraph)
     this.props.allComponents.forEach(component => {
       if (component.name === this.state.selectComponentValue) {
         component.toggleActiveMetric('RENDER', this.state.selectMetricValue, whichGraph, this.state.selectGraphValue, this.state.selectColorValue);
+        if (whichGraph === 1) {
+          console.log('two graph toggler called...');
+          this.props.twoGraphToggler(true);
+        }
         this.props.updateGraph();
       }
     })

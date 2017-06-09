@@ -156,6 +156,8 @@ const Plot = (props) => {
       console.log('second graph is active');
       iterator.push(getGraphParams(1));
       graphHeight=170;
+    }else{
+      console.log('second graph is not active');
     }
 
     iterator.forEach(graph => {

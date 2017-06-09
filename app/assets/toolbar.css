@@ -36,10 +36,7 @@ $lightGrey: #dcdcdc;
   height:255px;
   /*box-shadow: 5px 5px 10px 0px rgba(15,15,15,.76);*/
   animation: fadeInFromNone 2s ease-out;
-  overflow-x:hidden;
-  overflow-y:visible;
   color:#bcc1c2;
-  white-space:nowrap;
 }
 
 .toolbarPanel {
@@ -69,6 +66,7 @@ $lightGrey: #dcdcdc;
   width:50%;
   /*background:#1c1c1c;*/
   /*background:#24282d;*/
+  overflow-y:scroll;
   box-shadow: inset 5px 5px 10px 0px rgba(15,15,15,.76);
   /*box-shadow: 0px 4px 5px 3px rgba(15,15,15,.5);*/
 }
@@ -76,7 +74,8 @@ $lightGrey: #dcdcdc;
 .toolbarPanelTitle {
   width: 100%;
   height: 35px;
-  float:top;
+  padding-top:7px;
+  vertical-align:middle;
   text-align:center;
   font-family: 'Open Sans', sans-serif;
   font-size: 13px;

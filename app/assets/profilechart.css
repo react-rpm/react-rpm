@@ -3,7 +3,9 @@
   display:block;
   height: '320px';
   width:500px;
+  height:335px;
   overflow-x:scroll;
+  overflow-y:scroll;
   box-shadow: inset 5px 5px 10px 0 rgba(15, 15, 15, 0.76);
   background:linear-gradient(#24282d, #1c1c1c);
 }
@@ -17,6 +19,7 @@
 .indexUnselected{
   background: transparent;
   height:20px;
+  color:#757575;
 }
 
 .dataSelected{
@@ -26,6 +29,7 @@
 
 .dataUnselected{
   background:transparent;
+  color: #757575;
 }
 
 table {

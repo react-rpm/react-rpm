@@ -7,9 +7,7 @@ import { colors } from './../assets/colors.js';
 
 const DisplayedGraphs = (props) => {
 
-  const componentsActiveOnGraphs = props.componentsActiveOnGraphs;
-  const updateGraph = props.updateGraph;
-  const getComponent = props.getComponent;
+  const {componentsActiveOnGraphs, updateGraph, getComponent} = props;
   let tabArray = [];
   let whichGraph;
 

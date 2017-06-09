@@ -15,13 +15,12 @@ class ComponentView extends Component {
 
     this.componentsActiveOnGraphs = [];
     this.loadToolbar = false;
+    this.twoGraphsAreActive = false,
     
     this.state = {
 
       allComponents: [],
       // an array that holds every PerfComponent that exists during the life-span of the app.
-
-      twoGraphsAreActive: false,
       //boolean toggle that tracks whether or not the user wants to display one or two graphs
 
       // Can we use this instead:
@@ -136,9 +135,11 @@ class ComponentView extends Component {
     let compiledGraphData = [];
     let placeHolder = [];
     let newActiveComponent;
+    let secondGraphIsActive = 0;
     this.componentsActiveOnGraphs = [];
     this.state.allComponents.forEach(component => {
       component.exportGraphData().forEach(array => {
+        if(array[3]) secondGraphIsActive++;
         if (array.length) {
           newActiveComponent = {
             name: component.name,
@@ -153,14 +154,15 @@ class ComponentView extends Component {
         }
       })
     })
+    console.log('# of graphs on comparison plot:',secondGraphIsActive);
+    if(!secondGraphIsActive) this.twoGraphsAreActive = false;
     return compiledGraphData;
 
   }
 
   twoGraphToggler(bool) {
-    console.log('TOGGGGLLLLEEEDDD');
     this.resetComponentGraphAnimation();
-    this.setState({ twoGraphsAreActive: bool });
+    this.twoGraphsAreActive = bool;
   }
 
   resetComponentGraphAnimation() {
@@ -176,8 +178,7 @@ class ComponentView extends Component {
   }
 
   checkIfTwoGraphsActive() {
-    let returnVal = this.state.twoGraphsAreActive;
-    return returnVal
+    return this.twoGraphsAreActive;
   }
 
   sortByWasteful() {
