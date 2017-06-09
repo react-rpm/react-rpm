@@ -154,7 +154,6 @@ class ComponentView extends Component {
         }
       })
     })
-    console.log('# of graphs on comparison plot:',secondGraphIsActive);
     if(!secondGraphIsActive) this.twoGraphsAreActive = false;
     return compiledGraphData;
 

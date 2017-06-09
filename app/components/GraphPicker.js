@@ -32,14 +32,15 @@ class GraphPicker extends Component {
 
     this.componentOptions = this.loadComponentOptions(this.props.allComponents);
     this.metricOptions = this.loadOptions(metrics);
+    this.renderButtonsActive = false;
     // this.graphOptions = this.loadOptions(this.graphsLabels);
     // this.colorOptions = this.loadOptions(colors);
 
     this.state = {
-      selectComponentValue: null,
+      selectComponentValue: undefined,
       selectMetricValue: 'timeWasted',
-      selectGraphValue: 'null',
-      selectColorValue: 'null',
+      selectGraphValue: undefined,
+      selectColorValue: undefined,
       showColorOptions: true
     }
     console.log(graphColors);
@@ -144,7 +145,12 @@ getBackgroundColor = (hex) => {
   else return 'white';
 }
 
+canRenderToGraph = () => {
+  return this.state.selectComponentValue && this.state.selectGraphValue && this.state.selectColorValue
+}
+
   render() {
+    console.log('canRenderToGraph:',this.canRenderToGraph())
     return (
 
       <div id={styles.graph_picker}>
@@ -250,21 +256,28 @@ getBackgroundColor = (hex) => {
         </div>
 
         <div id={styles.renderButtonContainer}>
-          <button 
-            className={styles.button} 
-            onClick= {
-              () => this.handleClick(0)
+          <button
+            className= {
+              this.canRenderToGraph() ? styles.renderButtonActive : styles.renderButtonInactive
+            }
+            onClick={ 
+              () => this.canRenderToGraph() && this.handleClick(0)
             }
           >
             Graph I
           </button>
-          <button 
-            className={styles.button} 
-            onClick={
-              () => this.handleClick(1)}
-          >
-            Graph II
-          </button>
+          {(this.props.componentsActiveOnGraphs.length > 0) && (
+            <button
+              className= {
+                this.canRenderToGraph() ? styles.renderButtonActive : styles.renderButtonInactive
+              }
+              onClick={
+                () => this.handleClick(1)}
+            >
+              Graph II
+            </button>
+          )
+          }
         </div>
       </div>
     );

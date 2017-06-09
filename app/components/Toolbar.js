@@ -29,6 +29,7 @@ const Toolbar = (props) => {
               twoGraphsAreActive={twoGraphsAreActive}
               updateGraph={updateGraph}
               twoGraphToggler={twoGraphToggler}
+              componentsActiveOnGraphs={componentsActiveOnGraphs}
               />
           </div>
         </div>
