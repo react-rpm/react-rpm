@@ -90,20 +90,22 @@ const ProfileChart = (props) => {
       <div className={styles.barChartContainer}>
         <BarChart
           width={500} height={335} data={data}
-          margin={{ left: 0, right: 50, bottom: 10}} syncId='anyId'
+          margin={{ left: 0, right: 50, top: 20, bottom: 10}} syncId='anyId'
         >
           <XAxis dataKey={xDataKey}/>
           <YAxis />
           <CartesianGrid stroke={'#757575'} strokeDasharray="1 1" />
-          <Tooltip />
-          <Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px' }} />
+          <Tooltip 
+            cursor={{fill: 'rgba(255,255,255,.05)'}}
+          />
+          {/*<Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px' }} />*/}
           <Bar
             dataKey={yDataKey}
             fill='#7C4DFF'
             barSize={32}
             isAnimationActive={shouldAnimate}
           />
-          <Brush height={16} stroke='#757575' />
+          <Brush height={16} fill='#333940' stroke='#24282d' />
         </BarChart>
       </div>
     );

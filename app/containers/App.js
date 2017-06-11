@@ -14,24 +14,18 @@ class App extends Component {
     super(props);
 
     this.haveReceivedPerfs = false;
+    this.message = [];
     this.profileVisibility;
     this.componentVisibility;
+    this.listenForPerfs();
 
     this.state = {
       view: 'componentView',
       appActive: true,
       perfData: {},
     };
-
-    this.listenForPerfs();
-    this.message = [];
-
-    // this.logo = (<img src={require('./../assets/images/tachometer.png')} id={styles.rpm_logo} />);
-    this.logoOutAnim = ''
-    this.logoMask_JSX = ( <div id={styles.logoMask}></div>);
-
     //NOTE: temporary fix to circumvent 'start' message. will refactor later!!
-    this.handleClick();
+    this.message.push(this.buildMessage('listening'));
   }
 
   listenForPerfs() {
@@ -46,32 +40,12 @@ class App extends Component {
       if (!this.haveReceivedPerfs) {
         this.haveReceivedPerfs = true;
       }
+      this.hasRenderBeenDetected = styles.renderDetected;
       this.setState({ perfData: message.message });
     });
   }
 
-  handleClick = () => {
-    // let appActive;
-    // if (!this.state.appActive) {
-      this.message = [];
-      this.message.push(this.buildMessage('listening'));
-      // appActive = !this.state.appActive;
-    // }
-    // this.setState({ appActive });
-  }
-
   buildMessage = (message) => {
-    if (message === 'toggleMessage') {
-      return (
-        <div
-          key={1}
-          id={styles.toggleMessage}
-          onClick={this.handleClick}
-        >
-          Click here to begin listening for renders
-        </div>
-      );
-    }
     if (message === 'listening') {
       return (
         <div
@@ -99,10 +73,8 @@ class App extends Component {
     if (this.state.appActive) {
       if (this.haveReceivedPerfs) {
         this.message = [];
-        this.logoAnimOut = styles.logoAnimOut;
         if (this.state.view === 'profileView') [this.profileVisibility, this.componentVisibility] = [true, false];
         else [this.profileVisibility, this.componentVisibility] = [false, true];
-
 
         viewController = (
           <ViewController
@@ -135,7 +107,8 @@ class App extends Component {
         <div 
           id={styles.bannerContainer}>
 
-          <span id={styles.bannerTitle} >
+          <span 
+            id={styles.bannerTitle}>
             {'react rpm  '}
           </span>
 

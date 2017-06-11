@@ -7,13 +7,14 @@ import { colors } from './../assets/colors.js';
 
 const DisplayedGraphs = (props) => {
 
-  const {componentsActiveOnGraphs, updateGraph, getComponent} = props;
+  const {componentsActiveOnGraphs, updateGraph, getComponent, twoGraphToggler} = props;
   let tabArray = [];
   let whichGraph;
 
   const handleClick = (name, metric, activeGraphs) => {
     let thisComponent = getComponent(name)
     thisComponent.toggleActiveMetric('RENDER', metric, activeGraphs);
+    if (activeGraphs) {}
     updateGraph();
   }
 
