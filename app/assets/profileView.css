@@ -9,15 +9,16 @@ button {
 table {
     border-collapse: collapse;
     border: 1px solid #BDBDBD;
-    color: #212121;
-    margin-top: 8px;
-    width: 100%;
+    color: #BDBDBD;
+    height:100%;
+    width: 300px;
     text-align: left;
 }
 
 th {
     border: 1px solid #BDBDBD;
     padding: 2px;
+    padding-bottom:8px;
     font-weight: normal;
 }
 
@@ -31,7 +32,7 @@ td {
   position:absolute;
   display:block;
   margin-right:auto;
-  margin-left:auto;
+  margin-left:auto; 
   width:fit-content;
   height:100%;
   margin-top:10px;

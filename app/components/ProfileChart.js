@@ -13,6 +13,7 @@ import {
   Legend,
   Brush,
 } from 'Recharts';
+import {graphColors} from './../assets/colors.js'
 
 const propTypes = {
   chartData: PropTypes.array,
@@ -52,7 +53,7 @@ const ProfileChart = (props) => {
     }
   });
 
-  const cellBgColor = i => i % 2 ? '#E1F5FE' : 'white';
+  const cellBgColor = i => i % 2 ? '#2f373e' : '#293036';
 
   let chart;
   if (perfItems[3].selected) {
@@ -64,7 +65,7 @@ const ProfileChart = (props) => {
               <th>Index</th>
               {keys.map(k => <th
                 key={k}
-                style={{ backgroundColor: k === yDataKey ? '#FFCCBC' : 'white' }}
+                className={k === yDataKey ? styles.indexSelected : styles.indexUnselected}
               >{k}</th>)}
             </tr>
           </thead>
@@ -74,11 +75,9 @@ const ProfileChart = (props) => {
                 <td style={{ backgroundColor: cellBgColor(i) }}>{i}</td>
                 {keys.map(k => <td
                   key={k}
-                  style={{
-                    backgroundColor: k === yDataKey ? '#FFCCBC' : cellBgColor(i),
-                    maxWidth: '300px',
-                    overflowX: 'auto',
-                  }}
+                  className={
+                    k === yDataKey ? styles.dataSelected : styles.dataUnselected
+                  }
                 >{row[k]}</td>)}
               </tr>,
             )}
@@ -90,21 +89,23 @@ const ProfileChart = (props) => {
     chart = (
       <div className={styles.barChartContainer}>
         <BarChart
-          width={500} height={420} data={data}
-          margin={{ left: 0, bottom: 16 }} syncId='anyId'
+          width={500} height={335} data={data}
+          margin={{ left: 0, right: 50, top: 20, bottom: 10}} syncId='anyId'
         >
-          <XAxis dataKey={xDataKey} />
+          <XAxis dataKey={xDataKey}/>
           <YAxis />
           <CartesianGrid stroke={'#757575'} strokeDasharray="1 1" />
-          <Tooltip />
-          <Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px' }} />
+          <Tooltip 
+            cursor={{fill: 'rgba(255,255,255,.05)'}}
+          />
+          {/*<Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px' }} />*/}
           <Bar
             dataKey={yDataKey}
             fill='#7C4DFF'
-            barSize={64}
+            barSize={32}
             isAnimationActive={shouldAnimate}
           />
-          <Brush height={16} stroke='#757575' />
+          <Brush height={16} fill='#333940' stroke='#24282d' />
         </BarChart>
       </div>
     );

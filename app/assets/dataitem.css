@@ -1,0 +1,11 @@
+.unselected{
+  /*box-shadow: 0 2px 5px 0 rgba(23, 23, 23, 0.46);
+  background:rgba(155,155,155,.1);
+  background:red;*/
+  color:red;
+}
+
+.selected{
+  width:1000px;
+  background:green;
+}

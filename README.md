@@ -1,28 +1,27 @@
-# ReactRPM
-
+# react-rpm
+![react-rpm](http://i.imgur.com/YHaLs6a.png)
 ## Overview
 
-ReactRPM is a Chrome DevTool that displays clear and customizable visualizations of your React app's performance metrics.
+react-rpm is a Chrome DevTool that displays clear and customizable visualizations of your React app's performance metrics.
 
-ReactRPM relies on React's built-in Perf tool, which is designed to log performance data as you use your React app. Though React is already fast, its diffing algorithm may cause unnecessary re-renders, which can result in performance issues in large, complex apps. To optimize the diffing algorithm, React provides a shouldComponentUpdate() hook. Incorporating React's Perf tool, ReactRPM shows you exactly where your app can be optimized. See https://facebook.github.io/react/docs/perf.html for more information.
+react-rpm relies on React's built-in Perf tool, which is designed to log performance data as you use your React app. Though React is already fast, its diffing algorithm may cause unnecessary re-renders, which can result in performance issues in large, complex apps. To optimize the diffing algorithm, React provides a shouldComponentUpdate() hook. Incorporating React's Perf tool, react-rpm shows you exactly where your app can be optimized. See https://facebook.github.io/react/docs/perf.html for more information.
 
-Note: React's Perf tool only works when using the development build of React.
+Note: react-rpm only works when using the development build of React.
 
 ## Setup Instructions
 
-Step 1: Set up Perf in your project
+Step 1: Set up react-rpm node module in your project
 
 ```bash
-# Install Perf.
-$ npm install --save-dev react-addons-perf
+# Install react-rpm
+$ npm install --save-dev react-rpm
 ```
 ```javascript
-// Import Perf in App.js.
-import Perf from 'react-addons-perf'
-window.Perf = Perf
+// Import react-rpm in entry point or App.js.
+import react-rpm;
 ```
 
-Step 2: Set up ReactRPM
+Step 2: Set up react-rpm
 
 ```bash
 # Clone this repo.

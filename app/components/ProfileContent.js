@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ProfileDataKeyList from './ProfileDataKeyList';
+import styles from './../assets/profiledatakey.css'
 
 const propTypes = {
   dataKeys: PropTypes.arrayOf(
@@ -15,13 +16,7 @@ const propTypes = {
 const ProfileContent = ({ dataKeys, onDataKeyClick }) => (
   <div
     className='dataKeyListContainer'
-    style={{
-      margin: '0 auto',
-      width: '420px',
-      boxShadow: '0 2px 5px 0 rgba(145, 145, 145, 0.26)',
-      paddingRight:'60px',
-      paddingLeft:'60px',
-    }}
+    id={styles.container}
   >
     <ProfileDataKeyList
       dataKeys={dataKeys}

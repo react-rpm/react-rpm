@@ -14,7 +14,6 @@ import {
 import DataItemList from './DataItemList';
 import CustomToolTip from './CustomToolTip';
 import styles from './../assets/plot.css';
-import { colors } from './../assets/colors.js';
 import viewEnterTransitions from './../assets/viewEnterTransitions.css';
 import ReactTransition from 'react-transition-group/CSSTransitionGroup';
 
@@ -46,7 +45,6 @@ const Plot = (props) => {
   let currData;
 
   // loop through each element passed in compiledGraphData (sent as prop from App)
-  console.log(compiledGraphData);
   compiledGraphData.forEach((item, i) => {
     metric = item[0];
     metricName = item[2];
@@ -73,38 +71,38 @@ const Plot = (props) => {
 
         switch (metric.graphDisplay) {
 
-          case 'Bar':
+          case 'bar':
             graphRenders[graph_code][metricName].push(
               <Bar
                 key={i}
                 dataKey={componentName}
-                fill={colors[metric.colorTheme]}
+                fill={metric.colorTheme}
                 isAnimationActive={metricShouldAnimate}
               />)
             break;
-          case 'Line':
+          case 'line':
             graphRenders[graph_code][metricName].push(
               <Line
                 key={i}
                 type='linear'
                 dataKey={componentName}
-                stroke={colors[metric.colorTheme]}
-                fill={colors[metric.colorTheme]}
-                strokeWidth={3}
-                activeDot={{ r: 8 }}
-                dot={{ r: 2 }}
+                stroke={metric.colorTheme}
+                fill={metric.colorTheme}
+                strokeWidth={1}
+                activeDot={{ r: 4 }}
+                dot={{ r: 1 }}
                 isAnimationActive={metricShouldAnimate}
               />)
             break;
 
-          case 'Area':
+          case 'area':
             graphRenders[graph_code][metricName].push(
               <Area
                 key={i}
-                type="monotone"
+                type="linear"
                 dataKey={componentName}
-                stroke={colors[metric.colorTheme]}
-                fill={colors[metric.colorTheme]}
+                stroke={"'"+metric.colorTheme+"'"}
+                fill={metric.colorTheme}
                 strokeWidth={3}
                 activeDot={{ r: 8 }}
                 isAnimationActive={metricShouldAnimate}
@@ -132,7 +130,7 @@ const Plot = (props) => {
       data: data[num],
       graphRenders: getGraphComponentForRender(num),
       brushComponent: num
-        ? (<Brush height={13} stroke='#413b4d' />)
+        ? (<Brush height={13} fill='#333940' />)
         : [],
       graphHeight: checkIfTwoGraphsActive()
         ? 170
@@ -142,33 +140,38 @@ const Plot = (props) => {
 
   let mainGraphParams, comparisonGraphParams;
   let graphOutput = [];
+  let graphPlaceholder = [];
 
   if (compiledGraphData.length) {
 
     let iterator = [];
+    let graphHeight = 335;
 
     iterator = [getGraphParams(0)];
 
-    if (checkIfTwoGraphsActive())
+
+    if (checkIfTwoGraphsActive()) {
       iterator.push(getGraphParams(1));
+      graphHeight=170;
+    }else{
+    }
 
     iterator.forEach(graph => {
       graphOutput.push((
         <ComposedChart
+          margin={{right:60, bottom:10, top: 30}}
           key={graph.code}
           width={500}
-          height={graph.graphHeight}
+          height={graphHeight}
           data={data[graph.code]}
           fill={'transparent'}
           syncId="anyId"
         >
-          <XAxis dataKey={"name"} label={(<p>"Render"</p>)} 
-          />
+          <XAxis dataKey={"name"} label={'Renders'}/>
           <YAxis label={"ms"}/>
-          <CartesianGrid stroke={"gray"} strokeDasharray="1 1" />
           <Tooltip 
-            content={CustomToolTip}
-            cursor={{fill: 'white', fillOpacity: 0.1}}
+            cursor={{fill: 'rgba(255,255,255,.05)'}}
+            backgroundColor={'rgba(255,255,255.5)'}
           />
           {graph.graphRenders}
           {graph.brushComponent}
@@ -176,8 +179,18 @@ const Plot = (props) => {
       ),
       )
     });
-  } else graphOutput.push(<div id={styles.graphPlaceholder}></div>);
-
+  }else{
+    graphPlaceholder=(
+      <div id={styles.graphPlaceholder}>
+        <p id={styles.rpm_instructionsTitle}>react-rpm | component view</p>
+        <p id={styles.rpm_instructions}>1. Select Metric</p>
+        <p id={styles.rpm_instructions}>2. Select Component</p>
+        <p id={styles.rpm_instructions}>3. Select Graph Style</p>
+        <p id={styles.rpm_instructions}>4. Select Color</p>
+        <p id={styles.rpm_instructions}>5. Press 'Graph I' to Render To Graph</p>
+      </div>
+    )
+  }
   return (
     <div>
       <ReactTransition
@@ -186,7 +199,7 @@ const Plot = (props) => {
         transitionAppearTimeout={2000} transitionEnterTimeout={800} transitionLeaveTimeout={500}>
         <div id={styles.graphContainer}>
           {graphOutput}
-          
+          {graphPlaceholder}
         </div>
         <div id={styles.graph_reflection}></div>
       </ReactTransition>

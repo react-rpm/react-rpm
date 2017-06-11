@@ -21,30 +21,37 @@ const Toolbar = (props) => {
   return (
     <div>
       <div id={styles.toolbarContainer}>
-            <div className={styles.toolbarPanel}>
-              <div id={styles.create} className={styles.toolbarPanelTitle}>
-                <span>Graph Selector</span>
-                <GraphPicker 
-                  allComponents={allComponents} 
-                  twoGraphsAreActive={twoGraphsAreActive}
-                  updateGraph={updateGraph}
-                  twoGraphToggler={twoGraphToggler}
-                  />
-              </div>
-            </div>
-            <div id={styles.modify} className={styles.toolbarPanel}>
-              <div className={styles.toolbarPanelTitle}>
-                <span>Editor</span>
-                <DisplayedGraphs 
-                componentsActiveOnGraphs={componentsActiveOnGraphs}
-                updateGraph={updateGraph}
-                getComponent={getComponent}
-                compileGraphData={compileGraphData}
-                
-                />
-              </div>
-            </div>
+        <div className={styles.toolbarPanel} id={styles.createPanel}>
+          <div id={styles.create} className={styles.toolbarPanelTitle}>
+            <span>Metric Selector</span>
+            <GraphPicker 
+              allComponents={allComponents} 
+              twoGraphsAreActive={twoGraphsAreActive}
+              updateGraph={updateGraph}
+              twoGraphToggler={twoGraphToggler}
+              componentsActiveOnGraphs={componentsActiveOnGraphs}
+              />
+          </div>
         </div>
+        <div id={styles.modify} className={styles.toolbarPanel}>
+          <div>
+            <span
+              style={{
+                display:'block',
+                margin: '10px auto 0 auto',
+                width:'fit-content'
+              }}
+            >Displayed Metrics</span>
+          </div>
+          <DisplayedGraphs 
+          componentsActiveOnGraphs={componentsActiveOnGraphs}
+          updateGraph={updateGraph}
+          getComponent={getComponent}
+          compileGraphData={compileGraphData}
+          twoGraphToggler={twoGraphToggler}
+          />
+        </div>
+      </div>
     </div>
   )
 }

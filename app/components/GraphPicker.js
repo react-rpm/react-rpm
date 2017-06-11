@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import styles from './../assets/graph_picker.css'
 import Select from 'react-select';
+import {graphColors} from './../assets/colors.js'
 import './../assets/react-select.css';
+import tinycolor from 'tinycolor2';
 
 class GraphPicker extends Component {
 
@@ -11,8 +13,6 @@ class GraphPicker extends Component {
     const metrics = [
       'timeWasted',
       'averageRenderTime',
-      'instanceCount',
-      'renderCount',
       'totalLifeCycleTime',
       'totalRenderTime',
       'totalTime',
@@ -28,26 +28,32 @@ class GraphPicker extends Component {
       'totalTime': 'Total Time',
     }
 
-    this.graphs = ['Bar', 'Line', 'Area'];
-    this.graphsLabels = ['Bar', 'Line', 'Area', 'Bar (Secondary Graph)', 'Line (Secondary Graph)', 'Area (Secondary Graph)']
-
-    const colors = ['Blue', 'Green', 'Red', 'Random'];
-
     this.disabled = false //this.props.disabled;
 
     this.componentOptions = this.loadComponentOptions(this.props.allComponents);
     this.metricOptions = this.loadOptions(metrics);
-    this.graphOptions = this.loadOptions(this.graphsLabels);
-    this.colorOptions = this.loadOptions(colors);
+    this.renderButtonsActive = false;
+    // this.graphOptions = this.loadOptions(this.graphsLabels);
+    // this.colorOptions = this.loadOptions(colors);
 
     this.state = {
-      selectComponentValue: null,
-      selectMetricValue: 'timeWasted',
-      selectGraphValue: 'line',
-      selectColorValue: 'red',
+      selectComponentValue: undefined,
+      selectMetricValue: undefined,
+      selectGraphValue: undefined,
+      selectColorValue: undefined,
+      showColorOptions: true
     }
-
-    this.counter = 1;
+    console.log(graphColors);
+    this.colorButtons = graphColors.map(color =>
+      <button
+        className={styles.colorButton}
+        style=
+          {{background: color}}
+        onClick={
+          () => {this.updateColorValue(color)}
+        }
+      />
+    )
 
   }
 
@@ -56,6 +62,7 @@ class GraphPicker extends Component {
       this.componentOptions = this.loadComponentOptions(this.props.allComponents)
     this.forceUpdate();
   }
+
   updateComponentValue(newValue) {
     this.setState({
       selectComponentValue: newValue
@@ -68,16 +75,24 @@ class GraphPicker extends Component {
     });
   }
 
-  updateGraphValue(newValue) {
+  updateGraphValue(newValue){
     this.setState({
       selectGraphValue: newValue
     });
   }
 
   updateColorValue(newValue) {
-    this.setState({
-      selectColorValue: newValue
-    });
+    console.log('New Color',newValue);
+    this.setState(
+      {selectColorValue: newValue}
+    );
+  }
+
+  toggleColorPanel = () => {
+    console.log('fired');
+    this.setState(
+      {showColorOptions: !this.state.showColorOptions}
+    )
   }
 
   loadOptions(options) {
@@ -99,7 +114,7 @@ class GraphPicker extends Component {
   loadComponentOptions(options) {
     const arr = [];
     const sorted = options.sort( (a,b) => {
-      return a.getMetricTotal(this.state.selectMetricValue) < b.getMetricTotal(this.state.selectMetricValue)
+      return a.getMetricTotal(this.state.selectMetricValue)< b.getMetricTotal(this.state.selectMetricValue)
     })
 
     console.log('sorted:',sorted);
@@ -110,48 +125,166 @@ class GraphPicker extends Component {
     return arr;
   }
 
-  handleClick() {
-    let graph = 0;
-    let graphStyle = this.state.selectGraphValue
-    if (graphStyle.includes('Secondary')) {
-      graph = 1;
-      this.props.twoGraphToggler(true);
-      this.graphs.forEach(graph => {
-        if (graphStyle.includes(graph)) {
-          graphStyle = graph;
-        }
-      })
-    }
-
+  handleClick = (whichGraph) => {
+    console.log('whichGraph',whichGraph)
     this.props.allComponents.forEach(component => {
       if (component.name === this.state.selectComponentValue) {
-        component.toggleActiveMetric('RENDER', this.state.selectMetricValue, graph, graphStyle, this.state.selectColorValue);
+        component.toggleActiveMetric('RENDER', this.state.selectMetricValue, whichGraph, this.state.selectGraphValue, this.state.selectColorValue);
+        if (whichGraph === 1) {
+          console.log('two graph toggler called...');
+          this.props.twoGraphToggler(true);
+        }
         this.props.updateGraph();
       }
     })
   }
 
+getBackgroundColor = (hex) => {
+  let thisColor = new tinycolor(hex);
+  if (thisColor.getBrightness() < 160) return 'black';
+  else return 'white';
+}
+
+canRenderToGraph = () => {
+  return this.state.selectComponentValue && this.state.selectGraphValue && this.state.selectColorValue
+}
+
   render() {
+    console.log('canRenderToGraph:',this.canRenderToGraph())
     return (
+
       <div id={styles.graph_picker}>
-        <div className="section">
-          <Select placeholder='Performance Metric' autofocus={false} options={this.metricOptions} simpleValue clearable={true} name="selected-state" disabled={false} value={this.state.selectMetricValue} onChange={this.updateMetricValue.bind(this)} searchable={true} />
+
+        <div className="section"
+          style={{
+              zIndex:'99998'
+            }}
+        >
+        <img id={styles.dropDownIcon_metric} 
+              src={require('./../assets/images/drop_down_icon.png')}
+        />
+        <img id={styles.dropDownIcon_component} 
+              src={require('./../assets/images/drop_down_icon.png')}
+        />
+          <Select 
+            placeholder='Performance Metric' 
+            autofocus={false} 
+            options={this.metricOptions} 
+            simpleValue 
+            clearable={true} 
+            name="selected-state" 
+            disabled={false} 
+            value={this.state.selectMetricValue} 
+            onChange={this.updateMetricValue.bind(this)} 
+            searchable={true} 
+            style={{
+              zIndex:'999999'
+            }}
+          />
         </div>
-        <div className="section">
-          <Select placeholder='Component' autofocus={false} options={this.componentOptions} simpleValue clearable={true} name="selected-state" disabled={false} value={this.state.selectComponentValue} onChange={this.updateComponentValue.bind(this)} searchable={true} />
+
+        <div className="section"
+            style={{
+              zIndex:'99998'
+            }}
+        >
+          <Select 
+            placeholder={
+              this.state.selectMetricValue 
+              ? `Component (sorted by ${this.state.selectMetricValue})`
+              : `Component`
+            } 
+            autofocus={false} 
+            options={this.componentOptions} 
+            simpleValue 
+            clearable={true} 
+            name="selected-state" 
+            disabled={false} 
+            value={this.state.selectComponentValue} 
+            onChange={this.updateComponentValue.bind(this)} 
+            searchable={true} 
+            
+          />
         </div>
-        {/*<div className="section">
-          <Select placeholder='Style' autofocus={false} options={this.graphOptions} simpleValue clearable={true} name="selected-state" disabled={false} value={this.state.selectGraphValue} onChange={this.updateGraphValue.bind(this)} searchable={true} />
-        </div>*/}
         <div className={styles.graphSelectorBin}>
-          <button className={styles.graphButton}><img className={styles.graphButtonImage} src={require('./../assets/images/graph_button_line.png')}/></button>
-          <button className={styles.graphButton}><img className={styles.graphButtonImage} src={require('./../assets/images/graph_button_area.png')}/></button>
-          <button className={styles.graphButton}><img className={styles.graphButtonImage} src={require('./../assets/images/graph_button_bar.png')}/></button>
+
+          <button 
+            className={
+              this.state.selectGraphValue === 'line' ? styles.graphButtonSelected : styles.graphButton
+              }
+            >
+            <img 
+              className={styles.graphButtonImage} 
+              src={require('./../assets/images/graph_button_line.png')}
+              onClick={ () => this.updateGraphValue('line') }
+            />
+          </button>
+
+          <button
+            className={styles.colorOptionButton}
+            onClick={this.toggleColorPanel}
+            style={{background: this.state.selectColorValue}}
+          >
+            <img src={require('./../assets/images/drop_down_icon.png')}
+                 id={styles.colorDropDownIcon}
+            />
+          </button>
+          <button 
+            className={
+              this.state.selectGraphValue === 'area' ? styles.graphButtonSelected : styles.graphButton
+              }
+            >
+            <img 
+              className={styles.graphButtonImage} 
+              src={require('./../assets/images/graph_button_area.png')}
+              onClick={ () => this.updateGraphValue('area') }
+            />
+          </button>
+
+
+          <button
+            className={
+              this.state.selectGraphValue === 'bar' ? styles.graphButtonSelected : styles.graphButton
+              }
+            >
+            <img
+              className={styles.graphButtonImage}
+              src={require('./../assets/images/graph_button_bar.png')}
+              onClick={ () => this.updateGraphValue('bar') }
+            />
+          </button>
         </div> 
-        {/*<div className="section">
-          <Select placeholder='Select Color' autofocus={false} options={this.colorOptions} simpleValue clearable={true} name="selected-state" disabled={false} value={this.state.selectColorValue} onChange={this.updateColorValue.bind(this)} searchable={true} />
-        </div>*/}
-        <button id={styles.button} onClick={this.handleClick.bind(this)}>+</button>
+
+        <div id={styles.colorSelectorBin} 
+          className={this.state.showColorOptions ? styles.showColors : styles.hideColors }
+          >
+          {this.colorButtons}
+        </div>
+
+        <div id={styles.renderButtonContainer}>
+          <button
+            className= {
+              this.canRenderToGraph() ? styles.renderButtonActive : styles.renderButtonInactive
+            }
+            onClick={ 
+              () => this.canRenderToGraph() && this.handleClick(0)
+            }
+          >
+            Graph I
+          </button>
+          {(this.props.componentsActiveOnGraphs.length > 0) && (
+            <button
+              className= {
+                this.canRenderToGraph() ? styles.renderButtonActive : styles.renderButtonInactive
+              }
+              onClick={
+                () => this.handleClick(1)}
+            >
+              Graph II
+            </button>
+          )
+          }
+        </div>
       </div>
     );
   }

@@ -33,11 +33,10 @@ export default class PerfComponent {
     return emptyRenderTemplate
   }
 
-  toggleActiveMetric(category, metric, graph, graphStyle = null, color = null) {
-    if (graphStyle && color) {
-      this[category][metric].graphDisplay = graphStyle
-      this[category][metric].colorTheme = color;
-    }
+  toggleActiveMetric(category, metric, graph, graphStyle, color) {
+    this[category][metric].graphDisplay = graphStyle
+    this[category][metric].colorTheme = color;
+    console.log('\n\n\nCreating on graph #',graph,'\n\n\n');
     this[category][metric].activeGraphs[graph] = !this[category][metric].activeGraphs[graph];
   }
 

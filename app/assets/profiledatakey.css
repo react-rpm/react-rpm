@@ -1,0 +1,28 @@
+#container{
+  display:block;
+  margin-left:-40px;
+}
+
+.selected {
+  display: block;
+  margin: 0 auto 0 auto;
+  color: white;
+  width: 390px;
+  font-size:13px;
+  background:rgba(15,15,15,.09);
+  box-shadow: 5px 5px 10px 0 rgba(15, 15, 15, 0.76);
+  transition: all .2s ease-in-out;
+}
+
+.unselected{
+  display: block;
+  margin: 0 auto 0 auto;
+  background: transparent;
+  color: #757575;
+  width: 390px;
+  font-size:13px;
+}
+
+.unselected:hover{
+  color:white;
+}

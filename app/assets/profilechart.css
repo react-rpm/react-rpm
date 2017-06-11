@@ -1,32 +1,80 @@
 .opsTableContainer{
   position:relative;
-  display:block;
-  height: '400px';
-  margin: '0 auto';
-  overflow-X: 'auto';
-  overflow-Y: 'auto';
-  width: '600px';
-  
+  height: '320px';
+  width:500px;
+  height:335px;
+  overflow-x:scroll;
+  overflow-y:scroll;
+  box-shadow: inset 5px 5px 10px 0 rgba(15, 15, 15, 0.76);
+  background:linear-gradient(#24282d, #1c1c1c);
+}
+
+.indexSelected{
+  background: #2f373e;
+  color:white;
+  height:20px;
+}
+
+.indexUnselected{
+  background: transparent;
+  height:20px;
+  color:#757575;
+}
+
+.dataSelected{
+  background: #2f373e;
+  color:white;
+}
+
+.dataUnselected{
+  background:transparent;
+  color: #757575;
+}
+
+table {
+    border: 1px solid #757575;;
+    color: #757575;
+    padding-top: 8px;
+    text-align: left;
+    width:300px;
+    overflow:hidden;
+    margin-bottom:53px;
+    height:100%;
+    
+}
+tbody{
+  width:300px;
+  overflow:hidden;
+  box-shadow: inset 5px 5px 10px 0 rgba(15,15,15,.76);
+}
+
+tc{
+  width:30px;
+  color:white;
+}
+
+th {
+  border: 1px solid #757575;
+  font-weight: normal;
+}
+
+td {
+  border-left: 1px solid #757575;
+  border-right: 1px solid #757575;
+  padding: 2px;
 }
 
 .chartContainer{
   position:relative;
   display:block;
-  margin-right:auto;
-  margin-left:auto;
   margin-top:62px;
 }
 
 .barChartContainer{
-  width:fit-content;
   height:fit-content;
   margin-right:auto;
   margin-left:auto;
   position:relative;
-  margin-bottom:10px;
-  padding-right:50px;
-  background:rgba(48,43,57,.95);
-  border-radius:5px !important;
-  box-shadow: 0 2px 5px 0 rgba(23, 23, 23, 0.26);
-  background:transparent;
+  background:linear-gradient(#24282d, #1c1c1c);
+  box-shadow: inset 5px 5px 10px 0 rgba(15, 15, 15, 0.76);
 }
