@@ -86,7 +86,7 @@ html, body {
 .Select--single > .Select-control .Select-value {
     color: #9c9fa0;
     position:absolute;
-    left:-10px;
+    left:-100px;
     width:100%;
     line-height: 28px;
     white-space: nowrap;
@@ -113,13 +113,14 @@ html, body {
 }
 
 .Select-placeholder{
-  left:-10px !important;
-  top:2px;
+  position:absolute;
+  left:-110px !important;
+  top: -2px;
+  overflow:visible;
 }
 .Select-input {
   outline:none;
   height: 15px;
-  left:0;
   line-height:28px;
   width:fit-content;
   vertical-align: middle;
@@ -134,9 +135,9 @@ html, body {
   cursor: default;
   display: inline-block;
   font-family: inherit;
-  font-size: inherit;
+  font-size: 14px;
   margin: 0;
-  left:0;
+  left:-80px;
   vertical-align:middle;
   outline: none;
   line-height: 28px;
@@ -146,12 +147,15 @@ html, body {
   vertical-align:middle;
   outline:none;
   cursor: text;
+  left:-80px;
+  top:10px;
 }
 .has-value.is-pseudo-focused .Select-input {
   opacity: 0;
 }
 .Select-control:not(.is-searchable) > .Select-input {
   outline: none;
+  left:-80px;
 }
 .Select-loading-zone {
   cursor: pointer;
@@ -200,27 +204,34 @@ html, body {
 }
 .Select--multi .Select-clear-zone {
   width: 17px;
+  float:left;
 }
 .Select-arrow-zone {
+  position:absolute;
+  left:-105px;
+  /*top: 2px;*/
   cursor: pointer;
   text-align: center;
   width: 25px;
-  margin-top:10px;
-  margin-left:50%;
-  padding-right: 5px;
+  /*margin-top:10px;
+  margin-left:50%;*/
+  padding-right: 10px;
+  padding-top:10px;
+  background:red;
+  height:28px;
+  float:left;
 }
 .Select-arrow {
+  position:absolute;
   border-color: #999 transparent transparent;
   border-style: solid;
   border-width: 5px 5px 2.5px;
-  display: inline-block;
   height: 0;
-  width: 0;
-  position: relative;
 }
 .is-open .Select-arrow,
 .Select-arrow-zone:hover > .Select-arrow {
-  border-top-color: #666;
+  border-top-color: #fff;
+  height:28px;
 }
 .Select--multi .Select-multi-value-wrapper {
   display: inline-block;
@@ -309,6 +320,7 @@ html, body {
 }
 .Select--multi .Select-input {
   vertical-align: middle;
+  position:absolute;
   color:red;
   background:red;
   padding: 0;
@@ -326,16 +338,15 @@ html, body {
   border: 1px solid rgba(0, 126, 255, 0.24);
   color: #007eff;
   display: inline-block;
-  font-size: 0.9em;
+  font-size: .9em;
   line-height: 28px;
-  left:75px;
   margin-top: 5px;
   vertical-align: top;
 }
 .Select--multi .Select-value-icon,
 .Select--multi .Select-value-label {
   display: absolute;
-  left:30px;
+  left:-80px;
   vertical-align: middle;
 }
 .Select--multi .Select-value-label {

@@ -45,7 +45,6 @@ const Plot = (props) => {
   let currData;
 
   // loop through each element passed in compiledGraphData (sent as prop from App)
-  console.log(compiledGraphData);
   compiledGraphData.forEach((item, i) => {
     metric = item[0];
     metricName = item[2];
@@ -80,7 +79,6 @@ const Plot = (props) => {
                 fill={metric.colorTheme}
                 isAnimationActive={metricShouldAnimate}
               />)
-            console.log('\n\n\n\nthisshouldlog!!!\n\n\n\n')
             break;
           case 'line':
             graphRenders[graph_code][metricName].push(
@@ -132,7 +130,7 @@ const Plot = (props) => {
       data: data[num],
       graphRenders: getGraphComponentForRender(num),
       brushComponent: num
-        ? (<Brush height={13} stroke='#24282d' />)
+        ? (<Brush height={13} fill='#333940' />)
         : [],
       graphHeight: checkIfTwoGraphsActive()
         ? 170
@@ -153,17 +151,15 @@ const Plot = (props) => {
 
 
     if (checkIfTwoGraphsActive()) {
-      console.log('second graph is active');
       iterator.push(getGraphParams(1));
       graphHeight=170;
     }else{
-      console.log('second graph is not active');
     }
 
     iterator.forEach(graph => {
       graphOutput.push((
         <ComposedChart
-          margin={{right:60}}
+          margin={{right:60, bottom:10, top: 30}}
           key={graph.code}
           width={500}
           height={graphHeight}
@@ -171,14 +167,11 @@ const Plot = (props) => {
           fill={'transparent'}
           syncId="anyId"
         >
-          <XAxis dataKey={"name"} label={'Renders'} 
-          />
+          <XAxis dataKey={"name"} label={'Renders'}/>
           <YAxis label={"ms"}/>
-          {/*<Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px', color: '#d0cdcd' }} />*/}
-          {/*<CartesianGrid/>*/}
           <Tooltip 
-            cursor={{fill: 'rgba(255,255,255,.1)'}}
-            fill={'rgba(255,255,255.5)'}
+            cursor={{fill: 'rgba(255,255,255,.05)'}}
+            backgroundColor={'rgba(255,255,255.5)'}
           />
           {graph.graphRenders}
           {graph.brushComponent}
@@ -188,7 +181,14 @@ const Plot = (props) => {
     });
   }else{
     graphPlaceholder=(
-      <div id={styles.graphPlaceholder}/>
+      <div id={styles.graphPlaceholder}>
+        <p id={styles.rpm_instructionsTitle}>react-rpm | component view</p>
+        <p id={styles.rpm_instructions}>1. Select Metric</p>
+        <p id={styles.rpm_instructions}>2. Select Component</p>
+        <p id={styles.rpm_instructions}>3. Select Graph Style</p>
+        <p id={styles.rpm_instructions}>4. Select Color</p>
+        <p id={styles.rpm_instructions}>5. Press 'Graph I' to Render To Graph</p>
+      </div>
     )
   }
   return (

@@ -38,7 +38,7 @@ class GraphPicker extends Component {
 
     this.state = {
       selectComponentValue: undefined,
-      selectMetricValue: 'timeWasted',
+      selectMetricValue: undefined,
       selectGraphValue: undefined,
       selectColorValue: undefined,
       showColorOptions: true
@@ -160,6 +160,12 @@ canRenderToGraph = () => {
               zIndex:'99998'
             }}
         >
+        <img id={styles.dropDownIcon_metric} 
+              src={require('./../assets/images/drop_down_icon.png')}
+        />
+        <img id={styles.dropDownIcon_component} 
+              src={require('./../assets/images/drop_down_icon.png')}
+        />
           <Select 
             placeholder='Performance Metric' 
             autofocus={false} 

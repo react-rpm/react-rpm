@@ -4,7 +4,6 @@
 html, body {
   margin: 0;
   padding: 0;
-  /*background:#9ea2a8;*/
   background:#2f373e;
   font-family: 'Lato', 'sans-serif';
   font-weight: thin;
@@ -19,6 +18,7 @@ html, body {
   margin:0;
   background: #ededed;
   width:100%;
+  max-height:900px;
   min-width: 300px;
 }
 
@@ -41,7 +41,6 @@ html, body {
   display:block;
   width:100%;
   height:30px;
-  /*background: rgba(245,245,245, 1);*/
   background:linear-gradient(90deg, #24282d, #1c1c1c);
   color:#bcc1c2;
   font-size:11px;
@@ -51,7 +50,7 @@ html, body {
   text-align:center;
   z-index:10000;
 }
- 
+
  #bannerTitle {
    letter-spacing:6px;
    position:relative;
@@ -89,7 +88,7 @@ html, body {
 
 #listening{
   position:absolute;
-  top:350px;
+  top:365px;
   left: 0;
   right:0;
   margin-right:auto;
@@ -97,12 +96,13 @@ html, body {
   height:50px;
   color: white;
   font-size:30px;
-  box-shadow: 0px 2px 10px 0px rgba(145, 145, 145, 0.66);
+  box-shadow: 6px 5px 10px 0px rgba(15, 15, 15, 0.66);
   width:100%;
   text-overflow: hidden;
   overflow:hidden;
-  background: rgba(255,0,0, .5);
+  background: rgba(255,0,0, .8);
   text-align:center;
+  animation: idleListeningAnimation 4s infinite;
   z-index:99999999;
 }
 
@@ -117,54 +117,10 @@ html, body {
   overflow:hidden;
   text-overflow: hidden;
   z-index:2;
-  animation: idleListeningAnimation 2.5s infinite;
-}
-
-@keyframes logoFadeIn {
-  0% {
-    /*transform: translateX(-100%);*/
-    visibility:none;
-    transform: translateY(100%);
-    opacity:0;
-  }
-  40% {
-    /*transform: translateX(-100%);*/
-    visibility:none;
-    transform: translateY(100%);
-    opacity:0;
-  }
-  86% {
-    visibility:visible;
-    transform: translateY(-1%);
-    opacity:1;
-    transition-timing-function: ease-out;
-  }
-  100% {
-    visibility:visible;
-    transform: translateY(0%);
-    opacity:1;
-    transition-timing-function: cubic-bezier(.42,.97,.44,1.5)
-  }
-}
-
-#rpm_logo{
-  position:absolute;
-  display:block;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  margin-top:20%;
-  margin-right:auto;
-  margin-left:auto;
-  width:400px;
-  animation: logoFadeIn 3s;
-  z-index:10;
 }
 
 @keyframes slideDown {
   0% {
-    /*transform: translateX(-100%);*/
     transform: translateY(-100%);
     opacity:0;
   }
@@ -182,67 +138,7 @@ html, body {
   position:absolute;
   width:100%;
   height:417px;
-  /*background:#9ea2a8;*/
   background:#2f373e;
-  /*box-shadow: 0 5px 15px 1px rgba(15,15,15,.4);*/
   box-shadow: 0px 5px 10px 0px rgba(15,15,15,.76);
   animation:slideDown 1s ease-out;
 }
-
-@keyframes removeMask {
-  0% {
-    /*transform: translateX(-100%);*/
-    visibility:visible;
-    transform: translateY(0%);
-    opacity:1;
-  }
-  50% {
-    /*transform: translateX(-100%);*/
-    visibility:visible;
-    transform: translateY(0%);
-    opacity:1;
-  }
-  100% {
-    visibility:none;
-    transform: translateY(50%);
-
-    opacity:0;
-    transition-timing-function: cubic-bezier(1,.26,.44,1.11)
-  }
-}
-
-#logoMask{
-  position:absolute;
-  display:inline-block;
-  bottom:0;
-  left:0;
-  right:0;
-  top:0;
-  width:100%;
-  height:400px;
-  margin-top:75%;
-  background:#ededed; 
-  /*background: rgba(255,0,0,.3);*/
-  z-index:999999;
-  opacity:0;
-  /*opacity:0;*/
-  animation: removeMask 4.9s;
-}
-
-@keyframes logoExit {
-  0%{
-    opacity:1;
-  }
-  100%{
-    opacity:0;
-  }
-}
-
-.logoAnimOut{
-  transition: opacity 2s ease-in-out;
-  opacity: 0;
-  z-index:1;
-  /*left:-100%;*/
-}
-
-

@@ -22,6 +22,24 @@
   overflow:hidden;
 }
 
+#dropDownIcon_metric{
+  position:absolute;
+  filter: invert(.8);
+  left:9px;
+  top: 17px;
+  width:10px;
+  z-index:1;
+}
+
+#dropDownIcon_component{
+  position:absolute;
+  filter: invert(.8);
+  left:9px;
+  top: 54px;
+  width:10px;
+  z-index:1;
+}
+
 .graphButton{
   height:40px;
   width:50px;

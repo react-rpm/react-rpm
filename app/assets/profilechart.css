@@ -1,6 +1,5 @@
 .opsTableContainer{
   position:relative;
-  display:block;
   height: '320px';
   width:500px;
   height:335px;
@@ -40,6 +39,7 @@ table {
     width:300px;
     overflow:hidden;
     margin-bottom:53px;
+    height:100%;
     
 }
 tbody{
@@ -50,6 +50,7 @@ tbody{
 
 tc{
   width:30px;
+  color:white;
 }
 
 th {
@@ -66,7 +67,6 @@ td {
 .chartContainer{
   position:relative;
   display:block;
-  left:-20px;
   margin-top:62px;
 }
 
