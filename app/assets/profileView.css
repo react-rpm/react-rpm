@@ -41,11 +41,11 @@ td {
 #mainContainer.profileOnScreen{
   opacity: 1;
   left:10%;
-  transition: left 500ms, opacity 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
 }
 
 #mainContainer.profileOffScreen{
   opacity:0;
-  left:200%;
-  transition: left 500ms, opacity 500ms ease-in-out;
+  left:-200%;
+  transition: all 500ms ease-in-out;
 }

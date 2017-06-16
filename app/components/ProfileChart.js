@@ -113,14 +113,14 @@ const ProfileChart = (props) => {
 
   return (
     <div>
-      <ReactTransition
+      {/*<ReactTransition
         transitionName={viewEnterTransitions}
         transitionAppear={true}
-        transitionAppearTimeout={1000} transitionEnterTimeout={800} transitionLeaveTimeout={800}>
+        transitionAppearTimeout={1000} transitionEnterTimeout={800} transitionLeaveTimeout={800}>*/}
         <div className={styles.chartContainer}>
           {chart}
         </div>
-      </ReactTransition>
+      {/*</ReactTransition>*/}
     </div>
   );
 };

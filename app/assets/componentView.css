@@ -1,17 +1,9 @@
-/*$slate: #262626;
-$grey: #3f3f3f;
-$white: #ffffff;
-$lightGrey: #f4f4f4;
-$reactBlue: #00d8ff;
-*/
-
 #plotWrapper{
   position:relative;
   display:block;
   margin-right:auto;
   margin-left:auto;
   padding-top:20px;
-  /*box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);*/
   width:fit-content;
   height:320px;
   z-index:0;
@@ -30,11 +22,11 @@ $reactBlue: #00d8ff;
 #mainContainer.componentOnScreen{
   left:0;
   opacity:1;
-  transition: left 500ms, opacity 500ms ease-in;
+  transition: all 500ms ease-in;
 }
 
 #mainContainer.componentOffScreen{
   opacity:0;
   left:200%;
-  transition: left 500ms, opacity 500ms ease-in;
+  transition: all 500ms ease-in;
 }

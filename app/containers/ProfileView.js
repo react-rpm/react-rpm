@@ -173,8 +173,9 @@ class ProfileView extends Component {
   render() {
     let visibilityClass;
     this.profileVisibility = this.props.profileVisibility; /******************************************** */
-    if (this.profileVisibility) visibilityClass = styles.profileOnScreen;
-    else visibilityClass = styles.profileOffScreen;
+    visibilityClass = this.profileVisibility 
+      ? styles.profileOnScreen
+      : styles.profileOffScreen
 
     let output;
     if (this.receivedChartData) {

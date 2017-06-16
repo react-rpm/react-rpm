@@ -16,19 +16,18 @@
 }
 
 .componentOffScreen{
-  left:-200%;
+  left:-100%;
+  background:red;
   opacity:0;
   /*transition: left 1s, opacity 1s ease-in-out;*/
 }
 
 .profileOnScreen{
-  left:0;
-  opacity:0;
-  /*transition: left 1s ease-in-out;*/
+  opacity:1;
+  transition: all .5s ease-in-out;
 }
 
 .profileOffScreen{
   opacity:0;
-  left:+200%;
-  /*transition: left 1s ease-in-out;*/
+  transition: all .5s ease-in-out;
 }

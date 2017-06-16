@@ -36,7 +36,6 @@ export default class PerfComponent {
   toggleActiveMetric(category, metric, graph, graphStyle, color) {
     this[category][metric].graphDisplay = graphStyle
     this[category][metric].colorTheme = color;
-    console.log('\n\n\nCreating on graph #',graph,'\n\n\n');
     this[category][metric].activeGraphs[graph] = !this[category][metric].activeGraphs[graph];
   }
 
@@ -73,6 +72,17 @@ export default class PerfComponent {
 
   addValue(value, category, metric) {
     this[category][metric].data.push(value);
+  }
+
+  getLastValue(metric) {
+    return this.RENDER[metric].data[this.RENDER[metric].data.length-1];
+  }
+
+  replaceLastValue(value, category, metric) {
+    if(this[category][metric].data.length === 0)
+      this[category][metric].data[0] = value;
+    else
+      this[category][metric].data[this[category][metric].data.length-1] = value;
   }
 
   getValue(category, metric) {

@@ -21,8 +21,6 @@ class GraphPicker extends Component {
     this.displayNameMetrics = {
       'timeWasted': 'Time Wasted',
       'averageRenderTime': 'Avg. Render Time',
-      'instanceCount': 'Instance Count',
-      'renderCount': 'Render Count',
       'totalLifeCycleTime': 'Total Lifecycle Time',
       'totalRenderTime': 'Total Render Time',
       'totalTime': 'Total Time',
@@ -33,17 +31,14 @@ class GraphPicker extends Component {
     this.componentOptions = this.loadComponentOptions(this.props.allComponents);
     this.metricOptions = this.loadOptions(metrics);
     this.renderButtonsActive = false;
-    // this.graphOptions = this.loadOptions(this.graphsLabels);
-    // this.colorOptions = this.loadOptions(colors);
 
     this.state = {
       selectComponentValue: undefined,
-      selectMetricValue: undefined,
+      selectMetricValue: 'timeWasted',
       selectGraphValue: undefined,
       selectColorValue: undefined,
       showColorOptions: true
     }
-    console.log(graphColors);
     this.colorButtons = graphColors.map(color =>
       <button
         className={styles.colorButton}
@@ -58,8 +53,9 @@ class GraphPicker extends Component {
   }
 
   componentWillReceiveProps(props) {
-    if (this.props.allComponents)
+    if (this.props.allComponents){
       this.componentOptions = this.loadComponentOptions(this.props.allComponents)
+    }
     this.forceUpdate();
   }
 
@@ -82,14 +78,12 @@ class GraphPicker extends Component {
   }
 
   updateColorValue(newValue) {
-    console.log('New Color',newValue);
     this.setState(
       {selectColorValue: newValue}
     );
   }
 
   toggleColorPanel = () => {
-    console.log('fired');
     this.setState(
       {showColorOptions: !this.state.showColorOptions}
     )
@@ -105,7 +99,7 @@ class GraphPicker extends Component {
 
       let labelName = options[0] === 'timeWasted' ? this.displayNameMetrics[option] : option
       arr.push(
-        { value: option, label: labelName }
+        { value: option, label: labelName}
       )
     })
     return arr;
@@ -114,24 +108,34 @@ class GraphPicker extends Component {
   loadComponentOptions(options) {
     const arr = [];
     const sorted = options.sort( (a,b) => {
-      return a.getMetricTotal(this.state.selectMetricValue)< b.getMetricTotal(this.state.selectMetricValue)
+      return a.getMetricTotal(this.state.selectMetricValue) < b.getMetricTotal(this.state.selectMetricValue)
     })
 
-    console.log('sorted:',sorted);
-
-    sorted.forEach(option => 
-     arr.push({value: option.name, label: option.name })
+    sorted.forEach(option => {
+      let wastedColor = 'grey';
+      if (this.state.selectMetricValue === 'timeWasted'){
+        if (option.getMetricTotal('timeWasted') != 0) {
+          if (option.getLastValue('timeWasted')){
+            wastedColor = '#ff5757';
+          }else {
+            wastedColor = '#57ff9e'
+          }
+        }
+      }
+      arr.push(
+        {
+        value: option.name, label: option.name, style: {background:wastedColor, color:'white'} 
+        })
+      }
     )
     return arr;
   }
 
   handleClick = (whichGraph) => {
-    console.log('whichGraph',whichGraph)
     this.props.allComponents.forEach(component => {
       if (component.name === this.state.selectComponentValue) {
         component.toggleActiveMetric('RENDER', this.state.selectMetricValue, whichGraph, this.state.selectGraphValue, this.state.selectColorValue);
         if (whichGraph === 1) {
-          console.log('two graph toggler called...');
           this.props.twoGraphToggler(true);
         }
         this.props.updateGraph();
@@ -150,7 +154,6 @@ canRenderToGraph = () => {
 }
 
   render() {
-    console.log('canRenderToGraph:',this.canRenderToGraph())
     return (
 
       <div id={styles.graph_picker}>
@@ -195,8 +198,8 @@ canRenderToGraph = () => {
               : `Component`
             } 
             autofocus={false} 
+            simpleValue
             options={this.componentOptions} 
-            simpleValue 
             clearable={true} 
             name="selected-state" 
             disabled={false} 

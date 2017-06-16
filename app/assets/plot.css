@@ -92,18 +92,6 @@
   
 }
 
-/*#graph_reflection{
-  position:absolute;
-  display:block;
-  margin-right:auto;
-  margin-left:auto;
-  height:50px;
-  width:530px;
-  margin-top:-20px;
-  background:linear-gradient(#302a39, transparent);
-  opacity:.5;
-  border-radius:5px;
-}*/
 
 #comparisonGraphContainer{
   width:fit-content;
@@ -111,4 +99,9 @@
   margin-top:20px;
   padding-right:40px;
   background:transparent;
+}
+
+.tooltip{
+  background:red;
+  width:1000px;
 }
