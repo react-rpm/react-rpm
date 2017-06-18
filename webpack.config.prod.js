@@ -5,7 +5,7 @@ const extpath = path.join(__dirname, './chrome/extension/');
 
 module.exports = {
   entry: [
-    './app/devpanel/index.js',
+    './app/devpanel/index_production.js',
   ],
   output: {
     path: path.join(__dirname, 'build'),

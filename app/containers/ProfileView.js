@@ -32,11 +32,12 @@ class ProfileView extends Component {
         { id: 1, selected: false, label: 'Instance count' },
         { id: 2, selected: false, label: 'Render count' },
       ],
-      chartData: (this.getChartData(this.props.perfData) || {}),
+      chartData: this.getChartData(this.props.perfData),
     };
   }
 
   componentWillReceiveProps(props) {
+    console.log('componentWillReceiveProps || incoming perfs:\n',this.props.perfData);
     this.setState({ chartData: this.getChartData(this.props.perfData) });
   }
 
@@ -167,6 +168,7 @@ class ProfileView extends Component {
     result.push(dom);
 
     this.receivedChartData = true;
+    console.log('result:\n',result,'\n');
     return result;
   }
 

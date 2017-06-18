@@ -27,6 +27,7 @@ class ComponentView extends Component {
 
   componentWillReceiveProps = (props) => {
     this.renderCount++;
+    console.log('Importing perfs:',this.props.perfData);
     this.importPerfs(this.props.perfData);
     this.setState({perfs: this.props.perfData});
   }

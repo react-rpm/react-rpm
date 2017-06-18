@@ -37,10 +37,11 @@ class App extends Component {
       tabId: chrome.devtools.inspectedWindow.tabId,
     });
     backgroundPageConnection.onMessage.addListener((message) => {
-      if(message.source = "react-rpm-module" && message.type != "webpackOk") {
+      if(message.source === "react-rpm-module" && message.type != "webpackOk") {
         if (!this.haveReceivedPerfs) {
           this.haveReceivedPerfs = true;
         }
+        console.log('message:',message);
         this.hasRenderBeenDetected = styles.renderDetected;
         this.setState({ perfData: message.message });
       }
@@ -91,7 +92,7 @@ class App extends Component {
             perfData={this.state.perfData}
           />
         );
-        profileView = (
+        profileView =  (
           <ProfileView
             key={2}
             profileVisibility={this.profileVisibility}
@@ -100,7 +101,7 @@ class App extends Component {
         )
       }
     }
-
+    console.log('[Logging from App render]:\nthis.state.perfData:',this.state.perfData);
     return (
       <div id={styles.main_container}>
         <div id={styles.divider}></div>
@@ -136,5 +137,7 @@ class App extends Component {
     );
   }
 }
+
+
 
 export default App;
