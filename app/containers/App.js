@@ -38,10 +38,7 @@ class App extends Component {
     });
     backgroundPageConnection.onMessage.addListener((message) => {
       if(message.source === "react-rpm-module" && message.type != "webpackOk") {
-        if (!this.haveReceivedPerfs) {
-          this.haveReceivedPerfs = true;
-        }
-        console.log('message:',message);
+        this.haveReceivedPerfs = true;
         this.hasRenderBeenDetected = styles.renderDetected;
         this.setState({ perfData: message.message });
       }

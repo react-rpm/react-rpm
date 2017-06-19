@@ -1,8 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
 
-const extpath = path.join(__dirname, './chrome/extension/');
-
 module.exports = {
   entry: [
     './app/devpanel/index_production.js',

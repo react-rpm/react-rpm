@@ -31,6 +31,7 @@ class GraphPicker extends Component {
     this.componentOptions = this.loadComponentOptions(this.props.allComponents);
     this.metricOptions = this.loadOptions(metrics);
     this.renderButtonsActive = false;
+    this.hasCurrentTimeWasted = false;
 
     this.state = {
       selectComponentValue: undefined,
@@ -98,9 +99,8 @@ class GraphPicker extends Component {
       }
 
       let labelName = options[0] === 'timeWasted' ? this.displayNameMetrics[option] : option
-      arr.push(
-        { value: option, label: labelName}
-      )
+
+      arr.push({ value: option, label: labelName})
     })
     return arr;
   }
@@ -116,8 +116,10 @@ class GraphPicker extends Component {
       if (this.state.selectMetricValue === 'timeWasted'){
         if (option.getMetricTotal('timeWasted') != 0) {
           if (option.getLastValue('timeWasted')){
+            this.hasCurrentTimeWasted = true;
             wastedColor = '#ff5757';
           }else {
+            this.hasCurrentTimeWasted = false;
             wastedColor = '#57ff9e'
           }
         }
