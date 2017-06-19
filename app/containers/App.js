@@ -37,11 +37,11 @@ class App extends Component {
       tabId: chrome.devtools.inspectedWindow.tabId,
     });
     backgroundPageConnection.onMessage.addListener((message) => {
-      if (!this.haveReceivedPerfs) {
+      if(message.source === "react-rpm-module" && message.type != "webpackOk") {
         this.haveReceivedPerfs = true;
+        this.hasRenderBeenDetected = styles.renderDetected;
+        this.setState({ perfData: message.message });
       }
-      this.hasRenderBeenDetected = styles.renderDetected;
-      this.setState({ perfData: message.message });
     });
   }
 
@@ -59,9 +59,9 @@ class App extends Component {
   }
 
   toggleViewHandler = () => {
-    let appView;
-    if (this.state.view === 'componentView') appView = 'profileView';
-    else appView = 'componentView';
+    let appView = this.state.view === 'componentView' 
+      ? 'profileView'
+      : 'componentView'
     this.setState({ view: appView });
   }
 
@@ -89,16 +89,16 @@ class App extends Component {
             perfData={this.state.perfData}
           />
         );
-        profileView = (
+        profileView =  (
           <ProfileView
             key={2}
             profileVisibility={this.profileVisibility}
             perfData={this.state.perfData}
           />
-        );
+        )
       }
     }
-
+    console.log('[Logging from App render]:\nthis.state.perfData:',this.state.perfData);
     return (
       <div id={styles.main_container}>
         <div id={styles.divider}></div>
@@ -125,12 +125,16 @@ class App extends Component {
             {this.message}
           </ReactTransition>
         </div>
-        
+        {/*<span id={styles.efficientMessage}>
+          App is not registering any inefficiencies
+        </span>*/}
         {profileView}
         {componentView}
       </div>
     );
   }
 }
+
+
 
 export default App;

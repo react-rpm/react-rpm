@@ -24,12 +24,28 @@ const propTypes = {
 
 const ProfileChart = (props) => {
   const { chartData, perfItems, dataKeys, shouldAnimate } = props;
+
   let data;
 
+  console.log('perfItems:\n',perfItems);
+
   perfItems.forEach((perfItem) => {
-    if (perfItem.selected) data = chartData[perfItem.id];
+    if (perfItem.selected) {
+      console.log(perfItem.label,'is selected! Transfering to data variable...');
+      console.log('chartData:\n',chartData);
+      if (!chartData[perfItem.id].length)
+        data = [
+          'Inclusive wasted time (ms)': 0,
+          'Instance count': 0,
+          'Owner > Component': 'No Wasted Time',
+          'Render count': 0,
+        ]
+        else
+          data = chartData[perfItem.id];
+      }
   });
 
+  console.log('data:\n',data);
   let xDataKey;
   const keys = Object.keys(data[0]);
   keys.forEach((key) => {
@@ -94,7 +110,7 @@ const ProfileChart = (props) => {
         >
           <XAxis dataKey={xDataKey}/>
           <YAxis />
-          <CartesianGrid stroke={'#757575'} strokeDasharray="1 1" />
+          {/*<CartesianGrid stroke={'#757575'} strokeDasharray="1 1" />*/}
           <Tooltip 
             cursor={{fill: 'rgba(255,255,255,.05)'}}
           />
@@ -113,14 +129,14 @@ const ProfileChart = (props) => {
 
   return (
     <div>
-      <ReactTransition
+      {/*<ReactTransition
         transitionName={viewEnterTransitions}
         transitionAppear={true}
-        transitionAppearTimeout={1000} transitionEnterTimeout={800} transitionLeaveTimeout={800}>
+        transitionAppearTimeout={1000} transitionEnterTimeout={800} transitionLeaveTimeout={800}>*/}
         <div className={styles.chartContainer}>
           {chart}
         </div>
-      </ReactTransition>
+      {/*</ReactTransition>*/}
     </div>
   );
 };

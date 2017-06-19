@@ -12,6 +12,7 @@
 }
 @keyframes componentEnter {
   0% {
+    transform:translateX(+100%);
   }
   20%{
     transform:translateX(+100%);
@@ -42,7 +43,7 @@
 }
 .enter.enterActive {
   animation-name:componentEnter;
-  animation-duration:800ms;
+  animation-duration:1000ms;
   animation-timing-function: ease-out;
 }
 .leave.leaveActive {

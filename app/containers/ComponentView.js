@@ -13,60 +13,45 @@ class ComponentView extends Component {
     this.componentVisibility = this.props.componentVisibility;
     // this stores all plot data for each active PerfComponent, and is passed to the Plot component as a prop in render
 
+    this.renderCount = 0;
     this.componentsActiveOnGraphs = [];
     this.loadToolbar = false;
     this.twoGraphsAreActive = false,
     
     this.state = {
-
       allComponents: [],
-      // an array that holds every PerfComponent that exists during the life-span of the app.
-      //boolean toggle that tracks whether or not the user wants to display one or two graphs
-
-      // Can we use this instead:
-      dataItems: [
-        { id: 0, selected: true, label: 'Time Wasted' },
-        { id: 1, selected: false, label: 'Instance Count' },
-        { id: 2, selected: false, label: 'Render Count' },
-        { id: 3, selected: false, label: 'Render Time' },
-        { id: 4, selected: false, label: 'Total Render Time' },
-        { id: 5, selected: false, label: 'Avg Render Time' },
-        { id: 6, selected: false, label: 'Total Time' },
-      ],
-
       simData: false,
-
       perfs: this.props.perfData
     };
   }
 
-  componentWillReceiveProps(props){
-    console.log('[COMPONENT VIEW]\nReceiving Props...\n');
+  componentWillReceiveProps = (props) => {
+    this.renderCount++;
+    console.log('Importing perfs:',this.props.perfData);
     this.importPerfs(this.props.perfData);
     this.setState({perfs: this.props.perfData});
   }
 
   // method for toggling the listed data items
-  onDataItemClick(dataItem) {
+  onDataItemClick = (dataItem) => {
     dataItem.selected = !dataItem.selected;
     const dataItems = this.state.dataItems;
     this.setState({ dataItems });
   }
 
-  createPerfComponent(...args) {
+  createPerfComponent = (...args) => {
     return args.map(newComponent => {
       return new PerfComponent(newComponent)
     });
   }
 
-  updateGraph() {
-    console.log('update graph called');
+  updateGraph = () => {
     this.setState({simData: !this.state.simData});
   }
 
   //if only name specified as parameter, will return reference to PerfComponent
   //if name and metrics specified as parameters, will return data value array for that perf component's metric
-  getComponent(name, metric = null) {
+  getComponent = (name, metric = null) => {
     let perfIndex;
     let allComponents = this.state.allComponents;
     allComponents.forEach((component, i) => {
@@ -78,19 +63,18 @@ class ComponentView extends Component {
     return allComponents[perfIndex];
   }
 
-  importPerfs(perfs) {
+  importPerfs = (perfs) => {
 
     let newPerfComponent;
     let perfsInState = {}
 
     this.state.allComponents.forEach(item => {
       perfsInState[item.name] = item;
+      item.addValue(0.0, 'RENDER', 'timeWasted')
     });
 
     let exclusiveDataTitles = {
       'Average render time (ms)': 'averageRenderTime',
-      'Instance count': 'instanceCount',
-      'Render count': 'renderCount',
       'Total lifecycle time (ms)': 'totalLifeCycleTime', 
       'Total render time (ms)': 'totalRenderTime',
       'Total time (ms)': 'totalTime', 
@@ -114,12 +98,12 @@ class ComponentView extends Component {
         let componentName = data['Owner > Component'];
         componentName = componentName.substring(componentName.indexOf('>')+2)
 
-        // console.log('[COMPONENT VIEW]\nProcessing component:',componentName,'\n');
-
         newPerfComponent = perfsInState[componentName];
 
-        if (!newPerfComponent) console.log('Error: component not found -',componentName);
-        else newPerfComponent.addValue(data['Inclusive wasted time (ms)'], 'RENDER', 'timeWasted')
+        let newData = data['Inclusive wasted time (ms)'];
+        const previousTimeWasted = newPerfComponent.RENDER.timeWasted.data
+
+        newPerfComponent.replaceLastValue(newData, 'RENDER', 'timeWasted')
       });
     }
     
@@ -139,6 +123,8 @@ class ComponentView extends Component {
     this.componentsActiveOnGraphs = [];
     this.state.allComponents.forEach(component => {
       component.exportGraphData().forEach(array => {
+
+        //this helps track if we should be displaying one graph or two
         if(array[3]) secondGraphIsActive++;
         if (array.length) {
           newActiveComponent = {
@@ -159,76 +145,71 @@ class ComponentView extends Component {
 
   }
 
-  twoGraphToggler(bool) {
+  twoGraphToggler = (bool) => {
     this.resetComponentGraphAnimation();
     this.twoGraphsAreActive = bool;
   }
 
-  resetComponentGraphAnimation() {
+  resetComponentGraphAnimation = () => {
     this.state.allComponents.forEach(component => {
       component.enableAllMetricAnimation();
     });
   }
 
-  toggleTooltipValues(value) {
+  toggleTooltipValues = (value) => {
     let tooltipValues = this.state.tooltipValues;
     tooltipValues[value] = !tooltipValues[value];
     this.setState({ tooltipValues });
   }
 
-  checkIfTwoGraphsActive() {
+  checkIfTwoGraphsActive = () => {
     return this.twoGraphsAreActive;
   }
 
-  sortByWasteful() {
+  sortByWasteful = () => {
     let sortedComponents = this.state.allComponents;
     sortedComponents.sort((a, b) =>
       a.getMetricTotal('timeWasted') - b.getMetricTotal('timeWasted')
     )
-    console.log('-----');
-    sortedComponents.forEach(e => console.log(e.name));
-    console.log('-----');
   }
 
   render() {
-    if (!this.state.allComponents.length) console.log('- - - no components loaded - - -\n');
-
     this.compiledGraphData = this.compileGraphData();
 
     let visibilityClass;
     this.componentVisibility = this.props.componentVisibility;
-    this.componentVisibility ? visibilityClass = styles.componentOnScreen: visibilityClass = styles.componentOffScreen
+    visibilityClass = this.componentVisibility 
+      ? styles.componentOnScreen
+      : styles.componentOffScreen
 
     return (
         <div id={styles.mainContainer} className={visibilityClass}>
           <div id={styles.plotWrapper} >
             <Plot
               compiledGraphData={this.compiledGraphData}
-              checkIfTwoGraphsActive={this.checkIfTwoGraphsActive.bind(this)}
-              twoGraphToggler={this.twoGraphToggler.bind(this)}
+              checkIfTwoGraphsActive={this.checkIfTwoGraphsActive}
+              twoGraphToggler={this.twoGraphToggler}
               //for custom tooltip
               componentsActiveOnGraphs={this.componentsActiveOnGraphs}
               //for data items selector && custom tooltip
               dataItems={this.state.dataItems}
-              onDataItemClick={this.onDataItemClick.bind(this)}
+              onDataItemClick={this.onDataItemClick}
               tooltipValues={this.state.tooltipValues}
               //for custom tooltip
-              getComponent={this.getComponent.bind(this)}
+              getComponent={this.getComponent}
               simData={this.state.simData}
             />
           </div>
             <Toolbar
-              //GraphPicker Props
+              //---GraphPicker Props---//
               allComponents={this.state.allComponents}
-              twoGraphsAreActive={this.checkIfTwoGraphsActive.bind(this)}
-              twoGraphToggler={this.twoGraphToggler.bind(this)}
-              updateGraph={this.updateGraph.bind(this)}
-
-              //DisplayedGraphs Props
+              twoGraphsAreActive={this.checkIfTwoGraphsActive}
+              twoGraphToggler={this.twoGraphToggler}
+              updateGraph={this.updateGraph}
+              //---DisplayedGraphs Props---//
               componentsActiveOnGraphs={this.componentsActiveOnGraphs}
-              getComponent={this.getComponent.bind(this)}
-
-              compileGraphData={this.compileGraphData.bind(this)}
+              getComponent={this.getComponent}
+              compileGraphData={this.compileGraphData}
             />
         </div>
     );

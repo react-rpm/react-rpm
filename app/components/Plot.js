@@ -53,7 +53,7 @@ const Plot = (props) => {
 
     Object.keys(metric.activeGraphs).forEach(graph_code => {
       if (metric.activeGraphs[graph_code]) {
-        currData = data[graph_code];
+        currData = data[graph_code] || 0;
 
         metric.data.forEach((value, j) => {
           if (currData.length - 1 < j || !currData.length) {
@@ -171,7 +171,6 @@ const Plot = (props) => {
           <YAxis label={"ms"}/>
           <Tooltip 
             cursor={{fill: 'rgba(255,255,255,.05)'}}
-            backgroundColor={'rgba(255,255,255.5)'}
           />
           {graph.graphRenders}
           {graph.brushComponent}
@@ -196,12 +195,11 @@ const Plot = (props) => {
       <ReactTransition
         transitionName={viewEnterTransitions}
         transitionAppear={true}
-        transitionAppearTimeout={2000} transitionEnterTimeout={800} transitionLeaveTimeout={500}>
+        transitionAppearTimeout={2000} transitionEnterTimeout={100} transitionLeaveTimeout={500}>
         <div id={styles.graphContainer}>
           {graphOutput}
           {graphPlaceholder}
         </div>
-        <div id={styles.graph_reflection}></div>
       </ReactTransition>
     </div>
   )

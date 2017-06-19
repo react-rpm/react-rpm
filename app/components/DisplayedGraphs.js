@@ -25,7 +25,7 @@ const DisplayedGraphs = (props) => {
       tabArray.push(
         <div>
           <div
-            key={i}  
+            key={tabArray.length}  
             className={styles.tab}>
             <div className={styles.colorCircle} style={{'background':component.colorTheme}}/>
             <span> {'Name: '+component.name}</span>
