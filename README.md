@@ -1,8 +1,7 @@
 # react-rpm
 ![react-rpm](http://i.imgur.com/YHaLs6a.png)
 ## Overview
-
-https://www.youtube.com/watch?v=8Ye9b3RY7lQ
+[![React-RPM | Real-Time Performance Metrics](http://i.imgur.com/k6zAdOh.png)](https://www.youtube.com/watch?v=8Ye9b3RY7lQ)
 
 react-rpm is a Chrome DevTool that displays clear and customizable visualizations of your React app's performance metrics.
 
