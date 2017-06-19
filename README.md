@@ -32,8 +32,9 @@ import react-rpm;
 React-rpm gathers performance data based on sessions, which are instigated by user interaction. Upon opening the DevTool, you'll be prompted that react-rpm is listening for renders. The dashboard will appear once performance data has been collected, and is ready to display.
 
 While viewing timeWasted in the component view, react-rpm categorizes your components with color flags:
-  red: has current timeWasted in last render session
-  green: has had timeWasted in previous renders, but no timeWasted in last render session
-  gray: has not registered any timeWasted in lifeCycle of app.
-
+```bash
+  #red: has current timeWasted in last render session
+  #green: has had timeWasted in previous renders, but no timeWasted in last render session
+  #gray: has not registered any timeWasted in lifeCycle of app.
+```
 More extensive documentation coming soon!
